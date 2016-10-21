@@ -1,11 +1,20 @@
 var path = require("path");
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+
 module.exports = {
   entry: './components/App.jsx',
   output: {
-    path: path.resolve(__dirname, "build"),
+    path: path.resolve(__dirname, "dist"),
     publicPath: "/",
     filename: "bundle.js"
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: '田字格',
+      template: 'index.html',
+      inject: 'body'
+    })
+  ],
   module: {
     loaders: [
       {
