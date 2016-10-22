@@ -1,3 +1,3 @@
 import { createStore } from 'redux';
-import chars from './reducers/chars'
-export default createStore(chars);
+import rootReducer from './reducers'
+export default createStore(rootReducer);

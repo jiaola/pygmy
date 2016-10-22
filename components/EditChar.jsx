@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Container, Row, Col } from 'reactstrap'
+import { Container, Row, Col, Button } from 'reactstrap'
 import { deleteChar } from '../actions'
 
 const EditChar = ({chars, dispatch}) => (
@@ -8,19 +8,21 @@ const EditChar = ({chars, dispatch}) => (
     {chars.map((char, index) =>
       <Row>
         <Col>
-          <p key={index}>
+          <span key={index}>
             {char}
-            <button onClick={ e => { dispatch(deleteChar(index)) } }>X</button>
-          </p>
+          </span>
+          <button type='button' className='btn btn-secondary' onClick={ e => { dispatch(deleteChar(index)) } }>
+            <span className="fa fa-remove fa-lg" aria-hidden="true"/>
+          </button>
         </Col>
       </Row>
     )}
   </Container>
 )
 
-function mapStateToProps(chars) {
+const mapStateToProps = (state) => {
   return {
-    chars
+    chars: state.chars
   }
 }
 
