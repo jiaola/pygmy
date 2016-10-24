@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Container, Row, Col, Button } from 'reactstrap'
 import { deleteChar } from '../actions'
 
-const EditChar = ({chars, dispatch}) => (
+const EditChar = ({ chars, dispatch }) => (
   <Container>
     {chars.map((char, index) =>
       <Row>
