@@ -1,5 +1,5 @@
 import React from 'react'
-import { InputGroup, FormGroup, Input, Label, Col } from 'reactstrap'
+import { FormGroup, Input, Label, Col } from 'reactstrap'
 
 const NewChar = ({onChange}) => (
   <FormGroup row>
