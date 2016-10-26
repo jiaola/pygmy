@@ -33,7 +33,7 @@ const App = ({dispatch}) => (
                     for (var i = 0, len = chars.length; i < len; i++) {
                       dispatch(addChar(chars[i]))
                     }
-                    //dispatch(fetchPinyin(chars))
+                    dispatch(fetchPinyin(chars))
                     e.target.value = ''
                   }
                 }}/>

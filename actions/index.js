@@ -1,4 +1,4 @@
-//import fetch from 'isomorphic-fetch'
+// import fetch from 'isomorphic-fetch'
 
 export const ADD_CHAR = 'ADD_CHAR'
 export function addChar(character) {
@@ -89,29 +89,14 @@ export function receivePinyin(chars, json) {
 // // }
 //
 
-function string_as_unicode_escape(input) {
-    function pad_four(input) {
-        var l = input.length;
-        if (l == 0) return '0000';
-        if (l == 1) return '000' + input;
-        if (l == 2) return '00' + input;
-        if (l == 3) return '0' + input;
-        return input;
-    }
-    var output = '';
-    for (var i = 0, l = input.length; i < l; i++)
-        output += pad_four(input.charCodeAt(i).toString(16));
-    return output;
-}
-
 export function fetchPinyin(chars) {
   console.log(chars)
   return dispatch => {
     dispatch(requestPinyin(chars))
-    var query = chars.map((ch) => 'chars[]=' + string_as_unicode_escape(ch)).join('&')
-    return fetch(`http://pygmy.brickowls.com/characters/pinyins?${query}`, {mode: 'no-cors'})
-      .then(response => response.json)
-      .then(json => dispatch(receivePinyin(chars, json)))
+    var query = chars.map((ch) => 'chars[]=' + ch.charCodeAt(0).toString(16)).join('&')
+    return fetch(`http://pygmy.brickowls.com/characters/pinyins?${query}`, {mode: 'cors'})
+      .then(response => { console.log(response, response.json()); return response.json(); })
+      .then(json => { console.log (json); dispatch(receivePinyin(chars, json)); })
   }
 }
 
