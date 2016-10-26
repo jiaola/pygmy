@@ -8,8 +8,10 @@ import PrintPinyin from './PrintPinyin'
 import PrintStrokeOrder from './PrintStrokeOrder'
 import EditChar from './EditChar'
 
-import { addChar } from '../actions'
+import { addChar, fetchPinyin } from '../actions'
 import { Container, Row, Col } from 'reactstrap'
+
+require('../styles/screech.css')
 
 const App = ({dispatch}) => (
     <Container>
@@ -26,14 +28,15 @@ const App = ({dispatch}) => (
         <Row>
             <Col>
                 <NewChar onChange={ e => {
-          if(e.keyCode == 13) { // return key is pressed
-            var chars = e.target.value.split(/\s+/)
-            for (var i = 0, len = chars.length; i < len; i++) {
-              dispatch(addChar(chars[i]))
-            }
-            e.target.value = ''
-          }
-        }}/>
+                  if(e.keyCode == 13) { // return key is pressed
+                    var chars = e.target.value.split(/\s+/)
+                    for (var i = 0, len = chars.length; i < len; i++) {
+                      dispatch(addChar(chars[i]))
+                    }
+                    //dispatch(fetchPinyin(chars))
+                    e.target.value = ''
+                  }
+                }}/>
             </Col>
         </Row>
         <EditChar/>

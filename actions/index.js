@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch'
+//import fetch from 'isomorphic-fetch'
 
 export const ADD_CHAR = 'ADD_CHAR'
 export function addChar(character) {
@@ -66,6 +66,7 @@ export function requestPinyin(chars) {
 
 export const RECEIVE_PINYIN = 'RECEIVE_PINYIN'
 export function receivePinyin(chars, json) {
+  console.log(chars, json)
   return {
     type: RECEIVE_PINYIN,
     chars,
@@ -74,9 +75,43 @@ export function receivePinyin(chars, json) {
   }
 }
 
+// export const PINYIN_REQUEST = 'PINYIN_REQUEST'
+// export const PINYIN_SUCCESS = 'PINYIN_SUCCESS'
+// export const PINYIN_FAILURE = 'PINYIN_FAILURE'
+//
+// // function fetchPinyin(chars) {
+// //   return {
+// //     [CALL_API]: {
+// //       types: [PINYIN_REQUEST, PINYIN_SUCCESS, PINYIN_FAILURE],
+// //       endpoint: 'characters/pinyins?chars[]=3401&chars[]=3406&chars[]=3416'
+// //     }
+// //   }
+// // }
+//
+
+function string_as_unicode_escape(input) {
+    function pad_four(input) {
+        var l = input.length;
+        if (l == 0) return '0000';
+        if (l == 1) return '000' + input;
+        if (l == 2) return '00' + input;
+        if (l == 3) return '0' + input;
+        return input;
+    }
+    var output = '';
+    for (var i = 0, l = input.length; i < l; i++)
+        output += pad_four(input.charCodeAt(i).toString(16));
+    return output;
+}
+
 export function fetchPinyin(chars) {
-  return function(dispatch) {
-    
+  console.log(chars)
+  return dispatch => {
+    dispatch(requestPinyin(chars))
+    var query = chars.map((ch) => 'chars[]=' + string_as_unicode_escape(ch)).join('&')
+    return fetch(`http://pygmy.brickowls.com/characters/pinyins?${query}`, {mode: 'no-cors'})
+      .then(response => response.json)
+      .then(json => dispatch(receivePinyin(chars, json)))
   }
 }
 
