@@ -5,8 +5,8 @@ export default (state = Immutable.Map({
   grids_per_row: 15,
   chars_per_row: 3,
   format: 'field',
-  pinyin: false,
-  strokes: true,
+  pinyin: true,
+  strokes: false,
   email: ''
 }), action) => {
   switch(action.type) {

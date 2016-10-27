@@ -30,7 +30,7 @@ const App = ({state, dispatch}) => (
             <Col>
                 <NewChar onChange={ e => {
                   if(e.keyCode == 13) { // return key is pressed
-                    var chars = e.target.value.split(/\s+/)
+                    var chars = e.target.value.replace(/ /g,'').split("")
                     for (var i = 0, len = chars.length; i < len; i++) {
                       dispatch(addChar(chars[i]))
                     }
