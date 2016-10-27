@@ -120,7 +120,7 @@ export function submitGrid(chars, email, grids_per_row, chars_per_row) {
     query += '&email=' + email + '&grids_per_row=' + grids_per_row + '&chars_per_row=' + chars_per_row
     return fetch(`http://pygmy.brickowls.com/grid/email_pdf?${query}`, {mode: 'cors'})
       .then(response => { console.log(response, response.json()); return response.json(); })
-      .then(json => { console.log(json); dispatch(receiveGridResponse(json))})
+      .then(json => { console.log(json); alert('EMAIL SENT!'); dispatch(receiveGridResponse(json))})
   }
 }
 
