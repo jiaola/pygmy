@@ -6,7 +6,8 @@ export default (state = Immutable.Map({
   chars_per_row: 3,
   format: 'field',
   pinyin: false,
-  strokes: true
+  strokes: true,
+  email: ''
 }), action) => {
   switch(action.type) {
     case ActionTypes.SET_PINYIN:
@@ -19,6 +20,8 @@ export default (state = Immutable.Map({
       return state.set('format', action.format)
     case ActionTypes.SET_CHARS_PER_ROW:
       return state.set('chars_per_row', action.chars_per_row)
+    case ActionTypes.SET_EMAIL:
+      return state.set('email', action.email)
     default:
       return state
   }

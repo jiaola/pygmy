@@ -7,13 +7,14 @@ import GridFormat from './GridFormat'
 import PrintPinyin from './PrintPinyin'
 import PrintStrokeOrder from './PrintStrokeOrder'
 import EditChar from './EditChar'
+import Email from './Email'
 
-import { addChar, fetchPinyin } from '../actions'
-import { Container, Row, Col } from 'reactstrap'
+import { addChar, fetchPinyin, submitGrid } from '../actions'
+import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
 
 require('../styles/screech.css')
 
-const App = ({dispatch}) => (
+const App = ({state, dispatch}) => (
     <Container>
         <Row><Col><h1>田字格</h1></Col></Row>
         <Row>
@@ -40,7 +41,22 @@ const App = ({dispatch}) => (
             </Col>
         </Row>
         <EditChar/>
+        <Email/>
+        <Row>
+          <Col sm={{size: 'auto', offset: 5}} >
+            <Button className='center-block' onClick={ e => {
+                //chars, email, grids_per_row, chars_per_row
+                dispatch(submitGrid(state.chars, state.options.get('email'), state.options.get('grids_per_row'),  state.options.get('chars_per_row')))
+              }}>提交</Button>
+          </Col>
+        </Row>
     </Container>
 )
 
-export default connect()(App)
+const mapStateToProps = function(state){
+  return {
+    state
+  }
+}
+
+export default connect(mapStateToProps)(App)

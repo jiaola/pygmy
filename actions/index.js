@@ -40,6 +40,14 @@ export function setFormat(format) {
   }
 }
 
+export const SET_EMAIL = 'SET_EMAIL'
+export function setEmail(email) {
+  return {
+    type: SET_EMAIL,
+    email
+  }
+}
+
 export const SET_PINYIN = 'SET_PINYIN'
 export function setPinyin(pinyin) {
   return {
@@ -102,3 +110,33 @@ export function fetchPinyin(chars) {
 
 export const REQUEST_STROKES = 'REQUEST_STROKES'
 export const RECEIVE_STROKES = 'RECEIVE_STROKES'
+
+export const SUBMIT_GRID = 'SUBMIT_GRID'
+export function submitGrid(chars, email, grids_per_row, chars_per_row) {
+  return dispatch => {
+    dispatch(sendGridRequest())
+    console.log(chars)
+    var query = chars.map((ch) => 'chars[]=' + ch.get('unicode')).join('&')
+    query += '&email' + email + '&grids_per_row=' + grids_per_row + '&chars_per_row=' + chars_per_row
+    return fetch(`http://pygmy.brickowls.com/grid/email_pdf?${query}`, {mode: 'cors'})
+      .then(response => { console.log(response, response.json()); return response.json(); })
+      .then(json => { console.log(json); dispatch(receiveGridResponse(json))})
+  }
+}
+
+export const RECEIVE_GRID_RESPONSE = 'RECEIVE_GRID_RESPONSE'
+export function receiveGridResponse(json) {
+  return {
+    type: RECEIVE_GRID_RESPONSE,
+    json,
+    receivedAt: Date.now()
+  }
+}
+
+export const SEND_GRID_REQUEST = 'SEND_GRID_REQUEST'
+export function sendGridRequest() {
+  return {
+    type: SEND_GRID_REQUEST,
+    sentAt: Date.now()
+  }
+}
