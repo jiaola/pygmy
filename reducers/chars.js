@@ -9,8 +9,12 @@ export default (state = Immutable.List([]), action) => {
     case ActionTypes.DELETE_CHAR:
       return state.filter((char, index) => index !== action.index)
     case ActionTypes.RECEIVE_PINYIN:
-      for (var i = 0; i < state.count(); i++) {
-        state = state.update(i, (item) => item.set('pinyin', action.pinyin[i].pinyin))
+      console.log('action', action, action.pinyin[0].pinyin)
+      var start = state.count() - action.pinyin.length
+      start = start > 0 ? start : 0
+      for (var i = 0; i < action.pinyin.length; i++) {
+        state = state.update(i+start, (item) => item.set('pinyin_list', action.pinyin[i].pinyin))
+        state = state.update(i+start, (item) => item.set('pinyin', action.pinyin[0].pinyin[0]))
       }
       return state
     default:

@@ -6,7 +6,7 @@ import GridsPerRow from './GridsPerRow'
 import GridFormat from './GridFormat'
 import PrintPinyin from './PrintPinyin'
 import PrintStrokeOrder from './PrintStrokeOrder'
-import EditChar from './EditChar'
+import CharList from './CharList'
 import Email from './Email'
 
 import { addChar, fetchPinyin, submitGrid } from '../actions'
@@ -41,7 +41,7 @@ const App = ({state, dispatch}) => (
                 }}/>
             </Col>
         </Row>
-        <EditChar/>
+        <CharList/>
         <Email/>
         <Row>
           <Col sm={{size: 'auto', offset: 5}} >
