@@ -1,19 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, FormGroup, Label, ButtonGroup, Button, Input } from 'reactstrap'
-import { deleteChar } from '../actions'
+import { deleteChar, setCharPinyin } from '../actions'
 
 const CharEditor = ({ char, index, dispatch }) => (
   <Row key={index}>
     <Col sm='2'><Label>{char.get('character')}</Label></Col>
     <Col sm='2'>
-      <Input type='select' name={char.get('character')+'_pinyin'} id={char.get('character')+'_pinyin'}>
+      <select value={char.get('pinyin')} name={char.get('character')+'_pinyin'} id={char.get('character')+'_pinyin'} onChange={ e => { dispatch(setCharPinyin(index)) }}>
         { char.has('pinyin_list') ?
           char.get('pinyin_list').map(function(obj, i) {
-            return <option value={obj} key={i}>{obj}</option>
+            return <option value={obj} key={i} >{obj}</option>
           }) : ''
         }
-      </Input>
+      </select>
     </Col>
     <Col sm='8'>
       <button type='button' className='btn btn-secondary btn-sq-sm' onClick={ e => { dispatch(deleteChar(index)) } }>

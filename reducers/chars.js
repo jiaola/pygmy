@@ -17,6 +17,9 @@ export default (state = Immutable.List([]), action) => {
         state = state.update(i+start, (item) => item.set('pinyin', action.pinyin[0].pinyin[0]))
       }
       return state
+    case ActionTypes.SET_CHAR_PINYIN:
+      state = state.update(action.index, (char) => char.set('pinyin', action.pinyin))
+      return state
     default:
       return state
   }

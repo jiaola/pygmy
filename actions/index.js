@@ -16,6 +16,15 @@ export function deleteChar(index) {
   }
 }
 
+export const SET_CHAR_PINYIN = 'SET_CHAR_PINYIN'
+export function setCharPinyin(index, pinyin) {
+  return {
+    type: SET_CHAR_PINYIN,
+    index: index,
+    pinyin: pinyin
+  }
+}
+
 export const SET_GRIDS_PER_ROW = 'SET_GRIDS_PER_ROW'
 export function setGridsPerRow(grids_per_row) {
   return {
