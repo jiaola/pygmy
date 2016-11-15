@@ -9,7 +9,10 @@ export default (state = Immutable.List([]), action) => {
     case ActionTypes.DELETE_CHAR:
       return state.filter((char, index) => index !== action.index)
     case ActionTypes.RECEIVE_PINYIN:
-      return ''
+      for (var i = 0; i < state.count(); i++) {
+        state = state.update(i, (item) => item.set('pinyin', action.pinyin[i].pinyin))
+      }
+      return state
     default:
       return state
   }

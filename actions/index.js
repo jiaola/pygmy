@@ -1,4 +1,4 @@
-// import fetch from 'isomorphic-fetch'
+import fetch from 'isomorphic-fetch'
 
 export const ADD_CHAR = 'ADD_CHAR'
 export function addChar(character) {
@@ -74,11 +74,10 @@ export function requestPinyin(chars) {
 
 export const RECEIVE_PINYIN = 'RECEIVE_PINYIN'
 export function receivePinyin(chars, json) {
-  console.log(chars, json)
   return {
     type: RECEIVE_PINYIN,
     chars,
-    pinyin: json.data.children,
+    pinyin: json,
     receivedAt: Date.now()
   }
 }
@@ -98,13 +97,14 @@ export function receivePinyin(chars, json) {
 //
 
 export function fetchPinyin(chars) {
-  console.log(chars)
   return dispatch => {
     dispatch(requestPinyin(chars))
+    //var apiRoot = 'http://pygmy.brickowls.com/'
+    var apiRoot = 'http://localhost:3000/'
     var query = chars.map((ch) => 'chars[]=' + ch.charCodeAt(0).toString(16)).join('&')
-    return fetch(`http://pygmy.brickowls.com/characters/pinyins?${query}`, {mode: 'cors'})
-      .then(response => { console.log(response, response.json()); return response.json(); })
-      .then(json => { console.log (json); dispatch(receivePinyin(chars, json)); })
+    return fetch(`${apiRoot}characters/pinyins?${query}`, {mode: 'cors'})
+      .then(response => response.json())
+      .then(json => dispatch(receivePinyin(chars, json)))
   }
 }
 
@@ -115,12 +115,13 @@ export const SUBMIT_GRID = 'SUBMIT_GRID'
 export function submitGrid(chars, email, grids_per_row, chars_per_row) {
   return dispatch => {
     dispatch(sendGridRequest())
-    console.log(chars)
+    //var apiRoot = 'http://pygmy.brickowls.com/'
+    var apiRoot = 'http://localhost:3000/'
     var query = chars.map((ch) => 'chars[]=' + ch.get('unicode')).join('&')
     query += '&email=' + email + '&grids_per_row=' + grids_per_row + '&chars_per_row=' + chars_per_row
-    return fetch(`http://pygmy.brickowls.com/grid/email_pdf?${query}`, {mode: 'cors'})
-      .then(response => { console.log(response, response.json()); return response.json(); })
-      .then(json => { console.log(json); dispatch(receiveGridResponse(json))})
+    return fetch(`${apiRoot}grid/email_pdf?${query}`, {mode: 'cors'})
+      .then(response => response.json())
+      .then(json => dispatch(receiveGridResponse(json)))
   }
 }
 

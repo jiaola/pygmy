@@ -31,6 +31,7 @@ const App = ({state, dispatch}) => (
                 <NewChar onChange={ e => {
                   if(e.keyCode == 13) { // return key is pressed
                     var chars = e.target.value.replace(/ /g,'').split("")
+                    chars = chars.filter(x => /^[\u4e00-\u9eff]$/i.exec(x) != null) // only Chinese characters
                     for (var i = 0, len = chars.length; i < len; i++) {
                       dispatch(addChar(chars[i]))
                     }
