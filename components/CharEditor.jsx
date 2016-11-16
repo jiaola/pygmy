@@ -7,7 +7,7 @@ const CharEditor = ({ char, index, dispatch }) => (
   <Row key={index}>
     <Col sm='2'><Label>{char.get('character')}</Label></Col>
     <Col sm='2'>
-      <select value={char.get('pinyin')} name={char.get('character')+'_pinyin'} id={char.get('character')+'_pinyin'} onChange={ e => { dispatch(setCharPinyin(index)) }}>
+      <select value={char.get('pinyin')} name={char.get('character')+'_pinyin'} id={char.get('character')+'_pinyin'} onChange={ e => { dispatch(setCharPinyin(index, e.target.value)) }}>
         { char.has('pinyin_list') ?
           char.get('pinyin_list').map(function(obj, i) {
             return <option value={obj} key={i} >{obj}</option>
