@@ -121,14 +121,19 @@ export const REQUEST_STROKES = 'REQUEST_STROKES'
 export const RECEIVE_STROKES = 'RECEIVE_STROKES'
 
 export const SUBMIT_GRID = 'SUBMIT_GRID'
-export function submitGrid(chars, email, grids_per_row, chars_per_row) {
+export function submitGrid(state) {
   return dispatch => {
     dispatch(sendGridRequest())
     //var apiRoot = 'http://pygmy.brickowls.com/'
     var apiRoot = 'http://localhost:3000/'
-    var query = chars.map((ch) => 'chars[]=' + ch.get('unicode')).join('&')
-    query += '&' + chars.map((ch) => 'pinyins[]=' + ch.get('pinyin')).join('&')
-    query += '&email=' + email + '&grids_per_row=' + grids_per_row + '&chars_per_row=' + chars_per_row
+    var query = state.chars.map((ch) => 'chars[]=' + ch.get('unicode')).join('&')
+    query += '&' + state.chars.map((ch) => 'pinyins[]=' + ch.get('pinyin')).join('&')
+    query += '&email=' + state.options.get('email')
+    query += '&grids_per_row=' + state.options.get('grids_per_row')
+    query += '&chars_per_row=' + state.options.get('chars_per_row')
+    query += '&grid_format=' + state.options.get('format')
+    query += '&print_pinyin=' + state.options.get('pinyin')
+    query += '&print_strokes=' + state.options.get('strokes')
     return fetch(`${apiRoot}grid/email_pdf?${query}`, {mode: 'cors'})
       .then(response => response.json())
       .then(json => dispatch(receiveGridResponse(json)))

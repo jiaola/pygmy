@@ -47,7 +47,7 @@ const App = ({state, dispatch}) => (
           <Col sm={{size: 'auto', offset: 5}} >
             <Button className='center-block' onClick={ e => {
                 //chars, email, grids_per_row, chars_per_row
-                dispatch(submitGrid(state.chars, state.options.get('email'), state.options.get('grids_per_row'),  state.options.get('chars_per_row')))
+                dispatch(submitGrid(state))
               }}>提交</Button>
           </Col>
         </Row>
