@@ -108,8 +108,8 @@ export function receivePinyin(chars, json) {
 export function fetchPinyin(chars) {
   return dispatch => {
     dispatch(requestPinyin(chars))
-    //var apiRoot = 'http://pygmy.brickowls.com/'
-    var apiRoot = 'http://localhost:3000/'
+    var apiRoot = 'http://pygmy.brickowls.com/'
+    //var apiRoot = 'http://localhost:3000/'
     var query = chars.map((ch) => 'chars[]=' + ch.charCodeAt(0).toString(16)).join('&')
     return fetch(`${apiRoot}characters/pinyins?${query}`, {mode: 'cors'})
       .then(response => response.json())
@@ -124,8 +124,8 @@ export const SUBMIT_GRID = 'SUBMIT_GRID'
 export function submitGrid(state) {
   return dispatch => {
     dispatch(sendGridRequest())
-    //var apiRoot = 'http://pygmy.brickowls.com/'
-    var apiRoot = 'http://localhost:3000/'
+    var apiRoot = 'http://pygmy.brickowls.com/'
+    //var apiRoot = 'http://localhost:3000/'
     var query = state.chars.map((ch) => 'chars[]=' + ch.get('unicode')).join('&')
     query += '&' + state.chars.map((ch) => 'pinyins[]=' + ch.get('pinyin')).join('&')
     query += '&email=' + state.options.get('email')

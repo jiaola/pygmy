@@ -5,8 +5,8 @@ import { deleteChar, setCharPinyin } from '../actions'
 
 const CharEditor = ({ char, index, dispatch }) => (
   <Row key={index}>
-    <Col sm='2'><Label>{char.get('character')}</Label></Col>
-    <Col sm='2'>
+    <Col sm='2' xs='4'><Label>{char.get('character')}</Label></Col>
+    <Col sm='2' xs='4'>
       <select value={char.get('pinyin')} name={char.get('character')+'_pinyin'} id={char.get('character')+'_pinyin'} onChange={ e => { dispatch(setCharPinyin(index, e.target.value)) }}>
         { char.has('pinyin_list') ?
           char.get('pinyin_list').map(function(obj, i) {
@@ -15,7 +15,7 @@ const CharEditor = ({ char, index, dispatch }) => (
         }
       </select>
     </Col>
-    <Col sm='8'>
+    <Col sm='8' xs='4'>
       <button type='button' className='btn btn-secondary btn-sq-sm' onClick={ e => { dispatch(deleteChar(index)) } }>
         <span className="fa fa-remove fa-sm" aria-hidden="true"></span>
       </button>
