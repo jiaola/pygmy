@@ -14,8 +14,7 @@ render(
   <Provider store={store}>
     { /* Tell the Router to use our enhanced history */ }
     <Router history={history}>
-      <Route path="/" component={App}>
-      </Route>
+      <Route path="/" component={App}></Route>
     </Router>
   </Provider>,
   reactElement

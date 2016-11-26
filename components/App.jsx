@@ -8,6 +8,8 @@ import PrintPinyin from './PrintPinyin'
 import PrintStrokeOrder from './PrintStrokeOrder'
 import CharList from './CharList'
 import Email from './Email'
+import Footer from '../containers/Footer'
+import StrokePainter from './strokes/StrokePainter'
 
 import { addChar, fetchPinyin, submitGrid } from '../actions'
 import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
@@ -51,6 +53,8 @@ const App = ({state, dispatch}) => (
               }}>提交</Button>
           </Col>
         </Row>
+        <Row><StrokePainter/></Row>
+        <Footer/>
     </Container>
 )
 
