@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { FormGroup, Input, Label } from 'reactstrap'
-import { setGridsPerRow } from '../actions'
+import { setGridsPerRow } from '../../actions'
 
 const GridsPerRow = ({ grids_per_row, dispatch }) => (
   <FormGroup>

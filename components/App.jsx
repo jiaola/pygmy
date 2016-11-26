@@ -1,67 +1,23 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import NewChar from './NewChar'
-import CharsPerRow from './CharsPerRow'
-import GridsPerRow from './GridsPerRow'
-import GridFormat from './GridFormat'
-import PrintPinyin from './PrintPinyin'
-import PrintStrokeOrder from './PrintStrokeOrder'
-import CharList from './CharList'
-import Email from './Email'
-import Footer from '../containers/Footer'
-import StrokePainter from './strokes/StrokePainter'
-
-import { addChar, fetchPinyin, submitGrid } from '../actions'
+import { Link, browserHistory } from 'react-router'
 import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
 
-require('../styles/screech.css')
-
-const App = ({state, dispatch}) => (
-    <Container>
-        <Row><Col><h1>田字格</h1></Col></Row>
-        <Row>
-            <Col xs='12' sm='3' md='3' lg='3'><CharsPerRow/></Col>
-            <Col xs='12' sm='3' md='3' lg='3'><GridsPerRow/></Col>
-            <Col xs='12' sm='6' md='6' lg='6'><GridFormat/></Col>
-        </Row>
-        <Row>
-            <Col xs='12' sm='6'><PrintPinyin/></Col>
-            <Col xs='12' sm='6'><PrintStrokeOrder/></Col>
-        </Row>
-        <Row>
-            <Col>
-                <NewChar onChange={ e => {
-                  if(e.keyCode == 13) { // return key is pressed
-                    var chars = e.target.value.replace(/ /g,'').split("")
-                    chars = chars.filter(x => /^[\u4e00-\u9eff]$/i.exec(x) != null) // only Chinese characters
-                    for (var i = 0, len = chars.length; i < len; i++) {
-                      dispatch(addChar(chars[i]))
-                    }
-                    dispatch(fetchPinyin(chars))
-                    e.target.value = ''
-                  }
-                }}/>
-            </Col>
-        </Row>
-        <CharList/>
-        <Email/>
-        <Row>
-          <Col sm={{size: 'auto', offset: 5}} >
-            <Button className='center-block' onClick={ e => {
-                //chars, email, grids_per_row, chars_per_row
-                dispatch(submitGrid(state))
-              }}>提交</Button>
-          </Col>
-        </Row>
-        <Row><StrokePainter/></Row>
-        <Footer/>
-    </Container>
+const App = ({ children }) => (
+  <Container>
+    <Row>
+      Links:
+      {' '}
+      <Link to="/">Home</Link>
+      {' '}
+      <Link to="/about">About</Link>
+      {' '}
+      <Link to="/bar">Bar</Link>
+    </Row>
+    <Row>
+      <button onClick={() => browserHistory.push('/about')}>Go to /about</button>
+    </Row>
+    <Row style={{ marginTop: '1.5em' }}>{children}</Row>
+  </Container>
 )
 
-const mapStateToProps = function(state){
-  return {
-    state
-  }
-}
-
-export default connect(mapStateToProps)(App)
+export default App

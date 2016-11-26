@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, FormGroup, Label, ButtonGroup, Button, Input } from 'reactstrap'
-import { deleteChar, setCharPinyin } from '../actions'
+import { deleteChar, setCharPinyin } from '../../actions'
 
 const CharEditor = ({ char, index, dispatch }) => (
   <Row key={index}>

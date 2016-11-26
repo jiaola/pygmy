@@ -4,7 +4,9 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import store from './store'
 import App from './components/App'
-import { Router, Route, browserHistory } from 'react-router'
+import About from './components/About'
+import GridForm from './components/grids/GridForm'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 let reactElement = document.getElementById('react')
@@ -14,7 +16,10 @@ render(
   <Provider store={store}>
     { /* Tell the Router to use our enhanced history */ }
     <Router history={history}>
-      <Route path="/" component={App}></Route>
+      <Route path="/" component={App}>
+        <IndexRoute component={GridForm}/>
+        <Route path="about" component={About}/>
+      </Route>
     </Router>
   </Provider>,
   reactElement

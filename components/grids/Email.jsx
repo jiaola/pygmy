@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, FormGroup, Label, Input } from 'reactstrap'
-import { setEmail } from '../actions'
+import { setEmail } from '../../actions'
 
 const Email = ({ email, dispatch }) => (
   <FormGroup row>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Button, ButtonGroup, FormGroup, Label, Col} from 'reactstrap'
-import { setPinyin } from '../actions'
+import { setPinyin } from '../../actions'
 
 const PrintPinyin = ({ pinyin, dispatch }) => (
   <FormGroup row>

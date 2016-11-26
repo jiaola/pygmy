@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormGroup, Input, Label } from 'reactstrap'
 import { connect } from 'react-redux'
-import { setCharsPerRow } from '../actions'
+import { setCharsPerRow } from '../../actions'
 
 const CharsPerRow = ({ chars_per_row, dispatch }) => (
   <FormGroup>

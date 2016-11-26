@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Button, ButtonGroup, Label, InputGroup} from 'reactstrap'
-import { setFormat } from '../actions'
+import { setFormat } from '../../actions'
 
 const CharPerRow = ({ format, dispatch }) => (
   <InputGroup>

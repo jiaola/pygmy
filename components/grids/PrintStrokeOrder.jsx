@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Button, ButtonGroup, FormGroup, Label, Col} from 'reactstrap'
-import { setStrokes} from '../actions'
+import { setStrokes} from '../../actions'
 
 const PrintStrokeOrder = ({ strokes, dispatch }) => (
   <FormGroup row>
