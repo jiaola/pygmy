@@ -6,17 +6,15 @@ import * as d3 from 'd3'
 class StrokePainter extends React.Component {
   render() {
     var list = ReactFauxDOM.createElement('ul')
-
-    var div = d3.select(list).append("div");
-    div.html("Hello, world!");
-    // d3.select(list)
-    //   .selectAll('li')
-    //   .data(this.props.data) // 1, 2, 3...
-    //   .enter()
-    //   .append('li')
-    //   .text(function (d) {
-    //     return d
-    //   })
+    var data = [4, 8, 15, 16, 23, 42];
+    d3.select(list)
+      .selectAll('li')
+      .data(data) // 1, 2, 3...
+      .enter()
+      .append('li')
+      .text(function (d) {
+        return d
+      })
 
     return list.toReact()
   }

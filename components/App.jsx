@@ -7,11 +7,11 @@ const App = ({ children }) => (
     <Row>
       Links:
       {' '}
-      <Link to="/">Home</Link>
+      <Link to="/">田字格</Link>
       {' '}
-      <Link to="/about">About</Link>
+      <Link to="/strokes">笔顺编辑</Link>
       {' '}
-      <Link to="/bar">Bar</Link>
+      <Link to="/about">关于</Link>
     </Row>
     <Row>
       <button onClick={() => browserHistory.push('/about')}>Go to /about</button>
