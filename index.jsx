@@ -6,7 +6,7 @@ import store from './store'
 import App from './components/App'
 import About from './components/About'
 import GridForm from './components/grids/GridForm'
-import StrokeEditor from './components/strokes/StrokeEditor'
+import StrokesEditor from './components/strokes/StrokesEditor'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
@@ -20,7 +20,7 @@ render(
       <Route path="/" component={App}>
         <IndexRoute component={GridForm}/>
         <Route path="about" component={About}/>
-        <Route path="strokes" component={StrokeEditor}/>
+        <Route path="strokes" component={StrokesEditor}/>
       </Route>
     </Router>
   </Provider>,

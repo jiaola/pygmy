@@ -1,5 +1,8 @@
 import fetch from 'isomorphic-fetch'
 
+//export const API_ROOT = 'http://pygmy.brickowls.com/'
+export const API_ROOT = 'http://localhost:3000'
+
 export const ADD_CHAR = 'ADD_CHAR'
 export function addChar(character) {
   return {
@@ -108,10 +111,8 @@ export function receivePinyin(chars, json) {
 export function fetchPinyin(chars) {
   return dispatch => {
     dispatch(requestPinyin(chars))
-    var apiRoot = 'http://pygmy.brickowls.com/'
-    //var apiRoot = 'http://localhost:3000/'
     var query = chars.map((ch) => 'chars[]=' + ch.charCodeAt(0).toString(16)).join('&')
-    return fetch(`${apiRoot}characters/pinyins?${query}`, {mode: 'cors'})
+    return fetch(`${API_ROOT}/characters/pinyins?${query}`, {mode: 'cors'})
       .then(response => response.json())
       .then(json => dispatch(receivePinyin(chars, json)))
   }
@@ -124,8 +125,6 @@ export const SUBMIT_GRID = 'SUBMIT_GRID'
 export function submitGrid(state) {
   return dispatch => {
     dispatch(sendGridRequest())
-    var apiRoot = 'http://pygmy.brickowls.com/'
-    //var apiRoot = 'http://localhost:3000/'
     var query = state.chars.map((ch) => 'chars[]=' + ch.get('unicode')).join('&')
     query += '&' + state.chars.map((ch) => 'pinyins[]=' + ch.get('pinyin')).join('&')
     query += '&email=' + state.options.get('email')
@@ -134,7 +133,7 @@ export function submitGrid(state) {
     query += '&grid_format=' + state.options.get('format')
     query += '&print_pinyin=' + state.options.get('pinyin')
     query += '&print_strokes=' + state.options.get('strokes')
-    return fetch(`${apiRoot}grid/email_pdf?${query}`, {mode: 'cors'})
+    return fetch(`${API_ROOT}/grid/email_pdf?${query}`, {mode: 'cors'})
       .then(response => response.json())
       .then(json => dispatch(receiveGridResponse(json)))
   }
@@ -154,5 +153,36 @@ export function sendGridRequest() {
   return {
     type: SEND_GRID_REQUEST,
     sentAt: Date.now()
+  }
+}
+
+/* Stroke Actions */
+export const SEND_STROKES_REQUEST = 'SEND_STROKE_REQUEST'
+export function sendStrokesRequest() {
+  return {
+    type: SEND_STROKES_REQUEST,
+    sendAt: Date.now()
+  }
+}
+
+export const RECEIVE_STROKES_RESPONSE = 'RECEIVE_STROKES_RESPONSE'
+export function receiveStrokesResponse(char, json) {
+  console.log(char, json);
+  return {
+    type: RECEIVE_STROKES_RESPONSE,
+    char,
+    json,
+    receivedAt: Date.now()
+  }
+}
+
+export function requestStrokes(char) {
+  console.log(char)
+  return dispatch => {
+    dispatch(sendStrokesRequest())
+    var unicode = char.charCodeAt(0).toString(16)
+    return fetch(`${API_ROOT}/characters/strokes/${unicode}`, {mode: 'cors'})
+      .then(response => response.json())
+      .then(json => dispatch(receiveStrokesResponse(char, json)))
   }
 }
