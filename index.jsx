@@ -7,6 +7,7 @@ import App from './components/App'
 import About from './components/About'
 import GridForm from './components/grids/GridForm'
 import StrokesEditor from './components/strokes/StrokesEditor'
+import SortableList from './components/strokes/SortedList'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 

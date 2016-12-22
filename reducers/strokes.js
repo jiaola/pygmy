@@ -7,7 +7,6 @@ export default (state = Immutable.Map({
 }), action) => {
   switch(action.type) {
     case ActionTypes.RECEIVE_STROKES_RESPONSE:
-      console.log('update strokes', action.json)
       return state.set('strokes', action.json)
     default:
       return state

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import NewChar from './NewChar'
+import NewChar from '../shared/NewChar'
 import CharsPerRow from './CharsPerRow'
 import GridsPerRow from './GridsPerRow'
 import GridFormat from './GridFormat'

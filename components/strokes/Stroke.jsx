@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 
 const Stroke = ({ shape, length, color }) => {
-  console.log('shape:', shape)
   return   <path d={ shape.Outline.map( s => {
         if (s.name === 'MoveTo') {
           return `M${scale(s.x, length)} ${scale(s.y, length)}`
@@ -17,16 +16,16 @@ const Stroke = ({ shape, length, color }) => {
 
 Stroke.propTypes = {
     shape: PropTypes.object.isRequired,
-    length: PropTypes.number.isRequired,
+    length: PropTypes.number,
     color: PropTypes.string
 }
 
 Stroke.defaultProps = {
+  length: 100,
   color: 'black'
 }
 
 var scale = (x, l) => {
-  console.log(x * l / 2048.0)
   return x * l / 2048.0
 }
 
