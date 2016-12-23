@@ -5,7 +5,8 @@ import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap
 
 import { requestStrokes } from '../../actions'
 import NewChar from '../shared/NewChar'
-import EaselPainter from './EaselPainter'
+import StrokesSorter from './StrokesSorter'
+import SorterTest from './SorterTest'
 
 let createHandlers = function(dispatch) {
   let onNewChar = function(e) {
@@ -34,11 +35,16 @@ class StrokesEditor extends React.Component {
     return (
       <Container>
         <NewChar onChange={ (e) => this.handlers.onNewChar(e) } />
-        <EaselPainter width={200} height={200} />
+        <StrokesSorter />
       </Container>
     )
   }
 }
 
+const mapStateToProps = function(state){
+  return {
+    strokes: state.strokes
+  }
+}
 
-export default connect()(StrokesEditor)
+export default connect(mapStateToProps)(StrokesEditor)

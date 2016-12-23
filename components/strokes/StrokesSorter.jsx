@@ -1,67 +1,53 @@
-import React from 'react'
+import * as React from "react";
+import Sortable from 'sortablejs';
 import { connect } from 'react-redux'
-import StrokesPainter from './StrokesPainter'
-import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
-import { sortable } from 'react-sortable'
-
-import { requestStrokes } from '../../actions'
-import NewChar from '../shared/NewChar'
-
-class ListItem extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (<div {...this.props} className="list-item">{this.props.children}</div>)
-  }
-}
-
-var SortableListItem = sortable(ListItem)
+import EaselPainter from './EaselPainter'
+import { API_ROOT } from '../../actions'
 
 class StrokesSorter extends React.Component {
   constructor(props) {
     super(props);
-    this.updateState = this.updateState.bind(this)
+  }
 
-    this.state = {
-      draggingIndex: null,
-      data: {
-        items: [0, 1, 2, 3, 4]
-      }
+  sortableContainersDecorator(componentBackingInstance) {
+    // check if backing instance not null
+    if (componentBackingInstance) {
+      let options = {
+        handle: ".group-title" // Restricts sort start click/touch to the specified element
+      };
+      Sortable.create(componentBackingInstance, options);
     }
   }
 
-  updateState(obj) {
-    console.log('updateState', obj, this.state)
-    this.setState(obj)
+  sortableGroupDecorator(componentBackingInstance) {
+    // check if backing instance not null
+    if (componentBackingInstance) {
+      let options = {
+        draggable: "img", // Specifies which items inside the element should be sortable
+        group: "shared"
+      };
+      Sortable.create(componentBackingInstance, options);
+    }
   }
 
   render() {
-    var childProps = { className: 'myClass1' }
-    if (this.props.strokes.get('strokes') != null) {
+    console.log('strokes: ', this.props.strokes);
+    var strokes = this.props.strokes.get('strokes')
+    if (strokes != null) {
       var listItems = this.props.strokes.get('strokes').Stroke.map(function(s, i) {
-        var config = {
-          color: 'black',
-          length: 50,
-          hColor: 'red',
-          hIndex: i
-        }
         return (
-          <SortableListItem
-            key={i}
-            updateState={this.updateState}
-            items={this.state.data.items}
-            draggingIndex={this.state.draggingIndex}
-            sortId={i}
-            outline="list"
-            childProps={childProps}
-            ><StrokesPainter strokes={this.props.strokes} config={config} /></SortableListItem>
+          <img src={`${API_ROOT}/assets/strokes/${strokes.unicode.substring(2,6)}/${i}_50.gif`} width={50} height={50} key={i}/>
         )
       }, this)
     }
     return (
-      <div className="list">{listItems}</div>
+      <div className="container" ref={this.sortableContainersDecorator}>
+        <div className="group">
+          <div className="group-list" ref={this.sortableGroupDecorator}>
+            {listItems}
+          </div>
+        </div>
+      </div>
     )
   }
 }
