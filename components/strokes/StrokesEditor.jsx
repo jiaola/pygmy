@@ -6,7 +6,6 @@ import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap
 import { requestStrokes } from '../../actions'
 import NewChar from '../shared/NewChar'
 import StrokesSorter from './StrokesSorter'
-import SorterTest from './SorterTest'
 
 let createHandlers = function(dispatch) {
   let onNewChar = function(e) {

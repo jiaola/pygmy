@@ -82,5 +82,6 @@ EaselPainter.defaultProps = {
   color: 'black',
   hColor: 'red',
   hStrokes: []
+}
 
 export default EaselPainter
