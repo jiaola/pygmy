@@ -34,5 +34,8 @@ module.exports = {
   },
   externals: {
     "createjs": "createjs"
+  },
+  devServer: {
+    historyApiFallback: true
   }
 }
