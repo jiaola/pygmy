@@ -14,8 +14,9 @@ let createHandlers = function(dispatch) {
       chars = chars.filter(x => /^[\u4e00-\u9eff]$/i.exec(x) != null) // only Chinese characters
       if (chars.length < 1) {
         // dispatch error message
-      }
-      dispatch(requestStrokes(chars[0]))
+      } else {
+        dispatch(requestStrokes(chars[0]))
+      }      
       e.target.value = ''
     }
   }
