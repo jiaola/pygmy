@@ -16,12 +16,17 @@ let createHandlers = function(dispatch) {
         // dispatch error message
       } else {
         dispatch(requestStrokes(chars[0]))
-      }      
+      }
       e.target.value = ''
     }
   }
+
+  let onSort = function(order) {
+    console.log('onSort: ', order)
+  }
   return {
-    onNewChar
+    onNewChar,
+    onSort
   }
 }
 
@@ -35,7 +40,7 @@ class StrokesEditor extends React.Component {
     return (
       <Container>
         <NewChar onChange={ (e) => this.handlers.onNewChar(e) } />
-        <StrokesSorter />
+        <StrokesSorter strokes={this.props.strokes.get('strokes')} onSort={this.handlers.onSort}/>
       </Container>
     )
   }
