@@ -2,10 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 //import StrokesSorter from './StrokesSorter'
 import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
-
-import { requestStrokes } from '../../actions'
-import NewChar from '../shared/NewChar'
-import StrokesSorter from './StrokesSorter'
+import { requestStrokes } from '../../actions/strokeActions'
+import NewChar from '../../components/shared/NewChar'
+import StrokesSorter from '../../components/strokes/StrokesSorter'
 
 let createHandlers = function(dispatch) {
   let onNewChar = function(e) {
@@ -33,7 +32,7 @@ let createHandlers = function(dispatch) {
 class StrokesEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.handlers = createHandlers(this.props.dispatch);
+    this.handlers = createHandlers(this.props.dispatch)
   }
 
   render() {

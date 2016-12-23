@@ -1,20 +1,13 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { Container } from 'reactstrap'
 import CharEditor from './CharEditor'
 
-const CharList = ({ chars, dispatch }) => (
+const CharList = ({ chars }) => (
   <Container>
     {chars.map((char, index) =>
-      <CharEditor index={index} key={index} />
+      <CharEditor index={ index } key={ index } char={ char }/>
     )}
   </Container>
 )
 
-const mapStateToProps = (state) => {
-  return {
-    chars: state.chars
-  }
-}
-
-export default connect(mapStateToProps)(CharList)
+export default CharList

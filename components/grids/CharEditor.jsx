@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, FormGroup, Label, ButtonGroup, Button, Input } from 'reactstrap'
-import { deleteChar, setCharPinyin } from '../../actions'
+import { deleteChar, setCharPinyin } from '../../actions/gridActions'
 
 const CharEditor = ({ char, index, dispatch }) => (
   <Row key={index}>
@@ -23,11 +23,9 @@ const CharEditor = ({ char, index, dispatch }) => (
   </Row>
 )
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    char: state.chars.get(ownProps.index),
-    index: ownProps.index
-  }
+CharEditor.propTypes = {
+  char: PropTypes.object,
+  index: PropTypes.number
 }
 
-export default connect(mapStateToProps)(CharEditor)
+export default connect()(CharEditor)

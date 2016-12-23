@@ -1,12 +1,12 @@
 import Immutable from 'immutable'
-import * as ActionTypes from '../actions'
+import * as ActionTypes from '../actions/actionTypes'
 
 export default (state = Immutable.Map({
-  grids_per_row: 15,
-  chars_per_row: 3,
+  gridsPerRow: 15,
+  charsPerRow: 3,
   format: 'field',
   pinyin: true,
-  strokes: false,
+  strokeOrder: false,
   email: ''
 }), action) => {
   switch(action.type) {

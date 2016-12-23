@@ -59,7 +59,7 @@ class StrokesSorter extends React.Component {
 }
 
 StrokesSorter.propTypes = {
-  strokes: PropTypes.object.isRequired,
+  strokes: PropTypes.object,
   onSort: PropTypes.func
 }
 

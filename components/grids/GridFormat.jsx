@@ -1,24 +1,22 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { PropTypes } from 'react'
 import { Button, ButtonGroup, Label, InputGroup} from 'reactstrap'
-import { setFormat } from '../../actions'
 
-const CharPerRow = ({ format, dispatch }) => (
+
+const GridFormat = ({ value, onChange }) => (
   <InputGroup>
     <Label for="gridFormat">生字格格式:</Label><br/>
     <ButtonGroup id='gridFormat'>
-      <Button color='secondary' size='md' active={ format == 'field' } onClick={ e => { dispatch(setFormat('field')) }}>田字</Button>
-      <Button color='secondary' size='md' active={ format == 'rice' } onClick={ e => { dispatch(setFormat('rice')) }}>米字</Button>
-      <Button color='secondary' size='md' active={ format == 'blank' } onClick={ e => { dispatch(setFormat('blank')) }}>空白</Button>
+      <Button color='secondary' size='md' active={ value == 'field' } onClick={ e => { onChange('field') }}>田字</Button>
+      <Button color='secondary' size='md' active={ value == 'rice' } onClick={ e => { onChange('rice') }}>米字</Button>
+      <Button color='secondary' size='md' active={ value == 'blank' } onClick={ e => { onChange('blank') }}>空白</Button>
     </ButtonGroup>
     <small id="wordPerRowHelp" className="form-text text-muted">生字格的格式</small>
   </InputGroup>
 )
 
-const mapStateToProps = (state) => {
-  return {
-    format: state.options.get('format')
-  }
+GridFormat.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func
 }
 
-export default connect(mapStateToProps)(CharPerRow)
+export default GridFormat

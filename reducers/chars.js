@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import * as ActionTypes from '../actions'
+import * as ActionTypes from '../actions/actionTypes'
 
 export default (state = Immutable.List([]), action) => {
   switch(action.type) {
