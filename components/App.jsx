@@ -16,7 +16,7 @@ const App = ({ children }) => (
     <Row>
       <button onClick={() => browserHistory.push('/about')}>Go to /about</button>
     </Row>
-    <Row style={{ marginTop: '1.5em' }}>{children}</Row>
+    <Row style={{ marginTop: '1.5em' }}>{ children }</Row>
   </Container>
 )
 
