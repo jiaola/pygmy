@@ -24,17 +24,17 @@ export function setCharPinyin(index, pinyin) {
   }
 }
 
-export function setGridsPerRow(grids_per_row) {
+export function setGridsPerRow(gridsPerRow) {
   return {
     type: ActionTypes.SET_GRIDS_PER_ROW,
-    grids_per_row
+    gridsPerRow
   }
 }
 
-export function setCharsPerRow(chars_per_row) {
+export function setCharsPerRow(charsPerRow) {
   return {
     type: ActionTypes.SET_CHARS_PER_ROW,
-    chars_per_row
+    charsPerRow
   }
 }
 
@@ -52,17 +52,17 @@ export function setEmail(email) {
   }
 }
 
-export function setPinyin(pinyin) {
+export function setPrintPinyin(printPinyin) {
   return {
-    type: ActionTypes.SET_PINYIN,
-    pinyin
+    type: ActionTypes.SET_PRINT_PINYIN,
+    printPinyin
   }
 }
 
-export function setStrokes(strokes) {
+export function setPrintStrokes(printStrokes) {
   return {
-    type: ActionTypes.SET_STROKES,
-    strokes
+    type: ActionTypes.SET_PRINT_STROKES,
+    printStrokes
   }
 }
 
@@ -116,7 +116,7 @@ export function submitGrid(options, chars) {
     query += '&chars_per_row=' + options.get('charsPerRow')
     query += '&grid_format=' + options.get('gridFormat')
     query += '&print_pinyin=' + options.get('printPinyin')
-    query += '&print_strokes=' + options.get('printStrokeOrder')
+    query += '&print_strokes=' + options.get('printStrokes')
     return fetch(`${API_ROOT}/grid/email_pdf?${query}`, {mode: 'cors'})
       .then(response => response.json())
       .then(json => dispatch(receiveGridResponse(json)))

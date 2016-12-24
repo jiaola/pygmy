@@ -4,9 +4,8 @@ import { connect } from 'react-redux'
 import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
 import { requestStrokes } from '../../actions/strokeActions'
 import NewChar from '../../components/shared/NewChar'
-import CharsPerRow from '../../components/grids/CharsPerRow'
+import NumberField from '../../components/grids/NumberField'
 import Email from '../../components/grids/Email'
-import GridsPerRow from '../../components/grids/GridsPerRow'
 import GridFormat from '../../components/grids/GridFormat'
 import PrintOption from '../../components/grids/PrintOption'
 import CharList from '../../components/grids/CharList'
@@ -31,11 +30,11 @@ let createHandlers = function(dispatch) {
   }
 
   let onPrintPinyinChange = function(value) {
-    dispatch(actions.setPinyin(value))
+    dispatch(actions.setPrintPinyin(value))
   }
 
-  let onPrintStrokeOrderChange = function(value) {
-    dispatch(actions.setPrintStrokeOrder(value))
+  let onPrintStrokesChange = function(value) {
+    dispatch(actions.setPrintStrokes(value))
   }
 
   let onNewChar = function(e) {
@@ -60,7 +59,7 @@ let createHandlers = function(dispatch) {
     onFormatChange,
     onGridsPerRowChange,
     onPrintPinyinChange,
-    onPrintStrokeOrderChange,
+    onPrintStrokesChange,
     onNewChar,
     onSubmit
   }
@@ -78,10 +77,10 @@ class GridForm extends React.Component {
         <Row><Col><h1>田字格</h1></Col></Row>
         <Row>
             <Col xs='12' sm='3' md='3' lg='3'>
-              <CharsPerRow onChange={ this.handlers.onCharsPerRowChange } value={ this.props.charsPerRow } />
+              <NumberField onChange={ this.handlers.onCharsPerRowChange } value={ this.props.charsPerRow } id={ 'chars_per_row' } label={ '每行生字数:' } tooltip={ '每一行生字的个数' }/>
             </Col>
             <Col xs='12' sm='3' md='3' lg='3'>
-              <GridsPerRow onChange={ this.handlers.onGridsPerRowChange } value={ this.props.gridsPerRow } />
+              <NumberField onChange={ this.handlers.onGridsPerRowChange } value={ this.props.gridsPerRow } id={ 'gridsPerRow' } label={ '每行格数:' } tooltip={ '每一行田字格的格数' }/>
             </Col>
             <Col xs='12' sm='6' md='6' lg='6'>
               <GridFormat onChange={ this.handlers.onFormatChange } value={ this.props.gridFormat }/>
@@ -92,7 +91,7 @@ class GridForm extends React.Component {
               <PrintOption onChange={ this.handlers.onPrintPinyinChange } value={ this.props.printPinyin } label={ '打印拼音' } id={ 'pringPinyin' }/>
             </Col>
             <Col xs='12' sm='6'>
-              <PrintOption onChange={ this.handlers.onPrintStrokeOrderChange } value={ this.props.printStrokeOrder } label= { '打印笔顺' } id={ 'pringStrokeOrder' }/>
+              <PrintOption onChange={ this.handlers.onPrintStrokesChange } value={ this.props.printStrokes } label= { '打印笔顺' } id={ 'pringStrokes' }/>
             </Col>
         </Row>
         <Row>
@@ -117,8 +116,8 @@ const mapStateToProps = function(state) {
     charsPerRow: state.options.get('charsPerRow'),
     gridsPerRow: state.options.get('gridsPerRow'),
     gridFormat: state.options.get('gridFormat'),
-    PrintPinyin: state.options.get('printPinyin'),
-    printStrokeOrder: state.options.get('printStrokeOrder'),
+    printPinyin: state.options.get('printPinyin'),
+    printStrokes: state.options.get('printStrokes'),
     email: state.options.get('email'),
     chars: state.chars,
     state
