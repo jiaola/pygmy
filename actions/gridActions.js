@@ -1,11 +1,25 @@
 import fetch from 'isomorphic-fetch'
 import * as ActionTypes from './actionTypes'
 import { API_ROOT } from './index'
+import * as Utils from '../utils/Utils'
 
-export function addChar(character) {
+let fetchHandler = response => {
+  if (!response.ok) throw Error(response.statusText)
+  return response.json()
+}
+
+export function addChars(chars) {
+  return dispatch => {
+    dispatch(requestPinyin(chars))
+    var query = chars.map((ch) => 'chars[]=' + Utils.charToHex(ch)).join('&')
+    return fetch(`${API_ROOT}/characters/pinyins?${query}`, {mode: 'cors'})
+      .then(response => fetchHandler(response))
+      .then(json => dispatch(receivePinyin(json)))
+      .catch(error => dispatch(requestPinyinFailed(error)))
+  }
   return {
-    type: ActionTypes.ADD_CHAR,
-    character
+    type: ActionTypes.ADD_CHARS,
+    chars
   }
 }
 
@@ -73,12 +87,19 @@ export function requestPinyin(chars) {
   }
 }
 
-export function receivePinyin(chars, json) {
+export function receivePinyin(json) {
+  console.log('receivePinyin', json)
   return {
     type: ActionTypes.RECEIVE_PINYIN,
-    chars,
-    pinyin: json,
+    chars: json,
     receivedAt: Date.now()
+  }
+}
+
+export function requestPinyinFailed(error) {
+  return {
+    type: ActionTypes.REQUEST_PINYIN_FAILED,
+    error
   }
 }
 
@@ -97,29 +118,37 @@ export function receivePinyin(chars, json) {
 //
 
 export function fetchPinyin(chars) {
+
+}
+
+export function submitGrid(grids) {
+  var chars = grids.get('chars')
   return dispatch => {
-    dispatch(requestPinyin(chars))
-    var query = chars.map((ch) => 'chars[]=' + ch.charCodeAt(0).toString(16)).join('&')
-    return fetch(`${API_ROOT}/characters/pinyins?${query}`, {mode: 'cors'})
-      .then(response => response.json())
-      .then(json => dispatch(receivePinyin(chars, json)))
+    dispatch(sendGridRequest())
+    var query = chars.map((ch) => 'chars[]=' + ch.get('character')).join('&')
+    query += '&' + chars.map((ch) => 'pinyins[]=' + ch.get('selectedPinyin')).join('&')
+    query += '&email=' + grids.get('email')
+    query += '&grids_per_row=' + grids.get('gridsPerRow')
+    query += '&chars_per_row=' + grids.get('charsPerRow')
+    query += '&grid_format=' + grids.get('gridFormat')
+    query += '&print_pinyin=' + grids.get('printPinyin')
+    query += '&print_strokes=' + grids.get('printStrokes')
+    return fetch(`${API_ROOT}/grid/email_pdf?${query}`, {mode: 'cors'})
+      .catch(error => console.log(error))
+      .then(response => {
+        console.log('response', response)
+        if (!response.ok) throw Error(response.statusText)
+        return response
+      }).then(response => response.json())
+      .then(json => dispatch(receiveGridResponse(json)))
+      .catch(error => console.log(error))
   }
 }
 
-export function submitGrid(options, chars) {
-  return dispatch => {
-    dispatch(sendGridRequest())
-    var query = chars.map((ch) => 'chars[]=' + ch.get('unicode')).join('&')
-    query += '&' + chars.map((ch) => 'pinyins[]=' + ch.get('pinyin')).join('&')
-    query += '&email=' + options.get('email')
-    query += '&grids_per_row=' + options.get('gridsPerRow')
-    query += '&chars_per_row=' + options.get('charsPerRow')
-    query += '&grid_format=' + options.get('gridFormat')
-    query += '&print_pinyin=' + options.get('printPinyin')
-    query += '&print_strokes=' + options.get('printStrokes')
-    return fetch(`${API_ROOT}/grid/email_pdf?${query}`, {mode: 'cors'})
-      .then(response => response.json())
-      .then(json => dispatch(receiveGridResponse(json)))
+export function resetGrid() {
+  console.log('reset grid')
+  return {
+    type: ActionTypes.RESET_GRID
   }
 }
 

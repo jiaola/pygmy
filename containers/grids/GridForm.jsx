@@ -9,6 +9,7 @@ import Email from '../../components/grids/Email'
 import GridFormat from '../../components/grids/GridFormat'
 import PrintOption from '../../components/grids/PrintOption'
 import CharList from '../../components/grids/CharList'
+import Loader from 'react-loader-advanced'
 
 import * as actions from '../../actions/gridActions'
 
@@ -41,16 +42,18 @@ let createHandlers = function(dispatch) {
     if(e.keyCode == 13) { // return key is pressed
       var chars = e.target.value.replace(/ /g,'').split("")
       chars = chars.filter(x => /^[\u4e00-\u9eff]$/i.exec(x) != null) // only Chinese characters
-      for (var i = 0, len = chars.length; i < len; i++) {
-        dispatch(actions.addChar(chars[i]))
-      }
-      dispatch(actions.fetchPinyin(chars))
+      dispatch(actions.addChars(chars))
+      //dispatch(actions.fetchPinyin(chars))
       e.target.value = ''
     }
   }
 
   let onSubmit = function(state) {
-    dispatch(actions.submitGrid(state.options, state.chars))
+    dispatch(actions.submitGrid(state.grids))
+  }
+
+  let onReset = function() {
+    dispatch(actions.resetGrid())
   }
 
   return {
@@ -61,7 +64,8 @@ let createHandlers = function(dispatch) {
     onPrintPinyinChange,
     onPrintStrokesChange,
     onNewChar,
-    onSubmit
+    onSubmit,
+    onReset
   }
 }
 
@@ -75,6 +79,7 @@ class GridForm extends React.Component {
     return (
       <Container>
         <Row><Col><h1>田字格</h1></Col></Row>
+        <Loader show={ !this.props.gridsCreated } message={ 'loading' }>
         <Row>
             <Col xs='12' sm='3' md='3' lg='3'>
               <NumberField onChange={ this.handlers.onCharsPerRowChange } value={ this.props.charsPerRow } id={ 'chars_per_row' } label={ '每行生字数:' } tooltip={ '每一行生字的个数' }/>
@@ -96,16 +101,24 @@ class GridForm extends React.Component {
         </Row>
         <Row>
             <Col>
+              <Loader show={ !this.props.charsLoaded }  message={ 'loading' }>
                 <NewChar onChange={ this.handlers.onNewChar }/>
+                <CharList chars={ this.props.chars }/>
+              </Loader>
             </Col>
         </Row>
-        <CharList chars={ this.props.chars }/>
-        <Email onChange={ this.handlers.onEmailChange } value={ this.props.email }/>
         <Row>
-          <Col sm={{size: 'auto', offset: 5}} >
-            <Button className='center-block' onClick={ e => { this.handlers.onSubmit(this.props.state) } }>提交</Button>
+          <Col>
+            <Email onChange={ this.handlers.onEmailChange } value={ this.props.email }/>
           </Col>
         </Row>
+        <Row>
+          <Col sm={{size: 'auto', offset: 5}} >
+            <Button className='center-block' onClick={ e => this.handlers.onSubmit(this.props.state) }>提交</Button>
+            <Button className='center-block' onClick={ this.handlers.onReset }>取消</Button>
+          </Col>
+        </Row>
+        </Loader>
       </Container>
     )
   }
@@ -113,13 +126,15 @@ class GridForm extends React.Component {
 
 const mapStateToProps = function(state) {
   return {
-    charsPerRow: state.options.get('charsPerRow'),
-    gridsPerRow: state.options.get('gridsPerRow'),
-    gridFormat: state.options.get('gridFormat'),
-    printPinyin: state.options.get('printPinyin'),
-    printStrokes: state.options.get('printStrokes'),
-    email: state.options.get('email'),
-    chars: state.chars,
+    charsPerRow: state.grids.get('charsPerRow'),
+    gridsPerRow: state.grids.get('gridsPerRow'),
+    gridFormat: state.grids.get('gridFormat'),
+    printPinyin: state.grids.get('printPinyin'),
+    printStrokes: state.grids.get('printStrokes'),
+    email: state.grids.get('email'),
+    gridsCreated: state.grids.get('gridsCreated'),
+    chars: state.grids.get('chars'),
+    charsLoaded: state.grids.get('charsLoaded'),
     state
   }
 }

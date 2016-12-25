@@ -2,16 +2,17 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, FormGroup, Label, ButtonGroup, Button, Input } from 'reactstrap'
 import { deleteChar, setCharPinyin } from '../../actions/gridActions'
+import * as Utils from '../../utils/Utils'
 
 const CharEditor = ({ char, index, dispatch }) => (
   <Row key={index}>
-    <Col sm='2' xs='4'><Label>{char.get('character')}</Label></Col>
+    <Col sm='2' xs='4'><Label>{Utils.hexToChar(char.get('character'))}</Label></Col>
     <Col sm='2' xs='4'>
-      <select value={char.get('pinyin')} name={char.get('character')+'_pinyin'} id={char.get('character')+'_pinyin'} onChange={ e => { dispatch(setCharPinyin(index, e.target.value)) }}>
-        { char.has('pinyin_list') ?
-          char.get('pinyin_list').map(function(obj, i) {
-            return <option value={obj} key={i} >{obj}</option>
-          }) : ''
+      <select value={char.get('selectedPinyin')} name={char.get('character')+'_pinyin'} id={char.get('character')+'_pinyin'} onChange={ e => { dispatch(setCharPinyin(index, e.target.value)) }}>
+        {
+          char.get('pinyin').map(function(p, i) {
+            return <option value={p} key={i} >{p}</option>
+          })
         }
       </select>
     </Col>
