@@ -1,4 +1,5 @@
 export const ADD_CHARS = 'ADD_CHARS'
+export const DELETE_CHARS = 'DELETE_CHARS'
 export const DELETE_CHAR = 'DELETE_CHAR'
 export const SET_GRIDS_PER_ROW = 'SET_GRIDS_PER_ROW'
 export const SET_CHARS_PER_ROW = 'SET_CHARS_PER_ROW'

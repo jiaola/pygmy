@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 //import StrokesSorter from './StrokesSorter'
 import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
 import { requestStrokes } from '../../actions/strokeActions'
-import NewChar from '../../components/shared/NewChar'
+import CharsField from '../../components/shared/CharsField'
 import NumberField from '../../components/grids/NumberField'
 import Email from '../../components/grids/Email'
 import GridFormat from '../../components/grids/GridFormat'
@@ -38,14 +38,12 @@ let createHandlers = function(dispatch) {
     dispatch(actions.setPrintStrokes(value))
   }
 
-  let onNewChar = function(e) {
-    if(e.keyCode == 13) { // return key is pressed
-      var chars = e.target.value.replace(/ /g,'').split("")
-      chars = chars.filter(x => /^[\u4e00-\u9eff]$/i.exec(x) != null) // only Chinese characters
-      dispatch(actions.addChars(chars))
-      //dispatch(actions.fetchPinyin(chars))
-      e.target.value = ''
-    }
+  let onAddChars = function(chars) {
+    dispatch(actions.addChars(chars))
+  }
+
+  let onDeleteChars = function() {
+    dispatch(actions.deleteChars())
   }
 
   let onSubmit = function(state) {
@@ -63,7 +61,8 @@ let createHandlers = function(dispatch) {
     onGridsPerRowChange,
     onPrintPinyinChange,
     onPrintStrokesChange,
-    onNewChar,
+    onAddChars,
+    onDeleteChars,
     onSubmit,
     onReset
   }
@@ -102,8 +101,8 @@ class GridForm extends React.Component {
         <Row>
             <Col>
               <Loader show={ !this.props.charsLoaded }  message={ 'loading' }>
-                <NewChar onChange={ this.handlers.onNewChar }/>
-                <CharList chars={ this.props.chars }/>
+                <CharsField onAddChars={ this.handlers.onAddChars } onDeleteChars={ this.handlers.onDeleteChars }/>
+                <CharList chars={ this.props.chars } />
               </Loader>
             </Col>
         </Row>

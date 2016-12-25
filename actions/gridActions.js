@@ -23,6 +23,12 @@ export function addChars(chars) {
   }
 }
 
+export function deleteChars() {
+  return {
+    type: ActionTypes.DELETE_CHARS
+  }
+}
+
 export function deleteChar(index) {
   return {
     type: ActionTypes.DELETE_CHAR,

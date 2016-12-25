@@ -35,6 +35,8 @@ export default (state = initialState, action) => {
       return state.set('gridsCreated', true)
     case ActionTypes.RESET_GRID:
       return initialState
+    case ActionTypes.DELETE_CHARS:
+      return state.set('chars', state.get('chars').clear())
     case ActionTypes.DELETE_CHAR:
       var chars = state.get('chars').filter((char, index) => index !== action.index)
       return state.set('chars', chars)
