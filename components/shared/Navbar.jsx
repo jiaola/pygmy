@@ -21,6 +21,9 @@ const Navbar = () => (
                   <Link className="nav-link" to="/strokes">笔顺编辑</Link>
               </li>
               <li className="nav-item">
+                  <Link className="nav-link" to="/typos">错别字</Link>
+              </li>
+              <li className="nav-item">
                   <Link className="nav-link" to="/about" data-target="#myModal" data-toggle="modal">关于</Link>
               </li>
           </ul>

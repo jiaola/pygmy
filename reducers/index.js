@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux'
 import strokes from './strokes'
 import grids from './grids'
+import typos from './typos'
 import { routerReducer } from 'react-router-redux'
 
 const rootReducer = combineReducers({
   grids,
   strokes,
+  typos,
   routing: routerReducer
 })
 

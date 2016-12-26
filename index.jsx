@@ -7,6 +7,7 @@ import App from './containers/App'
 import About from './components/About'
 import GridForm from './containers/grids/GridForm'
 import StrokesEditor from './containers/strokes/StrokesEditor'
+import TyposMaker from './containers/typos/TyposMaker'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
@@ -21,6 +22,7 @@ render(
         <IndexRoute component={GridForm}/>
         <Route path="about" component={About}/>
         <Route path="strokes" component={StrokesEditor}/>
+        <Route path="typos" component={TyposMaker}/>
       </Route>
     </Router>
   </Provider>,

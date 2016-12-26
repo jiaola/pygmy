@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 //import StrokesSorter from './StrokesSorter'
 import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
-import { requestStrokes } from '../../actions/strokeActions'
+import { requestStrokes, receiveStrokesResponse } from '../../actions/strokeActions'
 import CharsField from '../../components/shared/CharsField'
 import StrokesSorter from '../../components/strokes/StrokesSorter'
 
@@ -11,8 +11,8 @@ let createHandlers = function(dispatch) {
     if (chars.length < 1) {
       // dispatch error message
     } else {
-      dispatch(requestStrokes(chars[0]))
-    }  
+      dispatch(requestStrokes(chars[0], receiveStrokesResponse))
+    }
   }
 
   let onSort = function(order) {
@@ -33,6 +33,7 @@ class StrokesEditor extends React.Component {
   render() {
     return (
       <Container>
+        <Row><Col><h1>笔顺</h1></Col></Row>
         <CharsField onAddChars={ this.handlers.onAddChars } />
         <StrokesSorter strokes={this.props.strokes.get('strokes')} onSort={this.handlers.onSort}/>
       </Container>

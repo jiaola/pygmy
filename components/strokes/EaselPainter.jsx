@@ -20,14 +20,14 @@ class EaselPainter extends React.Component {
   }
 
   draw() {
-    if (this.props.strokes.get('strokes') == null ) {
+    if (this.props.strokes == null ) {
       return;
     }
     // Init CreateJS
     var canvas = ReactDOM.findDOMNode(this.refs.canvas)
     this.stage = new createjs.Stage(canvas);
 
-    var strokes = this.props.strokes.get('strokes').Stroke
+    var strokes = this.props.strokes.Stroke
     for (var i = 0; i < strokes.length; i++) {
       if (this.props.hStrokes.indexOf(i) < 0) { // not highlighted
         this.stage.addChild(this.drawStroke(strokes[i], this.props.color))

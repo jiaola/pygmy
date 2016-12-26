@@ -10,7 +10,6 @@ export function sendStrokesRequest() {
 }
 
 export function receiveStrokesResponse(char, json) {
-  console.log(char, json);
   return {
     type: ActionTypes.RECEIVE_STROKES_RESPONSE,
     char,
@@ -19,13 +18,12 @@ export function receiveStrokesResponse(char, json) {
   }
 }
 
-export function requestStrokes(char) {
-  console.log(char)
+export function requestStrokes(char, response) {
   return dispatch => {
     dispatch(sendStrokesRequest())
     var unicode = char.charCodeAt(0).toString(16)
     return fetch(`${API_ROOT}/characters/strokes/${unicode}`, {mode: 'cors'})
       .then(response => response.json())
-      .then(json => dispatch(receiveStrokesResponse(char, json)))
+      .then(json => dispatch(response(char, json)))
   }
 }
