@@ -1,15 +1,8 @@
 import * as ActionTypes from './actionTypes'
 
-export function hideStroke(index) {
+export function selectStroke(index) {
   return {
-    type: ActionTypes.HIDE_STROKE,
-    index
-  }
-}
-
-export function showStroke(index) {
-  return {
-    type: ActionTypes.SHOW_STROKE,
+    type: ActionTypes.SELECT_STROKE,
     index
   }
 }

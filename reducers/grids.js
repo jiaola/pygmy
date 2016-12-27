@@ -17,7 +17,6 @@ const initialState = Immutable.Map({
 export default (state = initialState, action) => {
   switch(action.type) {
     case ActionTypes.SET_PRINT_PINYIN:
-      console.log('action: ', action)
       return state.set('printPinyin', action.printPinyin)
     case ActionTypes.SET_PRINT_STROKES:
       return state.set('printStrokes', action.printStrokes)
@@ -48,12 +47,15 @@ export default (state = initialState, action) => {
         char.selectedPinyin = char.pinyin[0]
         state = state.set('chars', state.get('chars').push(Immutable.Map(char)))
       }
-      console.log('chars state', state.get('chars'))
       return state.set('charsLoaded', true)
     case ActionTypes.REQUEST_PINYIN_FAILED:
       return state.set('charsLoaded', true)
     case ActionTypes.SET_CHAR_PINYIN:
       return state.set('chars', state.get('chars').update(action.index, (char) => char.set('selectedPinyin', action.pinyin)))
+    case ActionTypes.SUBMIT_GRID_FAILED:
+      console.log('Submit grid failed')
+      // TODO: Process error
+      return state
     default:
       return state
   }

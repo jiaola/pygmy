@@ -18,6 +18,7 @@ let createHandlers = function(dispatch) {
   let onSort = function(order) {
     console.log('onSort: ', order)
   }
+  
   return {
     onAddChars,
     onSort

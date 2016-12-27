@@ -7,12 +7,18 @@ export default (state = Immutable.Map({
   order: []
 }), action) => {
   switch(action.type) {
-    case ActionTypes.HIDE_STROKE:
-      return state.set('hidden', state.get('hidden').add(action.index))
+    case ActionTypes.SELECT_STROKE:
+      let hidden = state.get('hidden')
+      let index = parseInt(action.index)
+      if (hidden.includes(index)) {
+        return state.set('hidden', hidden.delete(index))
+      } else {
+        return state.set('hidden', hidden.add(index))
+      }
     case ActionTypes.SHOW_STROKE:
       return state.set('hidden', state.get('hidden').delete(action.index))
     case ActionTypes.RECEIVE_TYPOS_RESPONSE:
-      return state.set('strokes', action.json)
+      return state.set('strokes', action.json).set('hidden', state.get('hidden').clear())
     default:
       return state
   }

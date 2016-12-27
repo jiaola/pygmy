@@ -94,7 +94,6 @@ export function requestPinyin(chars) {
 }
 
 export function receivePinyin(json) {
-  console.log('receivePinyin', json)
   return {
     type: ActionTypes.RECEIVE_PINYIN,
     chars: json,
@@ -107,24 +106,6 @@ export function requestPinyinFailed(error) {
     type: ActionTypes.REQUEST_PINYIN_FAILED,
     error
   }
-}
-
-// export const PINYIN_REQUEST = 'PINYIN_REQUEST'
-// export const PINYIN_SUCCESS = 'PINYIN_SUCCESS'
-// export const PINYIN_FAILURE = 'PINYIN_FAILURE'
-//
-// // function fetchPinyin(chars) {
-// //   return {
-// //     [CALL_API]: {
-// //       types: [PINYIN_REQUEST, PINYIN_SUCCESS, PINYIN_FAILURE],
-// //       endpoint: 'characters/pinyins?chars[]=3401&chars[]=3406&chars[]=3416'
-// //     }
-// //   }
-// // }
-//
-
-export function fetchPinyin(chars) {
-
 }
 
 export function submitGrid(grids) {
@@ -140,19 +121,20 @@ export function submitGrid(grids) {
     query += '&print_pinyin=' + grids.get('printPinyin')
     query += '&print_strokes=' + grids.get('printStrokes')
     return fetch(`${API_ROOT}/grid/email_pdf?${query}`, {mode: 'cors'})
-      .catch(error => console.log(error))
-      .then(response => {
-        console.log('response', response)
-        if (!response.ok) throw Error(response.statusText)
-        return response
-      }).then(response => response.json())
+      .then(response => fetchHandler(response))
       .then(json => dispatch(receiveGridResponse(json)))
-      .catch(error => console.log(error))
+      .catch(error => dispatch(submitGridFailed(error)))
+  }
+}
+
+export function submitGridFailed(error) {
+  return {
+    type: ActionTypes.SUBMIT_GRID_FAILED,
+    error
   }
 }
 
 export function resetGrid() {
-  console.log('reset grid')
   return {
     type: ActionTypes.RESET_GRID
   }
