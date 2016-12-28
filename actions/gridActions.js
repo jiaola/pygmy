@@ -1,101 +1,94 @@
 import fetch from 'isomorphic-fetch'
-import * as ActionTypes from './actionTypes'
-import { API_ROOT } from './index'
+import GridActionTypes from './GridActionTypes'
+import { API_ROOT, fetchHandler } from './index'
 import * as Utils from '../utils/Utils'
 
-let fetchHandler = response => {
-  if (!response.ok) throw Error(response.statusText)
-  return response.json()
-}
-
-export function addChars(chars) {
-  return dispatch => {
-    dispatch(requestPinyin(chars))
-    var query = chars.map((ch) => 'chars[]=' + Utils.charToHex(ch)).join('&')
-    return fetch(`${API_ROOT}/characters/pinyins?${query}`, {mode: 'cors'})
-      .then(response => fetchHandler(response))
-      .then(json => dispatch(receivePinyin(json)))
-      .catch(error => dispatch(requestPinyinFailed(error)))
-  }
-  return {
-    type: ActionTypes.ADD_CHARS,
-    chars
-  }
-}
-
-export function deleteChars() {
-  return {
-    type: ActionTypes.DELETE_CHARS
-  }
-}
-
-export function deleteChar(index) {
-  return {
-    type: ActionTypes.DELETE_CHAR,
-    index
-  }
-}
-
-export function setCharPinyin(index, pinyin) {
-  return {
-    type: ActionTypes.SET_CHAR_PINYIN,
-    index: index,
-    pinyin: pinyin
-  }
-}
-
+// Forms
 export function setGridsPerRow(gridsPerRow) {
   return {
-    type: ActionTypes.SET_GRIDS_PER_ROW,
+    type: GridActionTypes.SET_GRIDS_PER_ROW,
     gridsPerRow
   }
 }
 
 export function setCharsPerRow(charsPerRow) {
   return {
-    type: ActionTypes.SET_CHARS_PER_ROW,
+    type: GridActionTypes.SET_CHARS_PER_ROW,
     charsPerRow
   }
 }
 
 export function setFormat(format) {
   return {
-    type: ActionTypes.SET_FORMAT,
+    type: GridActionTypes.SET_FORMAT,
     format
   }
 }
 
 export function setEmail(email) {
   return {
-    type: ActionTypes.SET_EMAIL,
+    type: GridActionTypes.SET_EMAIL,
     email
   }
 }
 
 export function setPrintPinyin(printPinyin) {
   return {
-    type: ActionTypes.SET_PRINT_PINYIN,
+    type: GridActionTypes.SET_PRINT_PINYIN,
     printPinyin
   }
 }
 
 export function setPrintStrokes(printStrokes) {
   return {
-    type: ActionTypes.SET_PRINT_STROKES,
+    type: GridActionTypes.SET_PRINT_STROKES,
     printStrokes
   }
 }
 
-export function requestPinyin(chars) {
+// Pinyins
+export function addChars(chars) {
+  return dispatch => {
+    dispatch(sendPinyinRequest(chars))
+    var query = chars.map((ch) => 'chars[]=' + Utils.charToHex(ch)).join('&')
+    return fetch(`${API_ROOT}/characters/pinyins?${query}`, {mode: 'cors'})
+      .then(response => fetchHandler(response))
+      .then(json => dispatch(receivePinyinResponse(json)))
+      .catch(error => dispatch(requestPinyinFailed(error)))
+  }
+}
+
+export function deleteChars() {
   return {
-    type: ActionTypes.REQUEST_PINYIN,
+    type: GridActionTypes.DELETE_CHARS
+  }
+}
+
+export function deleteChar(index) {
+  return {
+    type: GridActionTypes.DELETE_CHAR,
+    index
+  }
+}
+
+export function setCharPinyin(index, pinyin) {
+  return {
+    type: GridActionTypes.SET_CHAR_PINYIN,
+    index: index,
+    pinyin: pinyin
+  }
+}
+
+export function sendPinyinRequest(chars) {
+  return {
+    type: GridActionTypes.SEND_PINYIN_REQUEST,
     chars
   }
 }
 
-export function receivePinyin(json) {
+export function receivePinyinResponse(json) {
   return {
-    type: ActionTypes.RECEIVE_PINYIN,
+    type: GridActionTypes.RECEIVE_PINYIN_RESPONSE,
     chars: json,
     receivedAt: Date.now()
   }
@@ -103,11 +96,13 @@ export function receivePinyin(json) {
 
 export function requestPinyinFailed(error) {
   return {
-    type: ActionTypes.REQUEST_PINYIN_FAILED,
+    type: GridActionTypes.REQUEST_PINYIN_FAILED,
     error
   }
 }
 
+
+// Submit
 export function submitGrid(grids) {
   var chars = grids.get('chars')
   return dispatch => {
@@ -127,30 +122,30 @@ export function submitGrid(grids) {
   }
 }
 
+export function sendGridRequest() {
+  return {
+    type: GridActionTypes.SEND_GRID_REQUEST,
+    sentAt: Date.now()
+  }
+}
+
+export function receiveGridResponse(json) {
+  return {
+    type: GridActionTypes.RECEIVE_GRID_RESPONSE,
+    json,
+    receivedAt: Date.now()
+  }
+}
+
 export function submitGridFailed(error) {
   return {
-    type: ActionTypes.SUBMIT_GRID_FAILED,
+    type: GridActionTypes.SUBMIT_GRID_FAILED,
     error
   }
 }
 
 export function resetGrid() {
   return {
-    type: ActionTypes.RESET_GRID
-  }
-}
-
-export function receiveGridResponse(json) {
-  return {
-    type: ActionTypes.RECEIVE_GRID_RESPONSE,
-    json,
-    receivedAt: Date.now()
-  }
-}
-
-export function sendGridRequest() {
-  return {
-    type: ActionTypes.SEND_GRID_REQUEST,
-    sentAt: Date.now()
+    type: GridActionTypes.RESET_GRID
   }
 }

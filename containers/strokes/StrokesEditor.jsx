@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 //import StrokesSorter from './StrokesSorter'
 import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
-import { requestStrokes, receiveStrokesResponse } from '../../actions/strokeActions'
+import Loader from 'react-loader-advanced'
+import { requestStrokes, receiveStrokesResponse, deleteChars, sendStrokesRequest } from '../../actions/strokesActions'
 import CharsField from '../../components/shared/CharsField'
 import StrokesSorter from '../../components/strokes/StrokesSorter'
 
@@ -11,16 +12,22 @@ let createHandlers = function(dispatch) {
     if (chars.length < 1) {
       // dispatch error message
     } else {
+      dispatch(sendStrokesRequest())
       dispatch(requestStrokes(chars[0], receiveStrokesResponse))
     }
+  }
+
+  let onDeleteChars = function(chars) {
+    dispatch(deleteChars())
   }
 
   let onSort = function(order) {
     console.log('onSort: ', order)
   }
-  
+
   return {
     onAddChars,
+    onDeleteChars,
     onSort
   }
 }
@@ -35,8 +42,10 @@ class StrokesEditor extends React.Component {
     return (
       <Container>
         <Row><Col><h1>笔顺</h1></Col></Row>
-        <CharsField onAddChars={ this.handlers.onAddChars } />
-        <StrokesSorter strokes={this.props.strokes.get('strokes')} onSort={this.handlers.onSort}/>
+        <Loader show={ !this.props.strokes.get('strokesLoaded') } message='Loading'>
+          <CharsField onAddChars={ this.handlers.onAddChars } onDeleteChars={ this.handlers.onDeleteChars } />
+          <StrokesSorter strokes={this.props.strokes.get('strokes')} onSort={this.handlers.onSort}/>
+        </Loader>
       </Container>
     )
   }

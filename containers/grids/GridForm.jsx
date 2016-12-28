@@ -1,15 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-//import StrokesSorter from './StrokesSorter'
 import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
-import { requestStrokes } from '../../actions/strokeActions'
+import Loader from 'react-loader-advanced'
 import CharsField from '../../components/shared/CharsField'
 import NumberField from '../../components/grids/NumberField'
 import Email from '../../components/grids/Email'
 import GridFormat from '../../components/grids/GridFormat'
 import PrintOption from '../../components/grids/PrintOption'
 import CharList from '../../components/grids/CharList'
-import Loader from 'react-loader-advanced'
 
 import * as actions from '../../actions/gridActions'
 

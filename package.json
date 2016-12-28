@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.15.2",
     "babel-polyfill": "^6.16.0",
+    "flux-constant": "^1.1.4",
     "immutability-helper": "^2.0.0",
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",

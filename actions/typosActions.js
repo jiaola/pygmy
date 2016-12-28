@@ -1,17 +1,30 @@
-import * as ActionTypes from './actionTypes'
+import TyposActionTypes from './TyposActionTypes'
 
 export function selectStroke(index) {
   return {
-    type: ActionTypes.SELECT_STROKE,
+    type: TyposActionTypes.SELECT_STROKE,
     index
+  }
+}
+
+export function sendTyposRequest() {
+  return {
+    type: TyposActionTypes.SEND_TYPOS_REQUEST,
+    sendAt: Date.now()
   }
 }
 
 export function receiveTyposResponse(char, json) {
   return {
-    type: ActionTypes.RECEIVE_TYPOS_RESPONSE,
+    type: TyposActionTypes.RECEIVE_TYPOS_RESPONSE,
     char,
     json,
     receivedAt: Date.now()
+  }
+}
+
+export function deleteChars() {
+  return {
+    type: TyposActionTypes.DELETE_CHARS
   }
 }

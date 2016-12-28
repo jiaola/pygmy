@@ -1,15 +1,20 @@
 import Immutable from 'immutable'
-import * as ActionTypes from '../actions/actionTypes'
+import StrokesActionTypes from '../actions/StrokesActionTypes'
 
 export default (state = Immutable.Map({
   strokes: null,
-  order: []
+  order: [],
+  strokesLoaded: true
 }), action) => {
   switch(action.type) {
-    case ActionTypes.RECEIVE_STROKES_RESPONSE:
-      return state.set('strokes', action.json)
-    case ActionTypes.SORT_STROKES_ORDER:
+    case StrokesActionTypes.RECEIVE_STROKES_RESPONSE:
+      return state.set('strokes', action.json).set('strokesLoaded', true)
+    case StrokesActionTypes.SORT_STROKES_ORDER:
       return state.set('order', action.order)
+    case StrokesActionTypes.DELETE_CHARS:
+      return state.set('strokes', null).set('order', [])
+    case StrokesActionTypes.SEND_STROKES_REQUEST:
+      return state.set('strokesLoaded', false)
     default:
       return state
   }

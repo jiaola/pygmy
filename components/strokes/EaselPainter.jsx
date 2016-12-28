@@ -21,6 +21,10 @@ class EaselPainter extends React.Component {
 
   draw() {
     if (this.props.strokes == null ) {
+      if (this.stage != null) {
+        this.stage.removeAllChildren()
+        this.stage.update()
+      }
       return;
     }
     // Init CreateJS

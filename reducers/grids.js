@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import * as ActionTypes from '../actions/actionTypes'
+import GridActionTypes from '../actions/GridActionTypes'
 import * as Utils from '../utils/Utils'
 
 const initialState = Immutable.Map({
@@ -16,45 +16,49 @@ const initialState = Immutable.Map({
 
 export default (state = initialState, action) => {
   switch(action.type) {
-    case ActionTypes.SET_PRINT_PINYIN:
-      return state.set('printPinyin', action.printPinyin)
-    case ActionTypes.SET_PRINT_STROKES:
-      return state.set('printStrokes', action.printStrokes)
-    case ActionTypes.SET_GRIDS_PER_ROW:
+    // forms
+    case GridActionTypes.SET_GRIDS_PER_ROW:
       return state.set('gridsPerRow', action.gridsPerRow)
-    case ActionTypes.SET_FORMAT:
-      return state.set('gridFormat', action.format)
-    case ActionTypes.SET_CHARS_PER_ROW:
+    case GridActionTypes.SET_CHARS_PER_ROW:
       return state.set('charsPerRow', action.charsPerRow)
-    case ActionTypes.SET_EMAIL:
+    case GridActionTypes.SET_FORMAT:
+      return state.set('gridFormat', action.format)
+    case GridActionTypes.SET_EMAIL:
       return state.set('email', action.email)
-    case ActionTypes.SEND_GRID_REQUEST:
-      return state.set('gridsCreated', false)
-    case ActionTypes.RECEIVE_GRID_RESPONSE:
-      return state.set('gridsCreated', true)
-    case ActionTypes.RESET_GRID:
-      return initialState
-    case ActionTypes.DELETE_CHARS:
+    case GridActionTypes.SET_PRINT_PINYIN:
+      return state.set('printPinyin', action.printPinyin)
+    case GridActionTypes.SET_PRINT_STROKES:
+      return state.set('printStrokes', action.printStrokes)
+    // pinyins
+    case GridActionTypes.DELETE_CHARS:
       return state.set('chars', state.get('chars').clear())
-    case ActionTypes.DELETE_CHAR:
+    case GridActionTypes.DELETE_CHAR:
       var chars = state.get('chars').filter((char, index) => index !== action.index)
       return state.set('chars', chars)
-    case ActionTypes.REQUEST_PINYIN:
+    case GridActionTypes.SEND_PINYIN_REQUEST:
       return state.set('charsLoaded', false)
-    case ActionTypes.RECEIVE_PINYIN:
+    case GridActionTypes.RECEIVE_PINYIN_RESPONSE:
       for (var i = 0; i < action.chars.length; i++) {
         var char = action.chars[i]
         char.selectedPinyin = char.pinyin[0]
         state = state.set('chars', state.get('chars').push(Immutable.Map(char)))
       }
       return state.set('charsLoaded', true)
-    case ActionTypes.REQUEST_PINYIN_FAILED:
+    case GridActionTypes.REQUEST_PINYIN_FAILED:
       return state.set('charsLoaded', true)
-    case ActionTypes.SET_CHAR_PINYIN:
+    case GridActionTypes.SET_CHAR_PINYIN:
       return state.set('chars', state.get('chars').update(action.index, (char) => char.set('selectedPinyin', action.pinyin)))
-    case ActionTypes.SUBMIT_GRID_FAILED:
-      console.log('Submit grid failed')
       // TODO: Process error
+    // Submit
+    case GridActionTypes.SEND_GRID_REQUEST:
+      return state.set('gridsCreated', false)
+    case GridActionTypes.RECEIVE_GRID_RESPONSE:
+      return state.set('gridsCreated', true)
+    case GridActionTypes.SUBMIT_GRID_FAILED:
+      return state.set('gridsCreated', true)
+      console.log('Submit grid failed')
+    case GridActionTypes.RESET_GRID:
+      return initialState
       return state
     default:
       return state
