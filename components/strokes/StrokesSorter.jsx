@@ -39,12 +39,21 @@ class StrokesSorter extends React.Component {
   }
 
   render() {
+    let listItems = null
     if (this.props.strokes != null) {
-      var listItems = this.props.strokes.Stroke.map(function(s, i) {
-        return (
-          <img src={`${API_ROOT}/assets/strokes/${this.props.strokes.unicode.substring(2,6)}/${i}_50.gif`} width={50} height={50} key={i} data-index={i}/>
-        )
-      }, this)
+      if (this.props.strokes.hasOwnProperty('order')) {
+        listItems = this.props.strokes.order.map(function(i) {
+          return (
+            <img src={`${API_ROOT}/assets/strokes/${this.props.strokes.unicode.substring(2,6)}/${i}_50.gif`} width={50} height={50} key={i} data-index={i}/>
+          )
+        }, this)
+      } else {
+        listItems = this.props.strokes.Stroke.map(function(s, i) {
+          return (
+            <img src={`${API_ROOT}/assets/strokes/${this.props.strokes.unicode.substring(2,6)}/${i}_50.gif`} width={50} height={50} key={i} data-index={i}/>
+          )
+        }, this)
+      }
     }
     return (
       <div className="container" ref={this.sortableContainersDecorator}>

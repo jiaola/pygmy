@@ -44,8 +44,8 @@ let createHandlers = function(dispatch) {
     dispatch(actions.deleteChars())
   }
 
-  let onSubmit = function(state) {
-    dispatch(actions.submitGrid(state.grids))
+  let onSubmit = function(grids) {
+    dispatch(actions.submitGrid(grids))
   }
 
   let onReset = function() {
@@ -111,7 +111,7 @@ class GridForm extends React.Component {
         </Row>
         <Row>
           <Col sm={{size: 'auto', offset: 5}} >
-            <Button className='center-block' onClick={ e => this.handlers.onSubmit(this.props.state) }>提交</Button>
+            <Button className='center-block' onClick={ e => this.handlers.onSubmit(this.props.state.grids) }>提交</Button>
             <Button className='center-block' onClick={ this.handlers.onReset }>取消</Button>
           </Col>
         </Row>

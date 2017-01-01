@@ -9,7 +9,7 @@ export default (state = Immutable.Map({
   switch(action.type) {
     case StrokesActionTypes.RECEIVE_STROKES_RESPONSE:
       return state.set('strokes', action.json).set('strokesLoaded', true)
-    case StrokesActionTypes.SORT_STROKES_ORDER:
+    case StrokesActionTypes.SORT_STROKES:
       return state.set('order', action.order)
     case StrokesActionTypes.DELETE_CHARS:
       return state.set('strokes', null).set('order', [])

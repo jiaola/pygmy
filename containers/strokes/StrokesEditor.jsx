@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 //import StrokesSorter from './StrokesSorter'
 import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
 import Loader from 'react-loader-advanced'
-import { requestStrokes, receiveStrokesResponse, deleteChars, sendStrokesRequest } from '../../actions/strokesActions'
+import * as strokesActions from '../../actions/strokesActions'
 import CharsField from '../../components/shared/CharsField'
 import StrokesSorter from '../../components/strokes/StrokesSorter'
 
@@ -12,23 +12,28 @@ let createHandlers = function(dispatch) {
     if (chars.length < 1) {
       // dispatch error message
     } else {
-      dispatch(sendStrokesRequest())
-      dispatch(requestStrokes(chars[0], receiveStrokesResponse))
+      dispatch(strokesActions.sendStrokesRequest())
+      dispatch(strokesActions.requestStrokes(chars[0], strokesActions.receiveStrokesResponse))
     }
   }
 
   let onDeleteChars = function(chars) {
-    dispatch(deleteChars())
+    dispatch(strokesActions.deleteChars())
   }
 
   let onSort = function(order) {
-    console.log('onSort: ', order)
+    dispatch(strokesActions.sortStrokes(order))
+  }
+
+  let onSubmit = function(strokes) {
+    dispatch(strokesActions.submitSort(strokes))
   }
 
   return {
     onAddChars,
     onDeleteChars,
-    onSort
+    onSort,
+    onSubmit
   }
 }
 
@@ -42,9 +47,15 @@ class StrokesEditor extends React.Component {
     return (
       <Container>
         <Row><Col><h1>笔顺</h1></Col></Row>
+        <Row><Col><p>我们的字库里很多字的笔顺不正确，需要您的帮助。请将笔画按正确的次序排好后提交。如果笔顺已经被编辑过，请核查是否正确。谢谢！</p></Col></Row>
         <Loader show={ !this.props.strokes.get('strokesLoaded') } message='Loading'>
           <CharsField onAddChars={ this.handlers.onAddChars } onDeleteChars={ this.handlers.onDeleteChars } />
           <StrokesSorter strokes={this.props.strokes.get('strokes')} onSort={this.handlers.onSort}/>
+          <Row>
+            <Col sm={{size: 'auto', offset: 5}} >
+              <Button className='center-block' disabled={ this.props.strokes.get('strokes') === null } onClick={ e => this.handlers.onSubmit(this.props.strokes) }>提交</Button>
+            </Col>
+          </Row>
         </Loader>
       </Container>
     )
