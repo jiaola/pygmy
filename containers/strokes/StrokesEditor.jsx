@@ -13,7 +13,7 @@ let createHandlers = function(dispatch) {
       // dispatch error message
     } else {
       dispatch(strokesActions.sendStrokesRequest())
-      dispatch(strokesActions.requestStrokes(chars[0], strokesActions.receiveStrokesResponse))
+      dispatch(strokesActions.requestStrokes(chars[0], strokesActions.receiveStrokesResponse, strokesActions.requestStrokesFailed))
     }
   }
 

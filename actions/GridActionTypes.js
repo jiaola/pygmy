@@ -19,7 +19,10 @@ let GridActionTypes = FluxConstant.set([
   'SEND_GRID_REQUEST',
   'RECEIVE_GRID_RESPONSE',
   'SUBMIT_GRID_FAILED',
-  'RESET_GRID'
+  'RESET_GRID',
+  'ADD_ERROR',
+  'DELETE_ERROR',
+  'DELETE_ERRORS'
 ])
 
 export default GridActionTypes

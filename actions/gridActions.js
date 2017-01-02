@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import GridActionTypes from './GridActionTypes'
-import { API_ROOT, fetchHandler } from './index'
+import { API_ROOT, fetchHandler, addError } from './index'
 import * as Utils from '../utils/Utils'
 
 // Forms
@@ -54,7 +54,11 @@ export function addChars(chars) {
     return fetch(`${API_ROOT}/characters/pinyins?${query}`, {mode: 'cors'})
       .then(response => fetchHandler(response))
       .then(json => dispatch(receivePinyinResponse(json)))
-      .catch(error => dispatch(requestPinyinFailed(error)))
+      .catch(error => {
+        console.log('ERROR:', error)
+        dispatch(requestPinyinFailed())
+        dispatch(addError(GridActionTypes.ADD_ERROR, error))
+      })
   }
 }
 
@@ -101,7 +105,6 @@ export function requestPinyinFailed(error) {
   }
 }
 
-
 // Submit
 export function submitGrid(grids) {
   var chars = grids.get('chars')
@@ -118,7 +121,10 @@ export function submitGrid(grids) {
     return fetch(`${API_ROOT}/grid/email_pdf?${query}`, {mode: 'cors'})
       .then(response => fetchHandler(response))
       .then(json => dispatch(receiveGridResponse(json)))
-      .catch(error => dispatch(submitGridFailed(error)))
+      .catch(error => {
+        dispatch(submitGridFailed())
+        dispatch(addError(GridActionTypes.ADD_ERROR, error))
+      })
   }
 }
 
@@ -139,8 +145,7 @@ export function receiveGridResponse(json) {
 
 export function submitGridFailed(error) {
   return {
-    type: GridActionTypes.SUBMIT_GRID_FAILED,
-    error
+    type: GridActionTypes.SUBMIT_GRID_FAILED
   }
 }
 

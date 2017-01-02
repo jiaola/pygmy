@@ -6,10 +6,13 @@ import CharsField from '../../components/shared/CharsField'
 import NumberField from '../../components/grids/NumberField'
 import Email from '../../components/grids/Email'
 import GridFormat from '../../components/grids/GridFormat'
+import Alerts from '../../components/shared/Alerts'
 import PrintOption from '../../components/grids/PrintOption'
 import CharList from '../../components/grids/CharList'
 
 import * as actions from '../../actions/gridActions'
+import { deleteErrors } from '../../actions/index'
+import GridActionTypes from '../../actions/GridActionTypes'
 
 let createHandlers = function(dispatch) {
   let onCharsPerRowChange = function(value) {
@@ -52,6 +55,10 @@ let createHandlers = function(dispatch) {
     dispatch(actions.resetGrid())
   }
 
+  let onErrorsDismiss = function() {
+    dispatch(deleteErrors(GridActionTypes.DELETE_ERRORS))
+  }
+
   return {
     onCharsPerRowChange,
     onEmailChange,
@@ -62,7 +69,8 @@ let createHandlers = function(dispatch) {
     onAddChars,
     onDeleteChars,
     onSubmit,
-    onReset
+    onReset,
+    onErrorsDismiss
   }
 }
 
@@ -76,6 +84,7 @@ class GridForm extends React.Component {
     return (
       <Container>
         <Row><Col><h1>田字格</h1></Col></Row>
+        <Row><Col><Alerts type='danger' messages={ this.props.grids.get('errors') } onDismiss={ this.handlers.onErrorsDismiss }/></Col></Row>
         <Loader show={ !this.props.gridsCreated } message={ 'loading' }>
         <Row>
             <Col xs='12' sm='3' md='3' lg='3'>
@@ -111,7 +120,7 @@ class GridForm extends React.Component {
         </Row>
         <Row>
           <Col sm={{size: 'auto', offset: 5}} >
-            <Button className='center-block' onClick={ e => this.handlers.onSubmit(this.props.state.grids) }>提交</Button>
+            <Button className='center-block' onClick={ e => this.handlers.onSubmit(this.props.grids) }>提交</Button>
             <Button className='center-block' onClick={ this.handlers.onReset }>取消</Button>
           </Col>
         </Row>
@@ -132,7 +141,7 @@ const mapStateToProps = function(state) {
     gridsCreated: state.grids.get('gridsCreated'),
     chars: state.grids.get('chars'),
     charsLoaded: state.grids.get('charsLoaded'),
-    state
+    grids: state.grids
   }
 }
 

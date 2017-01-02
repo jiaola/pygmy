@@ -11,7 +11,8 @@ const initialState = Immutable.Map({
   email: '',
   gridsCreated: true,
   chars: Immutable.List([]),
-  charsLoaded: true
+  charsLoaded: true,
+  errors: Immutable.List([])
 })
 
 export default (state = initialState, action) => {
@@ -48,7 +49,6 @@ export default (state = initialState, action) => {
       return state.set('charsLoaded', true)
     case GridActionTypes.SET_CHAR_PINYIN:
       return state.set('chars', state.get('chars').update(action.index, (char) => char.set('selectedPinyin', action.pinyin)))
-      // TODO: Process error
     // Submit
     case GridActionTypes.SEND_GRID_REQUEST:
       return state.set('gridsCreated', false)
@@ -56,10 +56,15 @@ export default (state = initialState, action) => {
       return state.set('gridsCreated', true)
     case GridActionTypes.SUBMIT_GRID_FAILED:
       return state.set('gridsCreated', true)
-      console.log('Submit grid failed')
     case GridActionTypes.RESET_GRID:
       return initialState
-      return state
+    case GridActionTypes.ADD_ERROR:
+      console.log('ADD_ERROR', action.error)
+      return state.set('errors', state.get('errors').push(action.error))
+    case GridActionTypes.DELETE_ERROR:
+      return state.set('errors', state.get('errors').filter((e, i) => i !== action.index))
+    case GridActionTypes.DELETE_ERRORS:
+      return state.set('errors', state.get('errors').clear())
     default:
       return state
   }

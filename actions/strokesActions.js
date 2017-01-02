@@ -19,6 +19,13 @@ export function sendStrokesRequest() {
   }
 }
 
+export function requestStrokesFailed(error) {
+  return {
+    type: StrokesActionTypes.REQUEST_STROKES_FAILED,
+    error
+  }
+}
+
 export function receiveStrokesResponse(char, json) {
   console.log('RECEIVE_STROKES_RESPONSE', char, json);
   return {
