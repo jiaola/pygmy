@@ -4,7 +4,8 @@ import TyposActionTypes from '../actions/TyposActionTypes'
 export default (state = Immutable.Map({
   strokes: null,
   hidden: Immutable.Set([]),
-  typosLoaded: true
+  typosLoaded: true,
+  errors: Immutable.List([])
 }), action) => {
   switch(action.type) {
     case TyposActionTypes.SELECT_STROKE:
@@ -21,6 +22,14 @@ export default (state = Immutable.Map({
       return state.set('typosLoaded', false)
     case TyposActionTypes.DELETE_CHARS:
       return state.set('strokes', null).set('hidden', state.get('hidden').clear())
+    case TyposActionTypes.REQUEST_TYPOS_FAILED:
+      return state.set('typosLoaded', true)
+    case TyposActionTypes.ADD_ERROR:
+      return state.set('errors', state.get('errors').push(action.error))
+    case TyposActionTypes.DELETE_ERROR:
+      return state.set('errors', state.get('errors').filter((e, i) => i !== action.index))
+    case TyposActionTypes.DELETE_ERRORS:
+      return state.set('errors', state.get('errors').clear())
     default:
       return state
   }

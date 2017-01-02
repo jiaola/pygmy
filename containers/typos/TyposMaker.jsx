@@ -3,35 +3,44 @@ import { connect } from 'react-redux'
 import update from 'immutability-helper'
 import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
 import Loader from 'react-loader-advanced'
-import { requestStrokes } from '../../actions/strokesActions'
-import { receiveTyposResponse, selectStroke, sendTyposRequest, deleteChars} from '../../actions/typosActions'
+
 import CharsField from '../../components/shared/CharsField'
 import StrokesPicker from '../../components/typos/StrokesPicker'
 import EaselPainter from '../../components/strokes/EaselPainter'
+import Alerts from '../../components/shared/Alerts'
 
+import * as typosActions from '../../actions/typosActions'
+import { deleteErrors } from '../../actions/index'
+import TyposActionTypes from '../../actions/TyposActionTypes'
 
 let createHandlers = function(dispatch) {
   let onAddChars = function(chars) {
     if (chars.length < 1) {
       // dispatch error message
     } else {
-      dispatch(sendTyposRequest())
-      dispatch(requestStrokes(chars[0], receiveTyposResponse))
+      dispatch(typosActions.sendTyposRequest())
+      dispatch(typosActions.requestTypos(chars[0]))
     }
   }
 
   let onDeleteChars = function() {
-    dispatch(deleteChars())
+    dispatch(typosActions.deleteChars())
   }
 
   let onSelectStroke = function(index) {
-    dispatch(selectStroke(index))
+    dispatch(typosActions.selectStroke(index))
   }
+
+  let onErrorsDismiss = function() {
+    dispatch(deleteErrors(TyposActionTypes.DELETE_ERRORS))
+  }
+
 
   return {
     onAddChars,
     onDeleteChars,
-    onSelectStroke
+    onSelectStroke,
+    onErrorsDismiss
   }
 }
 
@@ -50,6 +59,7 @@ class TyposMaker extends React.Component {
     return (
       <Container>
         <Row><Col><h1>错别字</h1></Col></Row>
+        <Row><Col><Alerts type='danger' messages={ this.props.typos.get('errors') } onDismiss={ this.handlers.onErrorsDismiss }/></Col></Row>
         <Loader show={ !this.props.typos.get('typosLoaded') } message='loading'>
         <Row>
           <Col><CharsField onAddChars={ this.handlers.onAddChars } onDeleteChars={ this.handlers.onDeleteChars }/></Col>

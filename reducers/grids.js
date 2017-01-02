@@ -1,6 +1,5 @@
 import Immutable from 'immutable'
 import GridActionTypes from '../actions/GridActionTypes'
-import * as Utils from '../utils/Utils'
 
 const initialState = Immutable.Map({
   gridsPerRow: 15,
