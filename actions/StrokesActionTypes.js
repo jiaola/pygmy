@@ -7,7 +7,11 @@ let StrokesActionTypes = FluxConstant.set([
   'DELETE_CHARS',
   'SEND_SORT_REQUEST',
   'RECEIVE_SORT_RESPONSE',
-  'SUBMIT_SORT_FAILED'
+  'SUBMIT_SORT_FAILED',
+  'REQUEST_STROKES_FAILED',
+  'ADD_ERROR',
+  'DELETE_ERROR',
+  'DELETE_ERRORS'
 ])
 
 export default StrokesActionTypes

@@ -1,14 +1,17 @@
 import fetch from 'isomorphic-fetch'
 import StrokesActionTypes from './StrokesActionTypes'
-import { API_ROOT, fetchHandler } from './index'
+import { API_ROOT, fetchHandler, addError } from './index'
 
-export function requestStrokes(char, responseAction, errorAction) {
+export function requestStrokes(char) {
   return dispatch => {
     var unicode = char.charCodeAt(0).toString(16)
     return fetch(`${API_ROOT}/characters/strokes/${unicode}`, {mode: 'cors'})
       .then(response => fetchHandler(response))
-      .then(json => dispatch(responseAction(char, json)))
-      .catch(error => dispatch(errorAction(error)))
+      .then(json => dispatch(receiveStrokesResponse(char, json)))
+      .catch(error => {
+        dispatch(requestStrokesFailed())
+        dispatch(addError(StrokesActionTypes.ADD_ERROR, error))
+      })
   }
 }
 
@@ -19,15 +22,13 @@ export function sendStrokesRequest() {
   }
 }
 
-export function requestStrokesFailed(error) {
+export function requestStrokesFailed() {
   return {
-    type: StrokesActionTypes.REQUEST_STROKES_FAILED,
-    error
+    type: StrokesActionTypes.REQUEST_STROKES_FAILED
   }
 }
 
 export function receiveStrokesResponse(char, json) {
-  console.log('RECEIVE_STROKES_RESPONSE', char, json);
   return {
     type: StrokesActionTypes.RECEIVE_STROKES_RESPONSE,
     char,
@@ -59,7 +60,10 @@ export function submitSort(strokes) {
     return fetch(`${API_ROOT}/characters/reorder?${query}`, {mode: 'cors'})
       .then(response => fetchHandler(response))
       .then(json => dispatch(receiveSortResponse(json)))
-      .catch(error => dispatch(submitSortFailed(error)))
+      .catch(error => {
+        dispatch(submitSortFailed())
+        dispatch(addError(StrokesActionTypes.ADD_ERROR, error))
+      })
   }
 }
 
@@ -76,9 +80,8 @@ export function receiveSortResponse(json) {
   }
 }
 
-export function submitSortFailed(error) {
+export function submitSortFailed() {
   return {
-    type: StrokesActionTypes.SUBMIT_SORT_FAILED,
-    error
+    type: StrokesActionTypes.SUBMIT_SORT_FAILED
   }
 }

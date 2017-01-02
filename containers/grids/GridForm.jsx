@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
 import Loader from 'react-loader-advanced'
+
 import CharsField from '../../components/shared/CharsField'
 import NumberField from '../../components/grids/NumberField'
 import Email from '../../components/grids/Email'

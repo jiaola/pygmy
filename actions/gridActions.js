@@ -55,9 +55,8 @@ export function addChars(chars) {
       .then(response => fetchHandler(response))
       .then(json => dispatch(receivePinyinResponse(json)))
       .catch(error => {
-        console.log('ERROR:', error)
-        dispatch(requestPinyinFailed())
         dispatch(addError(GridActionTypes.ADD_ERROR, error))
+        dispatch(requestPinyinFailed())
       })
   }
 }

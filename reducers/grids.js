@@ -59,7 +59,6 @@ export default (state = initialState, action) => {
     case GridActionTypes.RESET_GRID:
       return initialState
     case GridActionTypes.ADD_ERROR:
-      console.log('ADD_ERROR', action.error)
       return state.set('errors', state.get('errors').push(action.error))
     case GridActionTypes.DELETE_ERROR:
       return state.set('errors', state.get('errors').filter((e, i) => i !== action.index))

@@ -3,9 +3,14 @@ import { connect } from 'react-redux'
 //import StrokesSorter from './StrokesSorter'
 import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
 import Loader from 'react-loader-advanced'
-import * as strokesActions from '../../actions/strokesActions'
+
 import CharsField from '../../components/shared/CharsField'
 import StrokesSorter from '../../components/strokes/StrokesSorter'
+import Alerts from '../../components/shared/Alerts'
+
+import * as strokesActions from '../../actions/strokesActions'
+import { deleteErrors } from '../../actions/index'
+import StrokesActionTypes from '../../actions/StrokesActionTypes'
 
 let createHandlers = function(dispatch) {
   let onAddChars = function(chars) {
@@ -13,7 +18,7 @@ let createHandlers = function(dispatch) {
       // dispatch error message
     } else {
       dispatch(strokesActions.sendStrokesRequest())
-      dispatch(strokesActions.requestStrokes(chars[0], strokesActions.receiveStrokesResponse, strokesActions.requestStrokesFailed))
+      dispatch(strokesActions.requestStrokes(chars[0]))
     }
   }
 
@@ -29,11 +34,16 @@ let createHandlers = function(dispatch) {
     dispatch(strokesActions.submitSort(strokes))
   }
 
+  let onErrorsDismiss = function() {
+    dispatch(deleteErrors(StrokesActionTypes.DELETE_ERRORS))
+  }
+
   return {
     onAddChars,
     onDeleteChars,
     onSort,
-    onSubmit
+    onSubmit,
+    onErrorsDismiss
   }
 }
 
@@ -47,6 +57,7 @@ class StrokesEditor extends React.Component {
     return (
       <Container>
         <Row><Col><h1>笔顺</h1></Col></Row>
+        <Row><Col><Alerts type='danger' messages={ this.props.strokes.get('errors') } onDismiss={ this.handlers.onErrorsDismiss }/></Col></Row>
         <Row><Col><p>我们的字库里很多字的笔顺不正确，需要您的帮助。请将笔画按正确的次序排好后提交。如果笔顺已经被编辑过，请核查是否正确。谢谢！</p></Col></Row>
         <Loader show={ !this.props.strokes.get('strokesLoaded') } message='Loading'>
           <CharsField onAddChars={ this.handlers.onAddChars } onDeleteChars={ this.handlers.onDeleteChars } />
