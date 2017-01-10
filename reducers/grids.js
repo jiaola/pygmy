@@ -6,7 +6,7 @@ const initialState = Immutable.Map({
   charsPerRow: 3,
   gridFormat: 'field',
   printPinyin: true,
-  printStrokes: false,
+  printStrokes: true,
   email: '',
   gridsCreated: true,
   chars: Immutable.List([]),
