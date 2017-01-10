@@ -11,7 +11,8 @@ let StrokesActionTypes = FluxConstant.set([
   'REQUEST_STROKES_FAILED',
   'ADD_ERROR',
   'DELETE_ERROR',
-  'DELETE_ERRORS'
+  'DELETE_ERRORS',
+  'DELETE_MESSAGES'
 ])
 
 export default StrokesActionTypes

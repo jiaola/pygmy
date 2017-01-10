@@ -26,3 +26,9 @@ export function deleteErrors(type) {
     type
   }
 }
+
+export function deleteMessages(type) {
+  return {
+    type
+  }
+}

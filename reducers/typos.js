@@ -5,7 +5,8 @@ export default (state = Immutable.Map({
   strokes: null,
   hidden: Immutable.Set([]),
   typosLoaded: true,
-  errors: Immutable.List([])
+  errors: Immutable.List([]),
+  messages: Immutable.List([])
 }), action) => {
   switch(action.type) {
     case TyposActionTypes.SELECT_STROKE:
@@ -30,6 +31,8 @@ export default (state = Immutable.Map({
       return state.set('errors', state.get('errors').filter((e, i) => i !== action.index))
     case TyposActionTypes.DELETE_ERRORS:
       return state.set('errors', state.get('errors').clear())
+    case TyposActionTypes.DELETE_MESSAGES:
+      return state.set('messages', state.get('messages').clear())
     default:
       return state
   }

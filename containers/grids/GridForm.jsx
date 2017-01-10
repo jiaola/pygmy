@@ -12,7 +12,7 @@ import PrintOption from '../../components/grids/PrintOption'
 import CharList from '../../components/grids/CharList'
 
 import * as actions from '../../actions/gridActions'
-import { deleteErrors } from '../../actions/index'
+import { deleteErrors, deleteMessages } from '../../actions/index'
 import GridActionTypes from '../../actions/GridActionTypes'
 
 let createHandlers = function(dispatch) {
@@ -60,6 +60,10 @@ let createHandlers = function(dispatch) {
     dispatch(deleteErrors(GridActionTypes.DELETE_ERRORS))
   }
 
+  let onMessagesDismiss = function() {
+    dispatch(deleteMessages(GridActionTypes.DELETE_MESSAGES))
+  }
+
   return {
     onCharsPerRowChange,
     onEmailChange,
@@ -71,7 +75,8 @@ let createHandlers = function(dispatch) {
     onDeleteChars,
     onSubmit,
     onReset,
-    onErrorsDismiss
+    onErrorsDismiss,
+    onMessagesDismiss
   }
 }
 
@@ -86,6 +91,7 @@ class GridForm extends React.Component {
       <Container>
         <Row><Col><h1>田字格</h1></Col></Row>
         <Row><Col><Alerts type='danger' messages={ this.props.grids.get('errors') } onDismiss={ this.handlers.onErrorsDismiss }/></Col></Row>
+        <Row><Col><Alerts type='info' messages={ this.props.grids.get('messages') } onDismiss={ this.handlers.onMessagesDismiss }/></Col></Row>
         <Loader show={ !this.props.gridsCreated } message={ 'loading' }>
         <Row>
             <Col xs='12' sm='3' md='3' lg='3'>

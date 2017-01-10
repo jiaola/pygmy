@@ -9,7 +9,7 @@ import StrokesSorter from '../../components/strokes/StrokesSorter'
 import Alerts from '../../components/shared/Alerts'
 
 import * as strokesActions from '../../actions/strokesActions'
-import { deleteErrors } from '../../actions/index'
+import { deleteErrors, deleteMessages } from '../../actions/index'
 import StrokesActionTypes from '../../actions/StrokesActionTypes'
 
 let createHandlers = function(dispatch) {
@@ -38,12 +38,17 @@ let createHandlers = function(dispatch) {
     dispatch(deleteErrors(StrokesActionTypes.DELETE_ERRORS))
   }
 
+  let onMessagesDismiss = function() {
+    dispatch(deleteMessages(StrokesActionTypes.DELETE_MESSAGES))
+  }
+
   return {
     onAddChars,
     onDeleteChars,
     onSort,
     onSubmit,
-    onErrorsDismiss
+    onErrorsDismiss,
+    onMessagesDismiss
   }
 }
 
@@ -59,6 +64,7 @@ class StrokesEditor extends React.Component {
         <Row><Col><h1>笔顺</h1></Col></Row>
         <Loader show={ this.props.strokes.get('sortSubmitted') } message='Submitting'>
         <Row><Col><Alerts type='danger' messages={ this.props.strokes.get('errors') } onDismiss={ this.handlers.onErrorsDismiss }/></Col></Row>
+        <Row><Col><Alerts type='info' messages={ this.props.strokes.get('messages') } onDismiss={ this.handlers.onMessagesDismiss }/></Col></Row>
         <Row><Col><p>我们的字库里很多字的笔顺不正确，需要您的帮助。请将笔画按正确的次序排好后提交。如果笔顺已经被编辑过，请核查是否正确。谢谢！</p></Col></Row>
         <Loader show={ !this.props.strokes.get('strokesLoaded') } message='Loading'>
           <CharsField onAddChars={ this.handlers.onAddChars } onDeleteChars={ this.handlers.onDeleteChars } />

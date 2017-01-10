@@ -8,7 +8,8 @@ let TyposActionTypes = FluxConstant.set([
   'REQUEST_TYPOS_FAILED',
   'ADD_ERROR',
   'DELETE_ERROR',
-  'DELETE_ERRORS'
+  'DELETE_ERRORS',
+  'DELETE_MESSAGES'
 ])
 
 export default TyposActionTypes

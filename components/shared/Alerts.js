@@ -9,7 +9,7 @@ class Alerts extends React.Component {
   render() {
     return (
       <Alert color={ this.props.type } isOpen={ !this.props.messages.isEmpty() } toggle={ this.props.onDismiss }>
-        <ul>
+        <ul style={ { marginBottom: 0 } }>
         { this.props.messages.map((m, i) =>
           <li key={i}>{m.message}</li>
         )}

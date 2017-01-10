@@ -9,6 +9,7 @@ class CharsField extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleAddClick = this.handleAddClick.bind(this)
     this.handleDeleteClick = this.handleDeleteClick.bind(this)
+    this.hasChars = this.hasChars.bind(this)
     this.state = Immutable.Map({
       chars: ''
     })
@@ -41,6 +42,10 @@ class CharsField extends React.Component {
     chars = chars.replace(/ /g,'').split("")
     chars = chars.filter(x => /^[\u4e00-\u9eff]$/i.exec(x) != null) // only Chinese characters
     return chars
+  }
+
+  hasChars() {
+    return this.state.get('chars').trim() != ''
   }
 
   render() {

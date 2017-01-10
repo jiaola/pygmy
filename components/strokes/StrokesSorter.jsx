@@ -1,5 +1,5 @@
-import React, {PropTypes} from "react";
-import Sortable from 'sortablejs';
+import React, {PropTypes} from "react"
+import Sortable from 'sortablejs'
 import { connect } from 'react-redux'
 import EaselPainter from './EaselPainter'
 import { API_ROOT } from '../../actions'
@@ -40,14 +40,17 @@ class StrokesSorter extends React.Component {
 
   render() {
     let listItems = null
+    let badge = null
     if (this.props.strokes != null) {
       if (this.props.strokes.hasOwnProperty('order')) {
+        badge = <p><span className="tag tag-success">已编辑</span></p>
         listItems = this.props.strokes.order.map(function(i) {
           return (
             <img src={`${API_ROOT}/assets/strokes/${this.props.strokes.unicode.substring(2,6)}/${i}_50.gif`} width={50} height={50} key={i} data-index={i}/>
           )
         }, this)
       } else {
+        badge = <p><span className="tag tag-danger">未编辑</span></p>
         listItems = this.props.strokes.Stroke.map(function(s, i) {
           return (
             <img src={`${API_ROOT}/assets/strokes/${this.props.strokes.unicode.substring(2,6)}/${i}_50.gif`} width={50} height={50} key={i} data-index={i}/>
@@ -57,9 +60,10 @@ class StrokesSorter extends React.Component {
     }
     return (
       <div className="container" ref={this.sortableContainersDecorator}>
+        <div>{ badge }</div>
         <div className="group">
           <div className="group-list" ref={this.sortableGroupDecorator}>
-            {listItems}
+            { listItems }
           </div>
         </div>
       </div>

@@ -11,7 +11,8 @@ const initialState = Immutable.Map({
   gridsCreated: true,
   chars: Immutable.List([]),
   charsLoaded: true,
-  errors: Immutable.List([])
+  errors: Immutable.List([]),
+  messages: Immutable.List([])
 })
 
 export default (state = initialState, action) => {
@@ -52,7 +53,7 @@ export default (state = initialState, action) => {
     case GridActionTypes.SEND_GRID_REQUEST:
       return state.set('gridsCreated', false)
     case GridActionTypes.RECEIVE_GRID_RESPONSE:
-      return state.set('gridsCreated', true)
+      return initialState.set('messages', state.get('messages').push(action.json))
     case GridActionTypes.SUBMIT_GRID_FAILED:
       return state.set('gridsCreated', true)
     case GridActionTypes.RESET_GRID:
@@ -63,6 +64,8 @@ export default (state = initialState, action) => {
       return state.set('errors', state.get('errors').filter((e, i) => i !== action.index))
     case GridActionTypes.DELETE_ERRORS:
       return state.set('errors', state.get('errors').clear())
+    case GridActionTypes.DELETE_MESSAGES:
+      return state.set('messages', state.get('messages').clear())
     default:
       return state
   }
