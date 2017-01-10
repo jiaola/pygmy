@@ -4,7 +4,7 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import store from './store'
 import App from './containers/App'
-import About from './components/About'
+import Home from './components/Home'
 import GridForm from './containers/grids/GridForm'
 import StrokesEditor from './containers/strokes/StrokesEditor'
 import TyposMaker from './containers/typos/TyposMaker'
@@ -19,8 +19,8 @@ render(
     { /* Tell the Router to use our enhanced history */ }
     <Router history={history}>
       <Route path="/" component={App}>
-        <IndexRoute component={GridForm}/>
-        <Route path="about" component={About}/>
+        <IndexRoute component={Home}/>
+        <Route path="grid" component={GridForm}/>
         <Route path="strokes" component={StrokesEditor}/>
         <Route path="typos" component={TyposMaker}/>
       </Route>

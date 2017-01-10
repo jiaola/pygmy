@@ -57,6 +57,7 @@ class StrokesEditor extends React.Component {
     return (
       <Container>
         <Row><Col><h1>笔顺</h1></Col></Row>
+        <Loader show={ this.props.strokes.get('sortSubmitted') } message='Submitting'>
         <Row><Col><Alerts type='danger' messages={ this.props.strokes.get('errors') } onDismiss={ this.handlers.onErrorsDismiss }/></Col></Row>
         <Row><Col><p>我们的字库里很多字的笔顺不正确，需要您的帮助。请将笔画按正确的次序排好后提交。如果笔顺已经被编辑过，请核查是否正确。谢谢！</p></Col></Row>
         <Loader show={ !this.props.strokes.get('strokesLoaded') } message='Loading'>
@@ -67,6 +68,7 @@ class StrokesEditor extends React.Component {
               <Button className='center-block' disabled={ this.props.strokes.get('strokes') === null } onClick={ e => this.handlers.onSubmit(this.props.strokes) }>提交</Button>
             </Col>
           </Row>
+        </Loader>
         </Loader>
       </Container>
     )

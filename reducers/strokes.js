@@ -5,6 +5,7 @@ export default (state = Immutable.Map({
   strokes: null,
   order: [],
   strokesLoaded: true,
+  sortSubmitted: false,
   errors: Immutable.List([])
 }), action) => {
   switch(action.type) {
@@ -18,8 +19,13 @@ export default (state = Immutable.Map({
       return state.set('strokesLoaded', false)
     case StrokesActionTypes.REQUEST_STROKES_FAILED:
       return state.set('strokesLoaded', true)
+    case StrokesActionTypes.SEND_SORT_REQUEST:
+      return state.set('sortSubmitted', true)
+    case StrokesActionTypes.RECEIVE_SORT_RESPONSE:
+      return state.set('sortSubmitted', false)
+    case StrokesActionTypes.SUBMIT_SORT_FAILED:
+      return state.set('sortSubmitted', false)
     case StrokesActionTypes.ADD_ERROR:
-      console.log('reduce ADD ERROR')
       return state.set('errors', state.get('errors').push(action.error))
     case StrokesActionTypes.DELETE_ERROR:
       return state.set('errors', state.get('errors').filter((e, i) => i !== action.index))

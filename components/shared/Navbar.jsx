@@ -8,23 +8,20 @@ const Navbar = () => (
       <button className="navbar-toggler hidden-sm-up pull-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
           ☰
       </button>
-      <a className="navbar-brand" href="#">Navbar</a>
+      <Link className="navbar-brand" to="/">中文工具</Link>
       <div className="collapse navbar-toggleable-xs" id="collapsingNavbar">
           <ul className="nav navbar-nav ">
               <li className="nav-item active">
-                  <Link className="nav-link" to="/">Home <span className="sr-only">主页</span></Link>
+                  <Link className="nav-link" to="/" activeClassName="active">Home <span className="sr-only">主页</span></Link>
               </li>
               <li className="nav-item">
-                  <Link className="nav-link" to='/' data-toggle="collapse">田字格</Link>
+                  <Link className="nav-link" to='/grid' activeClassName="active" data-toggle="collapse">田字格</Link>
               </li>
               <li className="nav-item">
-                  <Link className="nav-link" to="/strokes">笔顺编辑</Link>
-              </li>
+                  <Link className="nav-link" to="/typos" activeClassName="active">错别字</Link>
+              </li>              
               <li className="nav-item">
-                  <Link className="nav-link" to="/typos">错别字</Link>
-              </li>
-              <li className="nav-item">
-                  <Link className="nav-link" to="/about" data-target="#myModal" data-toggle="modal">关于</Link>
+                  <Link className="nav-link" to="/strokes" activeClassName="active">笔顺编辑</Link>
               </li>
           </ul>
       </div>
