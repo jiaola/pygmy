@@ -5,7 +5,8 @@
   "main": "index.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "build:webpack": "webpack -p --define process.env.NODE_ENV='\"production\"'"
   },
   "author": "Dazhi Jiao <dazhi.jiao@gmail.com>",
   "license": "ISC",
