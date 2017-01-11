@@ -10,7 +10,8 @@ import EaselPainter from '../../components/strokes/EaselPainter'
 import Alerts from '../../components/shared/Alerts'
 
 import * as typosActions from '../../actions/typosActions'
-import { deleteErrors, deleteMessages } from '../../actions/index'
+import * as sharedActions from '../../actions/sharedActions'
+import { deleteErrors, deleteMessages } from '../../actions/sharedActions'
 import TyposActionTypes from '../../actions/TyposActionTypes'
 
 let createHandlers = function(dispatch) {
@@ -18,8 +19,7 @@ let createHandlers = function(dispatch) {
     if (chars.length < 1) {
       // dispatch error message
     } else {
-      dispatch(typosActions.sendTyposRequest())
-      dispatch(typosActions.requestTypos(chars[0]))
+      dispatch(sharedActions.requestChar(chars[0], TyposActionTypes.SEND_CHAR_REQUEST, TyposActionTypes.RECEIVE_CHAR_RESPONSE, TyposActionTypes.REQUEST_CHAR_FAILED, TyposActionTypes.ADD_ERROR))
     }
   }
 

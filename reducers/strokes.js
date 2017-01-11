@@ -12,7 +12,7 @@ const initialState = Immutable.Map({
 
 export default (state = initialState, action) => {
   switch(action.type) {
-    case StrokesActionTypes.RECEIVE_STROKES_RESPONSE:
+    case StrokesActionTypes.RECEIVE_CHAR_RESPONSE:
       console.log('strokes', action.json)
       let N = action.json.Stroke.length
       let order = Array.apply(null, {length: N}).map(Number.call, Number)
@@ -21,9 +21,9 @@ export default (state = initialState, action) => {
       return state.set('order', action.order)
     case StrokesActionTypes.DELETE_CHARS:
       return state.set('strokes', null).set('order', [])
-    case StrokesActionTypes.SEND_STROKES_REQUEST:
+    case StrokesActionTypes.SEND_CHAR_REQUEST:
       return state.set('strokesLoaded', false)
-    case StrokesActionTypes.REQUEST_STROKES_FAILED:
+    case StrokesActionTypes.REQUEST_CHAR_FAILED:
       return state.set('strokesLoaded', true)
     case StrokesActionTypes.SEND_SORT_REQUEST:
       return state.set('sortSubmitted', true)

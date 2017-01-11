@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch'
 import GridActionTypes from './GridActionTypes'
-import { API_ROOT, fetchHandler, addError } from './index'
+import { API_ROOT } from './index'
+import { fetchHandler, addError } from './sharedActions'
 import * as Utils from '../utils/Utils'
 
 // Forms

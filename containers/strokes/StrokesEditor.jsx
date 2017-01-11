@@ -8,8 +8,9 @@ import CharsField from '../../components/shared/CharsField'
 import StrokesSorter from '../../components/strokes/StrokesSorter'
 import Alerts from '../../components/shared/Alerts'
 
+import * as sharedActions from '../../actions/sharedActions'
 import * as strokesActions from '../../actions/strokesActions'
-import { deleteErrors, deleteMessages } from '../../actions/index'
+import { deleteErrors, deleteMessages } from '../../actions/sharedActions'
 import StrokesActionTypes from '../../actions/StrokesActionTypes'
 
 let createHandlers = function(dispatch) {
@@ -18,7 +19,7 @@ let createHandlers = function(dispatch) {
       // dispatch error message
     } else {
       dispatch(strokesActions.sendStrokesRequest())
-      dispatch(strokesActions.requestStrokes(chars[0]))
+      dispatch(sharedActions.requestChar(chars[0], StrokesActionTypes.SEND_CHAR_REQUEST, StrokesActionTypes.RECEIVE_CHAR_RESPONSE, StrokesActionTypes.REQUEST_CHAR_FAILED, StrokesActionTypes.ADD_ERROR))
     }
   }
 

@@ -1,41 +1,7 @@
 import fetch from 'isomorphic-fetch'
 import StrokesActionTypes from './StrokesActionTypes'
-import { API_ROOT, fetchHandler, addError } from './index'
-
-export function requestStrokes(char) {
-  return dispatch => {
-    var unicode = char.charCodeAt(0).toString(16)
-    return fetch(`${API_ROOT}/characters/strokes/${unicode}`, {mode: 'cors'})
-      .then(response => fetchHandler(response))
-      .then(json => dispatch(receiveStrokesResponse(char, json)))
-      .catch(error => {
-        dispatch(requestStrokesFailed())
-        dispatch(addError(StrokesActionTypes.ADD_ERROR, error))
-      })
-  }
-}
-
-export function sendStrokesRequest() {
-  return {
-    type: StrokesActionTypes.SEND_STROKES_REQUEST,
-    sendAt: Date.now()
-  }
-}
-
-export function requestStrokesFailed() {
-  return {
-    type: StrokesActionTypes.REQUEST_STROKES_FAILED
-  }
-}
-
-export function receiveStrokesResponse(char, json) {
-  return {
-    type: StrokesActionTypes.RECEIVE_STROKES_RESPONSE,
-    char,
-    json,
-    receivedAt: Date.now()
-  }
-}
+import { API_ROOT } from './index'
+import { fetchHandler, addError } from './sharedActions'
 
 export function deleteChars() {
   return {

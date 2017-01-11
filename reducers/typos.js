@@ -17,13 +17,13 @@ export default (state = Immutable.Map({
       } else {
         return state.set('hidden', hidden.add(index))
       }
-    case TyposActionTypes.RECEIVE_TYPOS_RESPONSE:
+    case TyposActionTypes.RECEIVE_CHAR_RESPONSE:
       return state.set('strokes', action.json).set('hidden', state.get('hidden').clear()).set('typosLoaded', true)
     case TyposActionTypes.SEND_TYPOS_REQUEST:
       return state.set('typosLoaded', false)
     case TyposActionTypes.DELETE_CHARS:
       return state.set('strokes', null).set('hidden', state.get('hidden').clear())
-    case TyposActionTypes.REQUEST_TYPOS_FAILED:
+    case TyposActionTypes.REQUEST_CHAR_FAILED:
       return state.set('typosLoaded', true)
     case TyposActionTypes.ADD_ERROR:
       return state.set('errors', state.get('errors').push(action.error))

@@ -12,7 +12,7 @@ import PrintOption from '../../components/grids/PrintOption'
 import CharList from '../../components/grids/CharList'
 
 import * as actions from '../../actions/gridActions'
-import { deleteErrors, deleteMessages } from '../../actions/index'
+import { deleteErrors, deleteMessages } from '../../actions/sharedActions'
 import GridActionTypes from '../../actions/GridActionTypes'
 
 let createHandlers = function(dispatch) {
