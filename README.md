@@ -1,4 +1,4 @@
-To test locally, make sure port 8080 is free, then run 
+To test locally, make sure port 8080 is free, then run
 
 ```
 npm start
@@ -13,7 +13,7 @@ SSH to the server brickowls.com
 ```
 cd /opt/brickowls/screech
 git pull
-webpack -p
+npm run build:webpack
 ```
 
 The settings will be shown on http://screech.brickowls.com
