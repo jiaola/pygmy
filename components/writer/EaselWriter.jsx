@@ -59,16 +59,18 @@ class EaselWriter extends React.Component {
   }
 
   // helpers
-  aniStroke() {
+  aniStroke = () => {
     return this.state.get('character').Stroke[this.state.get('aniStrokeIndex')]
   }
 
   componentDidMount() {
     this.draw()
+    this.showAllStrokes()
   }
 
   componentDidUpdate() {
     this.draw()
+    this.showAllStrokes()
   }
 
   touchStart(event) {
@@ -104,6 +106,7 @@ class EaselWriter extends React.Component {
   }
 
   showAllStrokes() {
+    console.log("character", this.props.strokes)
     let character = this.props.strokes
     if (character === null) {
       return
@@ -115,6 +118,7 @@ class EaselWriter extends React.Component {
    * Shows strokes with stroke number from start to end
    */
   showStrokes(start, end) {
+    console.log("character", this.props.strokes)
     let character = this.props.strokes
     if (character === null || end >= character.Stroke.length) {
       return
@@ -124,6 +128,7 @@ class EaselWriter extends React.Component {
 
     this.state.set('beforeShowStrokeNum', this.stage.getNumChildren())
     createjs.Ticker.addEventListener('tick', this.animateStroke)
+    console.log('tick started')
   }
 
   animateStroke(event) {
@@ -211,13 +216,7 @@ class EaselWriter extends React.Component {
 
     var strokes = this.props.strokes.Stroke
     for (var i = 0; i < strokes.length; i++) {
-      if (this.props.hStrokes.indexOf(i) < 0) { // not highlighted
-        this.stage.addChild(this.drawStroke(strokes[i], this.props.color))
-      }
-    }
-    for (var i = 0; i < this.props.hStrokes.length; i++) {
-      var h = this.props.hStrokes[i]
-      this.stage.addChild(this.drawStroke(strokes[h], this.props.color))
+      this.stage.addChild(this.drawStroke(strokes[i], 'black'))
     }
     this.stage.update()
   }

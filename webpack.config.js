@@ -22,7 +22,7 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel',
         query: {
-          presets: ['react', 'es2015']
+          presets: ['react', 'es2015', 'stage-1']
         }
       },
       { test: /\.css$/, loader: "style-loader!css-loader" }
