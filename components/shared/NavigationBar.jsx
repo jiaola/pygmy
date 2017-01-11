@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap'
+import { Container, Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink } from 'reactstrap'
 import { Link, browserHistory } from 'react-router'
 
 class NavigationBar extends React.Component {
@@ -23,7 +23,7 @@ class NavigationBar extends React.Component {
       <Navbar color="dark" className="bg-inverse navbar-fixed-top navbar-dark" light>
         <Container>
           <NavbarToggler className="float-sm-right hidden-lg-up collapsed hidden-md-up" onClick={this.toggleNavbar} style={ {color: 'white'} }>☰</NavbarToggler>
-          <NavbarBrand href="/">中文工具</NavbarBrand>
+          <Link className="navbar-brand" to="/" activeClassName="active">中文工具<span className="sr-only">中文工具</span></Link>
           <Collapse className="navbar-toggleable-sm" isOpen={!this.state.collapsed}>
             <Nav navbar>
               <NavItem>
