@@ -28,19 +28,18 @@ export default (state = initialState, action) => {
     case StrokesActionTypes.SEND_SORT_REQUEST:
       return state.set('sortSubmitted', true)
     case StrokesActionTypes.RECEIVE_SORT_RESPONSE:
-      console.log("action.json", action.json.message)
-      return initialState.set('messages', state.get('messages').push(action.json))
+      return initialState.update('messages', m => m.push(action.json))
     case StrokesActionTypes.SUBMIT_SORT_FAILED:
       return state.set('sortSubmitted', false)
     case StrokesActionTypes.ADD_ERROR:
       return state.set('errors', state.get('errors').push(action.error))
     case StrokesActionTypes.DELETE_ERROR:
-      return state.set('errors', state.get('errors').filter((e, i) => i !== action.index))
+      return state.update('errors', e => e.filter((e, i) => i !== action.index))
     case StrokesActionTypes.DELETE_ERRORS:
-      return state.set('errors', state.get('errors').clear())
+      return state.update('errors', e => e.clear())
     case StrokesActionTypes.DELETE_MESSAGES:
-      return state.set('messages', state.get('messages').clear())
-    default:
+      return state.update('messages', m => m.clear())
+  default:
       return state
   }
 }

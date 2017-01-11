@@ -11,7 +11,6 @@ import Alerts from '../../components/shared/Alerts'
 
 import * as typosActions from '../../actions/typosActions'
 import * as sharedActions from '../../actions/sharedActions'
-import { deleteErrors, deleteMessages } from '../../actions/sharedActions'
 import TyposActionTypes from '../../actions/TyposActionTypes'
 
 let createHandlers = function(dispatch) {
@@ -32,11 +31,11 @@ let createHandlers = function(dispatch) {
   }
 
   let onErrorsDismiss = function() {
-    dispatch(deleteErrors(TyposActionTypes.DELETE_ERRORS))
+    dispatch(sharedActions.deleteErrors(TyposActionTypes.DELETE_ERRORS))
   }
 
   let onMessagesDismiss = function() {
-    dispatch(deleteMessages(TyposActionTypes.DELETE_MESSAGES))
+    dispatch(sharedActions.deleteMessages(TyposActionTypes.DELETE_MESSAGES))
   }
 
   return {
@@ -66,7 +65,7 @@ class TyposMaker extends React.Component {
         <Row><Col><p>这个工具可以用来生成错字的图片。填好生字后按添加键，然后在出现的笔顺中选择要隐藏的笔顺，在右边的框中会出现错字。右键点击错字可以下载图片。</p></Col></Row>
         <Row><Col><Alerts type='danger' messages={ this.props.typos.get('errors') } onDismiss={ this.handlers.onErrorsDismiss }/></Col></Row>
         <Row><Col><Alerts type='info' messages={ this.props.typos.get('messages') } onDismiss={ this.handlers.onMessagesDismiss }/></Col></Row>
-        <Loader show={ !this.props.typos.get('typosLoaded') } message='loading'>
+        <Loader show={ !this.props.typos.get('charLoaded') } message='loading'>
         <Row>
           <Col><CharsField onAddChars={ this.handlers.onAddChars } onDeleteChars={ this.handlers.onDeleteChars }/></Col>
         </Row>

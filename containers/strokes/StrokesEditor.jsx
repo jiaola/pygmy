@@ -10,7 +10,6 @@ import Alerts from '../../components/shared/Alerts'
 
 import * as sharedActions from '../../actions/sharedActions'
 import * as strokesActions from '../../actions/strokesActions'
-import { deleteErrors, deleteMessages } from '../../actions/sharedActions'
 import StrokesActionTypes from '../../actions/StrokesActionTypes'
 
 let createHandlers = function(dispatch) {
@@ -18,7 +17,6 @@ let createHandlers = function(dispatch) {
     if (chars.length < 1) {
       // dispatch error message
     } else {
-      dispatch(strokesActions.sendStrokesRequest())
       dispatch(sharedActions.requestChar(chars[0], StrokesActionTypes.SEND_CHAR_REQUEST, StrokesActionTypes.RECEIVE_CHAR_RESPONSE, StrokesActionTypes.REQUEST_CHAR_FAILED, StrokesActionTypes.ADD_ERROR))
     }
   }
@@ -36,11 +34,11 @@ let createHandlers = function(dispatch) {
   }
 
   let onErrorsDismiss = function() {
-    dispatch(deleteErrors(StrokesActionTypes.DELETE_ERRORS))
+    dispatch(sharedActions.deleteErrors(StrokesActionTypes.DELETE_ERRORS))
   }
 
   let onMessagesDismiss = function() {
-    dispatch(deleteMessages(StrokesActionTypes.DELETE_MESSAGES))
+    dispatch(sharedActions.deleteMessages(StrokesActionTypes.DELETE_MESSAGES))
   }
 
   return {

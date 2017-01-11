@@ -18,6 +18,39 @@ let initialState = Immutable.Map({
   aniX: 0.0
 })
 
+let DollarRecognizer = function() {
+  //
+  // one built-in unistroke per gesture type
+  //
+  var Unistrokes = []
+
+  this.scoreGesture = function(index, points, useProtractor) {
+    points = Resample(points, NumPoints)
+    var radians = IndicativeAngle(points)
+    points = RotateBy(points, -radians)
+    points = ScaleTo(points, SquareSize)
+    points = TranslateTo(points, Origin)
+    var vector = Vectorize(points) // for Protractor
+    var score
+    if (useProtractor) {
+      score = OptimalCosineDistance(Unistrokes[index].Vector, vector)
+    } else {
+      score = DistanceAtBestAngle(points, Unistrokes[index], -AngleRange, +AngleRange, AnglePrecision)
+    }
+    return score
+  };
+
+  this.AddGesture = function(name, points)
+  {
+    Unistrokes.push(new Unistroke(name, points));
+  };
+
+  this.DeleteUserGestures = function()
+  {
+    Unistrokes = [];
+  };
+};
+
 class EaselWriter extends React.Component {
   constructor(props) {
     super(props)
@@ -158,7 +191,7 @@ class EaselWriter extends React.Component {
         this.stage.removeAllChildren()
         this.stage.update()
       }
-      return;
+      return
     }
     // Init CreateJS
     var canvas = ReactDOM.findDOMNode(this.refs.canvas)

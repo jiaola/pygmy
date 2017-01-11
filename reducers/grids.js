@@ -61,11 +61,11 @@ export default (state = initialState, action) => {
     case GridActionTypes.ADD_ERROR:
       return state.set('errors', state.get('errors').push(action.error))
     case GridActionTypes.DELETE_ERROR:
-      return state.set('errors', state.get('errors').filter((e, i) => i !== action.index))
+      return state.update('errors', e => e.filter((e, i) => i !== action.index))
     case GridActionTypes.DELETE_ERRORS:
-      return state.set('errors', state.get('errors').clear())
+      return state.update('errors', e => e.clear())
     case GridActionTypes.DELETE_MESSAGES:
-      return state.set('messages', state.get('messages').clear())
+      return state.update('messages', m => m.clear())
     default:
       return state
   }

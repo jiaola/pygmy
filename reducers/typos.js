@@ -4,7 +4,7 @@ import TyposActionTypes from '../actions/TyposActionTypes'
 export default (state = Immutable.Map({
   strokes: null,
   hidden: Immutable.Set([]),
-  typosLoaded: true,
+  charLoaded: true,
   errors: Immutable.List([]),
   messages: Immutable.List([])
 }), action) => {
@@ -18,21 +18,21 @@ export default (state = Immutable.Map({
         return state.set('hidden', hidden.add(index))
       }
     case TyposActionTypes.RECEIVE_CHAR_RESPONSE:
-      return state.set('strokes', action.json).set('hidden', state.get('hidden').clear()).set('typosLoaded', true)
-    case TyposActionTypes.SEND_TYPOS_REQUEST:
-      return state.set('typosLoaded', false)
+      return state.set('strokes', action.json).update('hidden', h => h.clear()).set('charLoaded', true)
+    case TyposActionTypes.SEND_CHAR_REQUEST:
+      return state.set('charLoaded', false)
     case TyposActionTypes.DELETE_CHARS:
-      return state.set('strokes', null).set('hidden', state.get('hidden').clear())
+      return state.set('strokes', null).update('hidden', h => h.clear())
     case TyposActionTypes.REQUEST_CHAR_FAILED:
-      return state.set('typosLoaded', true)
+      return state.set('charLoaded', true)
     case TyposActionTypes.ADD_ERROR:
       return state.set('errors', state.get('errors').push(action.error))
     case TyposActionTypes.DELETE_ERROR:
-      return state.set('errors', state.get('errors').filter((e, i) => i !== action.index))
+      return state.update('errors', e => e.filter((e, i) => i !== action.index))
     case TyposActionTypes.DELETE_ERRORS:
-      return state.set('errors', state.get('errors').clear())
+      return state.update('errors', e => e.clear())
     case TyposActionTypes.DELETE_MESSAGES:
-      return state.set('messages', state.get('messages').clear())
+      return state.update('messages', m => m.clear())
     default:
       return state
   }
