@@ -36,6 +36,7 @@ module.exports = {
     "createjs": "createjs"
   },
   devServer: {
+    port: 4040,
     historyApiFallback: true
   }
 }
