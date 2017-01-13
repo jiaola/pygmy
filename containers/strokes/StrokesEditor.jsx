@@ -64,7 +64,7 @@ class StrokesEditor extends React.Component {
         <Loader show={ this.props.strokes.get('sortSubmitted') } message='Submitting'>
         <Row><Col><Alerts type='danger' messages={ this.props.strokes.get('errors') } onDismiss={ this.handlers.onErrorsDismiss }/></Col></Row>
         <Row><Col><Alerts type='info' messages={ this.props.strokes.get('messages') } onDismiss={ this.handlers.onMessagesDismiss }/></Col></Row>
-        <Row><Col><p>我们的字库里很多字的笔顺不正确，需要您的帮助。请将笔画按正确的次序排好后提交。如果笔顺已经被编辑过，请核查是否正确。谢谢！</p></Col></Row>
+        <Row><Col><p>我们的字库里很多字的笔顺不正确，需要您的帮助。请在下面填一个中文字后按“添加”，然后用鼠标将笔画的图片按正确的次序排好。提交后您编辑的笔顺将被储存。如果笔顺已经被编辑过，请核查是否正确。谢谢！</p></Col></Row>
         <Loader show={ !this.props.strokes.get('strokesLoaded') } message='Loading'>
           <CharsField onAddChars={ this.handlers.onAddChars } onDeleteChars={ this.handlers.onDeleteChars } />
           <StrokesSorter strokes={this.props.strokes.get('strokes')} onSort={this.handlers.onSort}/>
