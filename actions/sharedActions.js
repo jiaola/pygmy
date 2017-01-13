@@ -1,10 +1,13 @@
 import { API_ROOT } from './index'
 
+import WriterActionTypes from './WriterActionTypes'
+
 export function requestChar(char, requestType, responseType, failureType, errorType) {
   return dispatch => {
     dispatch(sendCharRequest(requestType))
-    var unicode = char.charCodeAt(0).toString(16)
-    return fetch(`${API_ROOT}/characters/strokes/${unicode}`, {mode: 'cors'})
+    let unicode = char.charCodeAt(0).toString(16)
+    let strokesType = (requestType === WriterActionTypes.SEND_CHAR_REQUEST) ? 'big5' : strokes
+    return fetch(`${API_ROOT}/characters/${strokesType}/${unicode}`, {mode: 'cors'})
       .then(response => fetchHandler(response))
       .then(json => dispatch(receiveCharResponse(responseType, char, json)))
       .catch(error => {

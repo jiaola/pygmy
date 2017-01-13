@@ -73,15 +73,15 @@ class EaselWriter extends React.Component {
     this.showAllStrokes()
   }
 
-  touchStart(event) {
+  touchStart = (event) => {
 
   }
 
-  touchEnd(event) {
+  touchEnd = (event) => {
 
   }
 
-  clear() {
+  clear = () => {
     this.stage.clear()
     this.stage.removeAllChildren()
     this.recognizor.DeleteUserGestures()
@@ -93,11 +93,11 @@ class EaselWriter extends React.Component {
   /**
    * Stops the animation
    */
-  stopAnimation() {
+  stopAnimation = () => {
     if (!createjs.Ticker.hasEventListener('tick')) return
     createjs.Ticker.removeEventListener('tick', this.animateStroke)
     this.stage.autoClear = true
-    while (this.stage.getNumChildren() > beforeShowStrokeNum) {
+    while (this.stage.getNumChildren() > this.state.get('beforeShowStrokeNum')) {
       this.stage.removeChildAt(this.stage.getNumChildren()-1)
     }
     this.stage.mask = null
@@ -105,8 +105,7 @@ class EaselWriter extends React.Component {
     this.stage.autoClear = false
   }
 
-  showAllStrokes() {
-    console.log("character", this.props.strokes)
+  showAllStrokes = () => {
     let character = this.props.strokes
     if (character === null) {
       return
@@ -117,21 +116,19 @@ class EaselWriter extends React.Component {
   /**
    * Shows strokes with stroke number from start to end
    */
-  showStrokes(start, end) {
-    console.log("character", this.props.strokes)
+  showStrokes = (start, end) => {
     let character = this.props.strokes
     if (character === null || end >= character.Stroke.length) {
       return
     }
     this.stopAnimation()
-    this.state.set('aniTrackIndex', 0).set('aniStrokeEnd', end).set('aniStrokeIndex', start).set('moveCount', 0)
+    this.state = this.state.set('aniTrackIndex', 0).set('aniStrokeEnd', end).set('aniStrokeIndex', start).set('moveCount', 0)
 
-    this.state.set('beforeShowStrokeNum', this.stage.getNumChildren())
+    this.state = this.state.set('beforeShowStrokeNum', this.stage.getNumChildren())
     createjs.Ticker.addEventListener('tick', this.animateStroke)
-    console.log('tick started')
   }
 
-  animateStroke(event) {
+  animateStroke = (event) => {
     let character = this.props.strokes
     if (character === null) {
       this.stopAnimation()
@@ -140,36 +137,35 @@ class EaselWriter extends React.Component {
     let aniTrackIndex = this.state.get('aniTrackIndex')
     let aniStrokeIndex = this.state.get('aniStrokeIndex')
     let tracks = character.Stroke[aniStrokeIndex].Track
-    let lastTrackIndex = tracks.length - 1
     let moveCount = this.state.get('moveCount')
 
     if (aniTrackIndex === tracks.length - 1) { // last track
-      this.state.update('aniStrokeIndex', v => v + 1)
-      this.state.set('aniTrackIndex', 0).set('moveCount', 0)
-      if (aniStrokeIndex > this.state.get('aniStrokeEnd')) { // all strokes are done
+      this.state = this.state.update('aniStrokeIndex', v => v + 1).set('aniTrackIndex', 0).set('moveCount', 0)
+      if (aniStrokeIndex == this.state.get('aniStrokeEnd')) { // all strokes are done
         this.stopAnimation()
       }
       return
     }
 
     if (aniTrackIndex === 0 && this.state.get('moveCount') === 0) { // a new stroke
-      this.stage.mask = drawStrokeEasel(character.Stroke[aniStrokeIndex])
-      this.stage.addChild(drawStrokeEasel(character.Stroke[aniStrokeIndex]))
+      this.stage.mask = this.drawStroke(character.Stroke[aniStrokeIndex])
+      this.stage.addChild(this.drawStroke(character.Stroke[aniStrokeIndex]))
       this.stage.update()
     }
 
-    let x0 = scaleValue(tracks[aniTrackIndex].x)
-    let y0 = scaleValue(tracks[aniTrackIndex].y)
-    let x1 = scaleValue(tracks[aniTrackIndex+1].x)
-    let y1 = scaleValue(tracks[aniTrackIndex+1].y)
+    var x0 = this.scale(tracks[aniTrackIndex].x);
+    var y0 = this.scale(tracks[aniTrackIndex].y);
+    var x1 = this.scale(tracks[aniTrackIndex+1].x);
+    var y1 = this.scale(tracks[aniTrackIndex+1].y);
     let slope = (y1-y0)/(x1-x0)
     let moveDirectionX, xInterval
     if (moveCount === 0) {
       var xTotal = Math.ceil(Math.abs(x1-x0)/(this.props.length * 0.05))
-      var xTotal = Math.ceil(Math.abs(y1-y0)/(this.props.length * 0.05))
-      this.state.set('moveTotal',  moveTotal).set('aniX', x0).set('moveTotal', Math.max(xTotal, yTotal))
+      var yTotal = Math.ceil(Math.abs(y1-y0)/(this.props.length * 0.05))
+      this.state = this.state.set('aniX', x0).set('moveTotal', Math.max(xTotal, yTotal))
     }
     let moveTotal = this.state.get('moveTotal')
+    let aniX = this.state.get('aniX'), aniY
     xInterval = Math.abs(x1-x0)/moveTotal
     if (xInterval != 0) {
       moveDirectionX = (x1-x0)/Math.abs(x1-x0)
@@ -179,18 +175,18 @@ class EaselWriter extends React.Component {
       aniY = moveCount * 200 * 0.4 * ((y1-y0)/Math.abs(y1-y0)) + y0
     }
     var circle = new createjs.Shape()
-    circle.graphics.beginFill(this.props.color).drawCircle(aniX, aniY, scaleValue(150))
+    circle.graphics.beginFill(this.props.color).drawCircle(aniX, aniY, this.scale(150))
     this.stage.addChild(circle)
     this.stage.update()
-    this.state.update('aniX', v => v + xInterval * moveDirectionX)
+    this.state = this.state.update('aniX', v => v + xInterval * moveDirectionX)
     if (moveCount + 1 >= moveTotal) { // the last one
-      this.state.set('moveCount', 0).set('aniX', x1).update('aniTrackIndex', v => v + 1)
+      this.state = this.state.set('moveCount', 0).set('aniX', x1).update('aniTrackIndex', v => v + 1)
     } else {
-      this.state.update('moveCount', v => v + 1)
+      this.state = this.state.update('moveCount', v => v + 1)
     }
   }
 
-  draw() {
+  draw = () => {
     if (this.props.strokes == null ) {
       if (this.stage != null) {
         this.stage.removeAllChildren()
@@ -204,7 +200,7 @@ class EaselWriter extends React.Component {
     this.stage.autoClear = false
     this.stage.enableDOMEvents(true)
     createjs.Touch.enable(this.stage)
-    createjs.Ticker.setFPS(32)
+    createjs.Ticker.setFPS(16)
 
     this.stage.addEventListener('stagemousedown', this.touchStart)
     this.stage.addEventListener('stagemouseup', this.touchEnd)
@@ -222,7 +218,7 @@ class EaselWriter extends React.Component {
   }
 
   // draw a single stroke
-  drawStroke(stroke, color) {
+  drawStroke = (stroke, color) => {
     var shape = new createjs.Shape()
     shape.graphics.beginFill(color)
     for (var i = 0; i < stroke.Outline.length; i++) {
@@ -239,7 +235,7 @@ class EaselWriter extends React.Component {
     return shape
   }
 
-  scale(x) {
+  scale = (x) => {
     return x * this.props.length / 2048.0
   }
 
