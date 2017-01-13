@@ -38,9 +38,12 @@ class NavigationBar extends React.Component {
               <NavItem>
                 <Link className="nav-link" to="/strokes" activeClassName="active">笔顺编辑<span className="sr-only">笔顺编辑</span></Link>
               </NavItem>
-              // <NavItem>
-              //   <Link className="nav-link" to="/writer" activeClassName="active">写字<span className="sr-only">写字</span></Link>
-              // </NavItem>
+              {
+                // <NavItem>
+                //   <Link className="nav-link" to="/writer" activeClassName="active">写字<span className="sr-only">写字</span></Link>
+                // </NavItem>
+              }
+
             </Nav>
           </Collapse>
         </Container>
