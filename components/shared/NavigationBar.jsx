@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink } from 'reactstrap'
 import { Link, browserHistory } from 'react-router'
+import { LoginLink, LogoutLink, Authenticated, NotAuthenticated, RegisterLink } from 'react-stormpath'
 
 class NavigationBar extends React.Component {
   constructor(props) {
@@ -38,12 +39,22 @@ class NavigationBar extends React.Component {
               <NavItem>
                 <Link className="nav-link" to="/strokes" activeClassName="active">笔顺编辑<span className="sr-only">笔顺编辑</span></Link>
               </NavItem>
-              {
-                // <NavItem>
-                //   <Link className="nav-link" to="/writer" activeClassName="active">写字<span className="sr-only">写字</span></Link>
-                // </NavItem>
-              }
-
+              <NavItem>
+                <Link className="nav-link" to="/writer" activeClassName="active">写字<span className="sr-only">写字</span></Link>
+              </NavItem>
+              <NotAuthenticated className="pull-md-right">
+                <NavItem>
+                  <LoginLink className="nav-link" activeClassName="active">登录</LoginLink>
+                </NavItem>
+                <NavItem>
+                  <Link to="/register" className="nav-link" activeClassName="active">注册</Link>
+                </NavItem>
+              </NotAuthenticated>
+              <Authenticated className="pull-md-right">
+                <NavItem>
+                  <LogoutLink className="nav-link">退出</LogoutLink>
+                </NavItem>
+              </Authenticated>
             </Nav>
           </Collapse>
         </Container>

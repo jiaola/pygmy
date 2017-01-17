@@ -20,6 +20,7 @@
     "react": "^15.3.2",
     "react-addons-css-transition-group": "^15.3.2",
     "react-addons-transition-group": "^15.3.2",
+    "react-document-title": "^2.0.2",
     "react-dom": "^15.3.2",
     "react-faux-dom": "^3.0.0",
     "react-fontawesome": "^1.2.0",

@@ -9,8 +9,17 @@ import GridForm from './containers/grids/GridForm'
 import StrokesEditor from './containers/strokes/StrokesEditor'
 import TyposMaker from './containers/typos/TyposMaker'
 import StrokesWriter from './containers/writer/StrokesWriter'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import ReactStormpath, { Router, HomeRoute, LoginRoute, AuthenticatedRoute } from 'react-stormpath';
+import { Route, IndexRoute, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import { ChangePasswordPage, LoginPage, RegisterPage, ResetPasswordPage, VerifyEmailPage } from './components/pages';
+
+
+ReactStormpath.init({
+  endpoints: {
+    baseUri: 'https://pygmy.apps.stormpath.io'
+  }
+})
 
 let reactElement = document.getElementById('react')
 const history = syncHistoryWithStore(browserHistory, store)
@@ -19,13 +28,18 @@ render(
   <Provider store={store}>
     { /* Tell the Router to use our enhanced history */ }
     <Router history={ history }>
-      <Route path="/" component={ App }>
+      <HomeRoute path="/" component={ App }>
         <IndexRoute component={ Home} />
+        <LoginRoute path='login' component={ LoginPage } />
+        <Route path='verify' component={ VerifyEmailPage } />
+        <Route path='register' component={ RegisterPage } />
+        <Route path='passwordReset' component={ ChangePasswordPage } />
+        <Route path='forgot' component={ ResetPasswordPage } />
         <Route path="grid" component={ GridForm } />
         <Route path="strokes" component={ StrokesEditor } />
         <Route path="typos" component={ TyposMaker } />
         <Route path="writer" component={ StrokesWriter } />
-      </Route>
+      </HomeRoute>
     </Router>
   </Provider>,
   reactElement
