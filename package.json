@@ -5,8 +5,9 @@
   "main": "index.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server",
-    "build:webpack": "webpack -p --define process.env.NODE_ENV='\"production\"'"
+    "start:development": "NODE_ENV='\"development\"' webpack-dev-server",
+    "dist:development": "webpack -p --define process.env.NODE_ENV='\"production\"'",
+    "dist:production": "webpack -p --define process.env.NODE_ENV='\"production\"'"
   },
   "author": "Dazhi Jiao <dazhi.jiao@gmail.com>",
   "license": "ISC",
