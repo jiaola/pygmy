@@ -31,7 +31,8 @@ class EaselPainter extends React.Component {
     var canvas = ReactDOM.findDOMNode(this.refs.canvas)
     this.stage = new createjs.Stage(canvas);
 
-    var strokes = this.props.strokes.Stroke
+    console.log('this strokes', this.props.strokes)
+    var strokes = this.props.strokes.attributes.stroke
     for (var i = 0; i < strokes.length; i++) {
       if (this.props.hStrokes.indexOf(i) < 0) { // not highlighted
         this.stage.addChild(this.drawStroke(strokes[i], this.props.color))
@@ -48,8 +49,8 @@ class EaselPainter extends React.Component {
   drawStroke(stroke, color) {
     var shape = new createjs.Shape()
     shape.graphics.beginFill(color)
-    for (var i = 0; i < stroke.Outline.length; i++) {
-      var v = stroke.Outline[i]
+    for (var i = 0; i < stroke.outline.length; i++) {
+      var v = stroke.outline[i]
       if (v.name == 'MoveTo') {
         shape.graphics.moveTo(this.scale(v.x), this.scale(v.y))
       } else if (v.name == 'LineTo') {

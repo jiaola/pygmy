@@ -6,8 +6,13 @@ export function requestChar(char, requestType, responseType, failureType, errorT
   return dispatch => {
     dispatch(sendCharRequest(requestType))
     let unicode = char.charCodeAt(0).toString(16)
-    let strokesType = (requestType === WriterActionTypes.SEND_CHAR_REQUEST) ? 'big5' : 'strokes'
-    return fetch(`${API_ROOT}/characters/${strokesType}/${unicode}`, {mode: 'cors'})
+    let requestUrl
+    if (requestType === WriterActionTypes.SEND_CHAR_REQUEST) {
+      requestUrl = `${API_ROOT}/big5/${unicode}`
+    } else {
+      requestUrl = `${API_ROOT}/characters/${unicode}`
+    }
+    return fetch(requestUrl, {mode: 'cors'})
       .then(response => fetchHandler(response))
       .then(json => dispatch(receiveCharResponse(responseType, char, json)))
       .catch(error => {

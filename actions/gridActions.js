@@ -52,7 +52,7 @@ export function addChars(chars) {
   return dispatch => {
     dispatch(sendPinyinRequest(chars))
     var query = chars.map((ch) => 'chars[]=' + Utils.charToHex(ch)).join('&')
-    return fetch(`${API_ROOT}/characters/pinyins?${query}`, {mode: 'cors'})
+    return fetch(`${API_ROOT}/pinyins?${query}`, {mode: 'cors'})
       .then(response => fetchHandler(response))
       .then(json => dispatch(receivePinyinResponse(json)))
       .catch(error => {
