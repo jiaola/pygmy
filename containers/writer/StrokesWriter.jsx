@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import update from 'immutability-helper'
 import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
 import Loader from 'react-loader-advanced'
+import DocumentTitle from 'react-document-title'
 
 import CharsField from '../../components/shared/CharsField'
 import EaselPainter from '../../components/strokes/EaselPainter'
@@ -55,20 +56,22 @@ class StrokesWriter extends React.Component {
 
   render() {
     return (
-      <Container>
-        <Row><Col><h1>写字</h1></Col></Row>
-        <Row><Col><p>这个工具可以用来练习写字，或观看笔顺。填好生字后按添加键，然后描红或者按“观看笔顺”。</p></Col></Row>
-        <Row><Col><Alerts type='danger' messages={ this.props.writer.get('errors') } onDismiss={ this.handlers.onErrorsDismiss }/></Col></Row>
-        <Row><Col><Alerts type='info' messages={ this.props.writer.get('messages') } onDismiss={ this.handlers.onMessagesDismiss }/></Col></Row>
-        <Loader show={ !this.props.writer.get('charLoaded') } message='loading'>
-        <Row>
-          <Col><CharsField onAddChars={ this.handlers.onAddChars } onDeleteChars={ this.handlers.onDeleteChars }/></Col>
-        </Row>
-        <Row>
-          <Col><EaselWriter strokes={ this.props.writer.get('strokes') } length={ 200 }></EaselWriter></Col>
-        </Row>
-        </Loader>
-      </Container>
+      <DocumentTitle title={`写字`}>
+        <Container>
+          <Row><Col><h1>写字</h1><hr/></Col></Row>
+          <Row><Col><p>这个工具可以用来练习写字，或观看笔顺。填好生字后按添加键，然后描红或者按“观看笔顺”。</p></Col></Row>
+          <Row><Col><Alerts type='danger' messages={ this.props.writer.get('errors') } onDismiss={ this.handlers.onErrorsDismiss }/></Col></Row>
+          <Row><Col><Alerts type='info' messages={ this.props.writer.get('messages') } onDismiss={ this.handlers.onMessagesDismiss }/></Col></Row>
+          <Loader show={ !this.props.writer.get('charLoaded') } message='loading'>
+          <Row>
+            <Col><CharsField onAddChars={ this.handlers.onAddChars } onDeleteChars={ this.handlers.onDeleteChars }/></Col>
+          </Row>
+          <Row>
+            <Col><EaselWriter strokes={ this.props.writer.get('strokes') } length={ 200 }></EaselWriter></Col>
+          </Row>
+          </Loader>
+        </Container>
+      </DocumentTitle>
     )
   }
 }

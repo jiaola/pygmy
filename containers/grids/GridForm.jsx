@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
 import Loader from 'react-loader-advanced'
+import DocumentTitle from 'react-document-title'
 
 import CharsField from '../../components/shared/CharsField'
 import NumberField from '../../components/grids/NumberField'
@@ -88,51 +89,53 @@ class GridForm extends React.Component {
 
   render() {
     return (
-      <Container>
-        <Row><Col><h1>田字格</h1></Col></Row>
-        <Row><Col><Alerts type='danger' messages={ this.props.grids.get('errors') } onDismiss={ this.handlers.onErrorsDismiss }/></Col></Row>
-        <Row><Col><Alerts type='info' messages={ this.props.grids.get('messages') } onDismiss={ this.handlers.onMessagesDismiss }/></Col></Row>
-        <Loader show={ !this.props.gridsCreated } message={ 'loading' }>
-        <Row>
-            <Col xs='12' sm='3' md='3' lg='3'>
-              <NumberField onChange={ this.handlers.onCharsPerRowChange } value={ this.props.charsPerRow } id={ 'chars_per_row' } label={ '每行生字数:' } tooltip={ '每一行生字的个数' }/>
-            </Col>
-            <Col xs='12' sm='3' md='3' lg='3'>
-              <NumberField onChange={ this.handlers.onGridsPerRowChange } value={ this.props.gridsPerRow } id={ 'gridsPerRow' } label={ '每行格数:' } tooltip={ '每一行田字格的格数' }/>
-            </Col>
-            <Col xs='12' sm='6' md='6' lg='6'>
-              <GridFormat onChange={ this.handlers.onFormatChange } value={ this.props.gridFormat }/>
-            </Col>
-        </Row>
-        <Row>
-            <Col xs='12' sm='6'>
-              <PrintOption onChange={ this.handlers.onPrintPinyinChange } value={ this.props.printPinyin } label={ '打印拼音' } id={ 'pringPinyin' }/>
-            </Col>
-            <Col xs='12' sm='6'>
-              <PrintOption onChange={ this.handlers.onPrintStrokesChange } value={ this.props.printStrokes } label= { '打印笔顺' } id={ 'pringStrokes' }/>
-            </Col>
-        </Row>
-        <Row>
+      <DocumentTitle title={`田字格`}>
+        <Container>
+          <Row><Col><h1>田字格</h1><hr/></Col></Row>
+          <Row><Col><Alerts type='danger' messages={ this.props.grids.get('errors') } onDismiss={ this.handlers.onErrorsDismiss }/></Col></Row>
+          <Row><Col><Alerts type='info' messages={ this.props.grids.get('messages') } onDismiss={ this.handlers.onMessagesDismiss }/></Col></Row>
+          <Loader show={ !this.props.gridsCreated } message={ 'loading' }>
+          <Row>
+              <Col xs='12' sm='3' md='3' lg='3'>
+                <NumberField onChange={ this.handlers.onCharsPerRowChange } value={ this.props.charsPerRow } id={ 'chars_per_row' } label={ '每行生字数:' } tooltip={ '每一行生字的个数' }/>
+              </Col>
+              <Col xs='12' sm='3' md='3' lg='3'>
+                <NumberField onChange={ this.handlers.onGridsPerRowChange } value={ this.props.gridsPerRow } id={ 'gridsPerRow' } label={ '每行格数:' } tooltip={ '每一行田字格的格数' }/>
+              </Col>
+              <Col xs='12' sm='6' md='6' lg='6'>
+                <GridFormat onChange={ this.handlers.onFormatChange } value={ this.props.gridFormat }/>
+              </Col>
+          </Row>
+          <Row>
+              <Col xs='12' sm='6'>
+                <PrintOption onChange={ this.handlers.onPrintPinyinChange } value={ this.props.printPinyin } label={ '打印拼音' } id={ 'pringPinyin' }/>
+              </Col>
+              <Col xs='12' sm='6'>
+                <PrintOption onChange={ this.handlers.onPrintStrokesChange } value={ this.props.printStrokes } label= { '打印笔顺' } id={ 'pringStrokes' }/>
+              </Col>
+          </Row>
+          <Row>
+              <Col>
+                <Loader show={ !this.props.charsLoaded }  message={ 'loading' }>
+                  <CharsField onAddChars={ this.handlers.onAddChars } onDeleteChars={ this.handlers.onDeleteChars }/>
+                  <CharList chars={ this.props.chars } />
+                </Loader>
+              </Col>
+          </Row>
+          <Row>
             <Col>
-              <Loader show={ !this.props.charsLoaded }  message={ 'loading' }>
-                <CharsField onAddChars={ this.handlers.onAddChars } onDeleteChars={ this.handlers.onDeleteChars }/>
-                <CharList chars={ this.props.chars } />
-              </Loader>
+              <Email onChange={ this.handlers.onEmailChange } value={ this.props.email }/>
             </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Email onChange={ this.handlers.onEmailChange } value={ this.props.email }/>
-          </Col>
-        </Row>
-        <Row>
-          <Col sm={{size: 'auto', offset: 5}} >
-            <Button className='center-block' onClick={ e => this.handlers.onSubmit(this.props.grids) }>提交</Button>
-            <Button className='center-block' onClick={ this.handlers.onReset }>取消</Button>
-          </Col>
-        </Row>
-        </Loader>
-      </Container>
+          </Row>
+          <Row>
+            <Col sm={{size: 'auto', offset: 5}} >
+              <Button className='center-block' onClick={ e => this.handlers.onSubmit(this.props.grids) }>提交</Button>
+              <Button className='center-block' onClick={ this.handlers.onReset }>取消</Button>
+            </Col>
+          </Row>
+          </Loader>
+        </Container>
+      </DocumentTitle>
     )
   }
 }
