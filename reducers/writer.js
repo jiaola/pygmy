@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
     case WriterActionTypes.SEND_CHAR_REQUEST:
       return state.set('charLoaded', false)
     case WriterActionTypes.RECEIVE_CHAR_RESPONSE:
-      return state.set('strokes', action.json).set('charLoaded', true)
+      return state.set('strokes', action.json.data).set('charLoaded', true)
     case WriterActionTypes.REQUEST_CHAR_FAILED:
       return state.set('charLoaded', true)
     case WriterActionTypes.ADD_ERROR:

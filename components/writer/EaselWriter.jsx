@@ -60,7 +60,7 @@ class EaselWriter extends React.Component {
 
   // helpers
   aniStroke = () => {
-    return this.state.get('character').Stroke[this.state.get('aniStrokeIndex')]
+    return this.state.get('character').attribute.stroke[this.state.get('aniStrokeIndex')]
   }
 
   componentDidMount() {
@@ -110,7 +110,7 @@ class EaselWriter extends React.Component {
     if (character === null) {
       return
     }
-    this.showStrokes(0, character.Stroke.length-1)
+    this.showStrokes(0, character.attributes.stroke.length-1)
   }
 
   /**
@@ -118,7 +118,7 @@ class EaselWriter extends React.Component {
    */
   showStrokes = (start, end) => {
     let character = this.props.strokes
-    if (character === null || end >= character.Stroke.length) {
+    if (character === null || end >= character.attributes.stroke.length) {
       return
     }
     this.stopAnimation()
@@ -136,7 +136,7 @@ class EaselWriter extends React.Component {
 
     let aniTrackIndex = this.state.get('aniTrackIndex')
     let aniStrokeIndex = this.state.get('aniStrokeIndex')
-    let tracks = character.Stroke[aniStrokeIndex].Track
+    let tracks = character.attributes.stroke[aniStrokeIndex].track
     let moveCount = this.state.get('moveCount')
 
     if (aniTrackIndex === tracks.length - 1) { // last track
@@ -148,8 +148,8 @@ class EaselWriter extends React.Component {
     }
 
     if (aniTrackIndex === 0 && this.state.get('moveCount') === 0) { // a new stroke
-      this.stage.mask = this.drawStroke(character.Stroke[aniStrokeIndex])
-      this.stage.addChild(this.drawStroke(character.Stroke[aniStrokeIndex]))
+      this.stage.mask = this.drawStroke(character.attributes.stroke[aniStrokeIndex])
+      this.stage.addChild(this.drawStroke(character.attributes.stroke[aniStrokeIndex]))
       this.stage.update()
     }
 
@@ -210,7 +210,7 @@ class EaselWriter extends React.Component {
     // variables for animate strokes
     let color, brushSize = 15, paintPoints = [], userStrokeStart = false
 
-    var strokes = this.props.strokes.Stroke
+    var strokes = this.props.strokes.attributes.stroke
     for (var i = 0; i < strokes.length; i++) {
       this.stage.addChild(this.drawStroke(strokes[i], 'black'))
     }
@@ -221,8 +221,8 @@ class EaselWriter extends React.Component {
   drawStroke = (stroke, color) => {
     var shape = new createjs.Shape()
     shape.graphics.beginFill(color)
-    for (var i = 0; i < stroke.Outline.length; i++) {
-      var v = stroke.Outline[i]
+    for (var i = 0; i < stroke.outline.length; i++) {
+      var v = stroke.outline[i]
       if (v.name == 'MoveTo') {
         shape.graphics.moveTo(this.scale(v.x), this.scale(v.y))
       } else if (v.name == 'LineTo') {
