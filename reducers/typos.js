@@ -18,7 +18,7 @@ export default (state = Immutable.Map({
         return state.set('hidden', hidden.add(index))
       }
     case TyposActionTypes.RECEIVE_CHAR_RESPONSE:
-      return state.set('strokes', action.json.data[0]).update('hidden', h => h.clear()).set('charLoaded', true)
+      return state.set('strokes', action.json.data).update('hidden', h => h.clear()).set('charLoaded', true)
     case TyposActionTypes.SEND_CHAR_REQUEST:
       return state.set('charLoaded', false)
     case TyposActionTypes.DELETE_CHARS:

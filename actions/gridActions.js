@@ -118,7 +118,7 @@ export function submitGrid(grids) {
     query += '&grid_format=' + grids.get('gridFormat')
     query += '&print_pinyin=' + grids.get('printPinyin')
     query += '&print_strokes=' + grids.get('printStrokes')
-    return fetch(`${API_ROOT}/grid/email_pdf?${query}`, {mode: 'cors'})
+    return fetch(`${API_ROOT}/grid/email?${query}`, {mode: 'cors'})
       .then(response => fetchHandler(response))
       .then(json => dispatch(receiveGridResponse(json)))
       .catch(error => {

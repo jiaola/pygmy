@@ -13,7 +13,7 @@ const initialState = Immutable.Map({
 export default (state = initialState, action) => {
   switch(action.type) {
     case StrokesActionTypes.RECEIVE_CHAR_RESPONSE:
-      let data = action.json.data[0]
+      let data = action.json.data
       let N = data.attributes.stroke.length
       let order = Array.apply(null, {length: N}).map(Number.call, Number)
       return state.set('strokes', data).set('strokesLoaded', true).set('order', order)
