@@ -42,19 +42,6 @@ class NavigationBar extends React.Component {
               <NavItem>
                 <Link className="nav-link" to="/writer" activeClassName="active">写字<span className="sr-only">写字</span></Link>
               </NavItem>
-              <NotAuthenticated className="pull-md-right">
-                <NavItem>
-                  <LoginLink className="nav-link" activeClassName="active">登录</LoginLink>
-                </NavItem>
-                <NavItem>
-                  <Link to="/register" className="nav-link" activeClassName="active">注册</Link>
-                </NavItem>
-              </NotAuthenticated>
-              <Authenticated className="pull-md-right">
-                <NavItem>
-                  <LogoutLink className="nav-link">退出</LogoutLink>
-                </NavItem>
-              </Authenticated>
             </Nav>
           </Collapse>
         </Container>

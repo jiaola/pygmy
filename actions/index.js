@@ -1,13 +1,13 @@
 let api_root, cdn_root
 
 if (process.env.NODE_ENV === 'production') {
-  api_root = 'http://pygmy-api.brickowls.com'
+  api_root = 'http://pygmy-api.brickowls.com/api/v1'
   cdn_root = 'http://d2cwkrm2jnrt6f.cloudfront.net'
 } else if (process.env.NODE_ENV === 'development') {
   api_root = 'http://localhost:3000/api/v1'
   cdn_root = 'http://d2cwkrm2jnrt6f.cloudfront.net'
 } else {
-  api_root = 'http://pygmy-api.brickowls.com'
+  api_root = 'http://pygmy-api.brickowls.com/api/v1'
   cdn_root = 'http://d2cwkrm2jnrt6f.cloudfront.net'
 }
 
