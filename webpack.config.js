@@ -18,8 +18,6 @@ function getPlugins() {
     }
   }));
 
-  plugins.push(new webpack.optimize.UglifyJsPlugin());
-
   // Use html plugin
   plugins.push(new HtmlWebpackPlugin({
     title: '田字格',
@@ -30,7 +28,7 @@ function getPlugins() {
 
   // Conditionally add plugins for Production builds.
   if (isProd) {
-    //plugins.push(new webpack.optimize.UglifyJsPlugin());
+    plugins.push(new webpack.optimize.UglifyJsPlugin());
   }
   // Conditionally add plugins for Development
   else {
