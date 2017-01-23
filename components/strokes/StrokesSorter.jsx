@@ -41,7 +41,7 @@ class StrokesSorter extends React.Component {
     let listItems = null
     let badge = null
     if (this.props.strokes != null) {
-      if (this.props.strokes.attributes.hasOwnProperty('order')) {
+      if (this.props.strokes.attributes.order) {
         badge = <p><span className="tag tag-success">已编辑</span></p>
         listItems = this.props.strokes.attributes.order.map(function(i) {
           return (

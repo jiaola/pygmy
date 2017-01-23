@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
 import StrokesActionTypes from '../actions/StrokesActionTypes'
-
+import * as Utils from '../utils/Utils'
 const initialState = Immutable.Map({
   strokes: null,
   order: [],
@@ -28,7 +28,7 @@ export default (state = initialState, action) => {
     case StrokesActionTypes.SEND_SORT_REQUEST:
       return state.set('sortSubmitted', true)
     case StrokesActionTypes.RECEIVE_SORT_RESPONSE:
-      return initialState.update('messages', m => m.push(action.json))
+      return initialState.update('messages', m => m.push({'message': `“${Utils.hexToChar(action.json.data.attributes.unicode)}”的笔顺已顺利提交。谢谢编辑！`}))
     case StrokesActionTypes.SUBMIT_SORT_FAILED:
       return state.set('sortSubmitted', false)
     case StrokesActionTypes.ADD_ERROR:

@@ -31,7 +31,6 @@ class EaselPainter extends React.Component {
     var canvas = ReactDOM.findDOMNode(this.refs.canvas)
     this.stage = new createjs.Stage(canvas);
 
-    console.log('this strokes', this.props.strokes)
     var strokes = this.props.strokes.attributes.stroke
     for (var i = 0; i < strokes.length; i++) {
       if (this.props.hStrokes.indexOf(i) < 0) { // not highlighted

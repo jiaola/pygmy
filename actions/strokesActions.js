@@ -17,13 +17,13 @@ export function sortStrokes(order) {
 }
 
 export function submitSort(strokes) {
-  var unicode = strokes.get('strokes').unicode
-  var order = strokes.get('order')
+  console.log('strokes', strokes)
+  let unicode = strokes.get('strokes').attributes.unicode
+  let order = strokes.get('order')
   return dispatch => {
     dispatch(sendSortRequest())
-    var query = order.map((o) => 'order[]=' + o).join('&')
-    query += '&unicode=' + unicode
-    return fetch(`${API_ROOT}/characters/reorder?${query}`, {mode: 'cors'})
+    let query = order.map((o) => 'order[]=' + o).join('&')
+    return fetch(`${API_ROOT}/characters/${unicode}?${query}`, {mode: 'cors', method: 'put'})
       .then(response => fetchHandler(response))
       .then(json => dispatch(receiveSortResponse(json)))
       .catch(error => {
