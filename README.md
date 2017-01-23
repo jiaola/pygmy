@@ -38,7 +38,7 @@ To really use it, you'll need to setup [pygmy-api][7f4ae64e] and have it run loc
 Set up apache to point to `/path/to/pygmy/dist`. Repeat `git clone` and `npm install` commands in Development Setup.  Run
 
 ```
-npm run bulid:webpack
+npm run build:production
 ```
 
 On brickowls.com, pygmy is in `/opt/brickowls/pygmy`

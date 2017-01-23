@@ -14,9 +14,11 @@ function getPlugins() {
   // drop any unreachable code.
   plugins.push(new webpack.DefinePlugin({
     'process.env': {
-      'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'developemnt')
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'developemnt')
     }
   }));
+
+  plugins.push(new webpack.optimize.UglifyJsPlugin());
 
   // Use html plugin
   plugins.push(new HtmlWebpackPlugin({
