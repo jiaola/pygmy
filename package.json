@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.jsx",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:development": "NODE_ENV=development webpack-dev-server",
-    "start:production": "NODE_ENV=production webpack-dev-server",
-    "build:development": "NODE_ENV=development webpack -p",
-    "build:production": "NODE_ENV=production webpack -p"
+    "test": "jest",
+    "test:watch": "npm test -- --watch",
+    "start:development":  "NODE_ENV=development webpack-dev-server",
+    "start:production":   "NODE_ENV=production webpack-dev-server",
+    "build:development":  "NODE_ENV=development webpack -p ",
+    "build:production":   "NODE_ENV=production webpack -p"
   },
   "author": "Dazhi Jiao <dazhi.jiao@gmail.com>",
   "license": "ISC",
@@ -26,7 +27,6 @@
     "react-dom": "^15.3.2",
     "react-faux-dom": "^3.0.0",
     "react-fontawesome": "^1.2.0",
-    "react-ga": "^2.1.2",
     "react-loader-advanced": "^1.4.1",
     "react-redux": "^4.4.5",
     "react-router": "^3.0.0",
@@ -55,5 +55,11 @@
     "webpack": "^1.13.2",
     "webpack-cleanup-plugin": "^0.4.1",
     "webpack-dev-server": "^1.16.2"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   }
 }
