@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, FormGroup, Label, ButtonGroup, Button, Input } from 'reactstrap'
 import { deleteChar, setCharPinyin } from '../../actions/gridActions'
-import * as Utils from '../../utils/Utils'
+import * as Utils from '../../utils'
 
 const CharEditor = ({ char, index, dispatch }) => (
   <Row key={index}>

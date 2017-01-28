@@ -1,7 +1,8 @@
 import Immutable from 'immutable'
 import GridActionTypes from '../actions/GridActionTypes'
+import typeToReducer from 'type-to-reducer'
 
-const initialState = Immutable.Map({
+let initialState = Immutable.Map({
   gridsPerRow: 15,
   charsPerRow: 3,
   gridFormat: 'field',
@@ -15,7 +16,8 @@ const initialState = Immutable.Map({
   messages: Immutable.List([])
 })
 
-export default (state = initialState, action) => {
+
+export default  (state = initialState, action) => {
   switch(action.type) {
     // forms
     case GridActionTypes.SET_GRIDS_PER_ROW:
@@ -70,3 +72,23 @@ export default (state = initialState, action) => {
       return state
   }
 }
+
+export const gridRequestReducer = typeToReducer({
+  [GridActionTypes.PINYIN]: {
+    PENDING: (state, action) => ( state ),
+    REJECTED: (state, action) => (
+      state.update('errors', e => e.push(action.payload))
+    ),
+    FULFILLED: (state, action) => {
+      console.log('state', state, 'action', action)
+      for (var i = 0; i < action.payload.length; i++) {
+        console.log('action.payload', action.payload[i])
+        var char = action.payload[i]
+        char.selectedPinyin = char.pinyin[0]
+        state = state.set('chars', state.get('chars').push(Immutable.Map(char)))
+      }
+      console.log(state.get('chars'))
+      return state.set('charsLoaded', true)
+    }
+  }
+}, initialState)

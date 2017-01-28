@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
 import StrokesActionTypes from '../actions/StrokesActionTypes'
-import * as Utils from '../utils/Utils'
+import * as Utils from '../utils'
 const initialState = Immutable.Map({
   strokes: null,
   order: [],

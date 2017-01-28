@@ -9,6 +9,7 @@ let GridActionTypes = FluxConstant.set([
   'SET_PRINT_STROKES',
   'SET_PRINT_PINYIN',
   // Pinyins
+  'PINYIN',
   'DELETE_CHARS',
   'DELETE_CHAR',
   'SET_CHAR_PINYIN',

@@ -2,7 +2,8 @@ import fetch from 'isomorphic-fetch'
 import GridActionTypes from './GridActionTypes'
 import { API_ROOT } from './index'
 import { fetchHandler, addError } from './sharedActions'
-import * as Utils from '../utils/Utils'
+import { charsToQuery } from '../utils'
+import Network from '../utils/network'
 
 // Forms
 export function setGridsPerRow(gridsPerRow) {
@@ -49,17 +50,10 @@ export function setPrintStrokes(printStrokes) {
 
 // Pinyins
 export function addChars(chars) {
-  return dispatch => {
-    dispatch(sendPinyinRequest(chars))
-    var query = chars.map((ch) => 'chars[]=' + Utils.charToHex(ch)).join('&')
-    return fetch(`${API_ROOT}/pinyins?${query}`, {mode: 'cors'})
-      .then(response => fetchHandler(response))
-      .then(json => dispatch(receivePinyinResponse(json)))
-      .catch(error => {
-        dispatch(addError(GridActionTypes.ADD_ERROR, error))
-        dispatch(requestPinyinFailed())
-      })
-  }
+  return dispatch => dispatch({
+    type: GridActionTypes.PINYIN,
+    payload: Network().get({ resource: 'pinyins', query: charsToQuery(chars) })
+  })
 }
 
 export function deleteChars() {

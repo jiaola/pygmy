@@ -6,16 +6,15 @@
   "scripts": {
     "test": "jest",
     "test:watch": "npm test -- --watch",
-    "start:development":  "NODE_ENV=development webpack-dev-server",
-    "start:production":   "NODE_ENV=production webpack-dev-server",
-    "build:development":  "NODE_ENV=development webpack -p ",
-    "build:production":   "NODE_ENV=production webpack -p"
+    "start:development": "NODE_ENV=development webpack-dev-server",
+    "start:production": "NODE_ENV=production webpack-dev-server",
+    "build:development": "NODE_ENV=development webpack -p ",
+    "build:production": "NODE_ENV=production webpack -p"
   },
   "author": "Dazhi Jiao <dazhi.jiao@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.15.2",
-    "babel-polyfill": "^6.16.0",
+    "babel-polyfill": "^6.22.0",
     "flux-constant": "^1.1.4",
     "immutability-helper": "^2.0.0",
     "immutable": "^3.8.1",
@@ -35,8 +34,10 @@
     "reactstrap": "^3.9.5",
     "redux": "^3.6.0",
     "redux-logger": "^2.7.0",
+    "redux-promise-middleware": "^4.2.0",
     "redux-thunk": "^2.1.0",
-    "sortablejs": "^1.5.0-rc1"
+    "sortablejs": "^1.5.0-rc1",
+    "type-to-reducer": "^1.0.3"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",
