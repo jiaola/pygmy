@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { Alert } from 'reactstrap'
+import { Alert } from 'react-bootstrap'
 
 class Alerts extends React.Component {
   constructor(props) {
@@ -7,14 +7,20 @@ class Alerts extends React.Component {
   }
 
   render() {
+    let element = null
+    if (!this.props.messages.isEmpty()) {
+      element = (
+        <Alert bsStyle={ this.props.type } onDismiss={ this.props.onDismiss }>
+          <ul style={ { marginBottom: 0 } }>
+          { this.props.messages.map((m, i) =>
+            <li key={i}>{ m.message }</li>
+          )}
+          </ul>
+        </Alert>
+      )
+    }
     return (
-      <Alert color={ this.props.type } isOpen={ !this.props.messages.isEmpty() } toggle={ this.props.onDismiss }>
-        <ul style={ { marginBottom: 0 } }>
-        { this.props.messages.map((m, i) =>
-          <li key={i}>{ m.message }</li>
-        )}
-        </ul>
-      </Alert>
+      element
     )
   }
 }
@@ -22,7 +28,7 @@ class Alerts extends React.Component {
 Alerts.propTypes = {
   type: PropTypes.string,
   messages: PropTypes.object,
-  onDismiss: PropTypes.func
+  onDismiss: PropTypes.func.isRequired,
 }
 
 export default Alerts

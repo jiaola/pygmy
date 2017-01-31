@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link, browserHistory } from 'react-router'
-import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
+import { Grid, Row, Col, FormGroup, Button, Label, Input } from 'react-bootstrap'
 import NavigationBar from '../components/shared/NavigationBar'
 
 const App = ({ children }) => (
   <div>
     <NavigationBar/>
-    <div style={{ marginTop: '62px' }}>{ children }</div>
+    <Grid style={{ marginTop: '62px' }}>{ children }</Grid>
   </div>
 )
 

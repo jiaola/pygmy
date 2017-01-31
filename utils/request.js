@@ -12,18 +12,16 @@ export default function request(url, options) {
     if (!options) reject(new Error('Options parameter required'));
 
     fetch(url, options)
-      .then(response => fetchHandler(response))
       .then(response => {
-        if (response.errors) reject(response.errors);
+        if (!response.ok) reject(response.statusText)
+        return response.json()
+      })
+      .then(response => {
+        if (response.errors) {
+          reject(response.errors);
+        }
         else resolve(response);
       })
       .catch(reject);
   });
-}
-
-function fetchHandler(response) {
-  if (!response.ok) {
-    reject(response.statusText)
-  }
-  return response.json()
 }

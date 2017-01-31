@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
+import { Container, Row, Col, FormGroup, Button, Label, Input } from 'react-bootstrap'
 
 const About = ({}) => (
   <Container>

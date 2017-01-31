@@ -10,13 +10,15 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import store from './store'
 import App from './containers/App'
 import Home from './components/Home'
-import GridForm from './containers/grids/GridForm'
+import GridPage from './containers/grids/GridPage'
 import StrokesEditor from './containers/strokes/StrokesEditor'
 import TyposMaker from './containers/typos/TyposMaker'
 import StrokesWriter from './containers/writer/StrokesWriter'
-import { ChangePasswordPage, LoginPage, RegisterPage, ResetPasswordPage, VerifyEmailPage } from './components/pages';
+import { ChangePasswordPage, LoginPage, RegisterPage, ResetPasswordPage, VerifyEmailPage } from './components/pages'
 
-ReactGA.initialize('UA-90774941-1');
+import css from './styles/style.css'
+
+ReactGA.initialize('UA-90774941-1')
 ReactStormpath.init({
   endpoints: {
     baseUri: 'https://pygmy.apps.stormpath.io'
@@ -45,7 +47,7 @@ render(
         <Route path='register' component={ RegisterPage } />
         <Route path='passwordReset' component={ ChangePasswordPage } />
         <Route path='forgot' component={ ResetPasswordPage } />
-        <Route path="grid" component={ GridForm } />
+        <Route path="grid" component={ GridPage } />
         <Route path="strokes" component={ StrokesEditor } />
         <Route path="typos" component={ TyposMaker } />
         <Route path="writer" component={ StrokesWriter } />

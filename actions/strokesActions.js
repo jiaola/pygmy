@@ -17,7 +17,6 @@ export function sortStrokes(order) {
 }
 
 export function submitSort(strokes) {
-  console.log('strokes', strokes)
   let unicode = strokes.get('strokes').attributes.unicode
   let order = strokes.get('order')
   return dispatch => {

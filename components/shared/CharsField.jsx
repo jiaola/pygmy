@@ -1,67 +1,72 @@
 import React, { PropTypes } from 'react'
-import { FormGroup, Input, Label, Col, Button } from 'reactstrap'
+import { FormGroup, Input, ControlLabel, Col, Button } from 'react-bootstrap'
 import Immutable from 'immutable'
 
 class CharsField extends React.Component {
   constructor(props) {
     super(props)
-    this.handleKeyUp = this.handleKeyUp.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleAddClick = this.handleAddClick.bind(this)
-    this.handleDeleteClick = this.handleDeleteClick.bind(this)
-    this.hasChars = this.hasChars.bind(this)
-    this.state = Immutable.Map({
+    this.state = {
       chars: ''
-    })
-  }
-
-  handleKeyUp(e) {
-    if(e.keyCode == 13) { // return key is pressed
-      this.props.onAddChars(this.getChars(this.state.get('chars')))
-      this.state = this.state.set('chars', '')
-      this.charsField.value = ''
     }
   }
 
-  handleChange(e) {
-    this.state = this.state.set('chars', e.target.value)
+  onKeyUp = (e) => {
+    if(e.keyCode == 13) { // return key is pressed
+      e.preventDefault()
+      let chars = this.getChars(this.state.chars)
+      this.setState({ chars: '' })
+      this.charsField.value = ''
+      this.props.onAddChars(chars)
+    }
   }
 
-  handleAddClick() {
-    var chars = this.getChars(this.state.get('chars'))
-    this.props.onAddChars(chars)
+  onChange = (e) =>  {
+    this.setState({ chars: e.target.value })
+  }
+
+  onClickAdd = (e) => {
+    e.preventDefault()
+    var chars = this.getChars(this.state.chars)
     this.charsField.value = ''
+    this.props.onAddChars(chars)
   }
 
-  handleDeleteClick() {
-    this.state = this.state.set('chars', '')
+  onClickDelete = () => {
+    this.setState({ chars: '' })
     this.props.onDeleteChars()
   }
 
-  getChars(chars) {
+  getChars = (chars) => {
     chars = chars.replace(/ /g,'').split("")
     chars = chars.filter(x => /^[\u4e00-\u9eff]$/i.exec(x) != null) // only Chinese characters
     return chars
   }
 
-  hasChars() {
-    return this.state.get('chars').trim() != ''
+  hasChars = () => {
+    return this.state.chars.trim() != ''
+  }
+
+  reset = () => {
+    this.setState({ chars: '' })
+    this.charsField.value = ''
   }
 
   render() {
     return (
-      <FormGroup row>
-        <Label sm={2}>添加生字</Label>
-        <div className='col-sm-10'>
-        <div className="input-group ">
-        <input className='form-control' defaultValue={this.state.get('chars')} type="text" ref={(r) => this.charsField = r} onKeyUp={ this.handleKeyUp } onChange={ this.handleChange } placeholder="填写生字后按输入键（Return）。"/>
-        <div className='input-group-btn'>
-          <Button className='center-block' onClick={ this.handleAddClick }>添加</Button>
-          <Button className='center-block' onClick={ this.handleDeleteClick }>清除</Button>
-        </div>
-        </div>
+      <div>
+        <Col sm={2}><ControlLabel>添加生字</ControlLabel></Col>
+        <Col sm={10}>
+          <div className="input-group ">
+            <input className='form-control' defaultValue={ this.state.chars } type="text" ref={(r) => this.charsField = r} onKeyUp={ this.onKeyUp } onChange={ this.onChange } placeholder="填写生字后按输入键（Return）。" />
+            <div className='input-group-btn'>
+                <Button onClick={ this.onClickAdd }>添加</Button>
+            </div>
+            <div className='input-group-btn'>
+                <Button onClick={ this.onClickDelete }>清除</Button>
+            </div>
+          </div>
+        </Col>
       </div>
-      </FormGroup>
     )
   }
 }

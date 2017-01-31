@@ -1,9 +1,9 @@
 import React from 'react'
-import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
+import { Grid, Row, Col, FormGroup, Button, Label, Input } from 'react-bootstrap'
 import { Link, browserHistory } from 'react-router'
 
 const Home = ({}) => (
-  <Container>
+  <Grid>
     <Row>
       <Col>
         <p>
@@ -22,7 +22,7 @@ const Home = ({}) => (
         </ul>
       </Col>
     </Row>
-  </Container>
+  </Grid>
 )
 
 export default Home

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 //import StrokesSorter from './StrokesSorter'
-import { Container, Row, Col, FormGroup, Button, Label, Input } from 'reactstrap'
+import { Container, Row, Col, FormGroup, Button, Label, Input } from 'react-bootstrap'
 import Loader from 'react-loader-advanced'
 import DocumentTitle from 'react-document-title'
 

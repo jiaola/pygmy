@@ -3,7 +3,7 @@ import React from 'react'
 import DocumentTitle from 'react-document-title'
 
 import { LoginForm } from 'react-stormpath'
-import { Container, Row, Col } from 'reactstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router'
 
 import css from './LoginPage.css'

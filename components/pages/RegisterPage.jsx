@@ -2,7 +2,7 @@ import React from 'react'
 import DocumentTitle from 'react-document-title'
 
 import { RegistrationForm, LoginLink } from 'react-stormpath'
-import { Row, Col, Container } from 'reactstrap'
+import { Row, Col, Container } from 'react-bootstrap'
 
 
 export default class RegisterPage extends React.Component {
