@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap'
+import Loader from 'react-loader-advanced'
 import DocumentTitle from 'react-document-title'
 import { submitGridForm } from '../../actions/gridActions'
 import { deleteErrors, deleteMessages } from '../../actions/sharedActions'
@@ -32,7 +33,9 @@ class GridPage extends React.Component {
           <Row><Col><h1>田字格</h1><hr/></Col></Row>
           <Row><Col><Alerts type='danger' messages={ this.props.errors } onDismiss={ this.onErrorsDismiss }/></Col></Row>
           <Row><Col><Alerts type='info' messages={ this.props.messages } onDismiss={ this.onMessagesDismiss }/></Col></Row>
-          <GridForm submitForm={ this.onSubmit }/>
+          <Loader show={ this.props.loading } message={ 'loading' }>
+            <GridForm submitForm={ this.onSubmit }/>
+          </Loader>
         </Grid>
       </DocumentTitle>
     )
@@ -43,6 +46,7 @@ const mapStateToProps = function(state) {
   return {
     errors: state.grids.get('errors'),
     messages: state.grids.get('messages'),
+    loading: state.grids.get('loading'),
   }
 }
 

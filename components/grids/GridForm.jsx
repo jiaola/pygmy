@@ -95,9 +95,9 @@ class GridForm extends React.Component {
           <Row>
             <Col xs={7} xsOffset={5}>
               <FormGroup>
-                <input className="btn btn-default" onClick={this.onResetForm} type="reset" defaultValue="Reset" />
+                <input className="btn btn-default" onClick={this.onResetForm} type="reset" defaultValue="重设" />
                 {' '}
-                <input className="btn btn-primary" formNoValidate={true} type="submit" defaultValue="Submit" />
+                <input className="btn btn-primary" formNoValidate={true} type="submit" defaultValue="提交" />
               </FormGroup>
             </Col>
           </Row>
