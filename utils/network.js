@@ -51,6 +51,25 @@ const Network = resource => {
     },
 
     /**
+     * @function put
+     * @description Make a PUT request.
+     * @param {string} path
+     * @param {object} body
+     * @param {object} options
+     * @returns {promise}
+     */
+    put: (path, body, options = {}) => {
+      return request(buildURL(path), Object.assign(
+        options,
+        defaultOptions,
+        {
+          method: 'PUT',
+          body: JSON.stringify(body)
+        }
+      ));
+    },
+
+    /**
      * @function post
      * @description Make a GET request.
      * @param {string} path

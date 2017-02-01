@@ -1,6 +1,16 @@
 import React, { PropTypes } from 'react'
 import { Alert } from 'react-bootstrap'
 
+const toString = (m) => {
+  if (typeof m === 'string') {
+    return m
+  } else if (m.hasOwnProperty('message')) {
+    return m.message
+  } else {
+    return m.toString()
+  }
+}
+
 class Alerts extends React.Component {
   constructor(props) {
     super(props)
@@ -13,7 +23,7 @@ class Alerts extends React.Component {
         <Alert bsStyle={ this.props.type } onDismiss={ this.props.onDismiss }>
           <ul style={ { marginBottom: 0 } }>
           { this.props.messages.map((m, i) =>
-            <li key={i}>{ m.message }</li>
+            <li key={i}>{ toString(m) }</li>
           )}
           </ul>
         </Alert>

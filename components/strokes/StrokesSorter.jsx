@@ -1,4 +1,4 @@
-import React, {PropTypes} from "react"
+import React, { PropTypes } from "react"
 import Sortable from 'sortablejs'
 import { connect } from 'react-redux'
 import { CDN_ROOT } from '../../actions'
@@ -42,14 +42,14 @@ class StrokesSorter extends React.Component {
     let badge = null
     if (this.props.strokes != null) {
       if (this.props.strokes.attributes.order) {
-        badge = <p><span className="tag tag-success">已编辑</span></p>
+        badge = <p><span className="label label-success">已编辑</span></p>
         listItems = this.props.strokes.attributes.order.map(function(i) {
           return (
             <img src={`${CDN_ROOT}/images/strokes/${this.props.strokes.attributes.unicode}/${i}_50.gif`} width={50} height={50} key={i} data-index={i}/>
           )
         }, this)
       } else {
-        badge = <p><span className="tag tag-danger">未编辑</span></p>
+        badge = <p><span className="label label-danger">未编辑</span></p>
         listItems = this.props.strokes.attributes.stroke.map(function(s, i) {
           return (
             <img src={`${CDN_ROOT}/images/strokes/${this.props.strokes.attributes.unicode}/${i}_50.gif`} width={50} height={50} key={i} data-index={i}/>
@@ -72,7 +72,7 @@ class StrokesSorter extends React.Component {
 
 StrokesSorter.propTypes = {
   strokes: PropTypes.object,
-  onSort: PropTypes.func
+  onSort: PropTypes.func,
 }
 
 export default StrokesSorter

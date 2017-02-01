@@ -18,13 +18,13 @@ export default typeToReducer({
       initialState.set('messages', state.get('messages').push(action.payload))
     )
   },
-  [GridActionTypes.ADD_ERROR]: (state, action) => {
-    return state.update('errors', e => e.push(action.error))
-  },
-  [GridActionTypes.DELETE_ERRORS]: (state, action) => {
-    return state.update('errors', e => e.clear())
-  },
-  [GridActionTypes.DELETE_MESSAGES]: (state, action) => {
-    return state.update('messages', m => m.clear())
-  }
+  [GridActionTypes.ADD_ERROR]: (state, action) => (
+    state.update('errors', e => e.push(action.error))
+  ),
+  [GridActionTypes.DELETE_ERRORS]: (state, action) => (
+    state.update('errors', e => e.clear())
+  ),
+  [GridActionTypes.DELETE_MESSAGES]: (state, action) => (
+    state.update('messages', m => m.clear())
+  ),
 }, initialState)
