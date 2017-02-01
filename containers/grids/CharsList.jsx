@@ -77,7 +77,7 @@ class CharList extends React.Component {
         </FormGroup>
         <Grid style={{ paddingTop: '40px' }}>
           {this.state.chars.map((char, index) =>
-            <CharEditor index={ index } key={ index } char={ char } deleteChar={ this.onDeleteChar } setPinyin = { this.onSetPinyin }/>
+            <CharEditor index={ index } key={ index } char={ char } onDeleteChar={ this.onDeleteChar } onSetPinyin={ this.onSetPinyin }/>
           )}
         </Grid>
       </Loader>
