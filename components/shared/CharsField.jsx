@@ -1,21 +1,33 @@
 import React, { PropTypes } from 'react'
-import { Input, ControlLabel, Col, Button } from 'react-bootstrap'
+import { Input, ControlLabel, Col, Row, Button } from 'react-bootstrap'
+import { errorToString } from '../../utils'
 
 class CharsField extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      chars: ''
+      chars: '',
+      error: null
+    }
+  }
+
+  addChars = () => {
+    let chars = this.getChars(this.state.chars)
+    console.log('chars', chars)
+    if (chars === undefined || chars.length == 0) {
+      console.log('submit error')
+      this.setState({ error: '请填写中文字符' })
+    } else {
+      this.setState({ chars: '', error: null })
+      this.charsField.value = ''
+      this.props.onAddChars(chars)
     }
   }
 
   onKeyUp = (e) => {
     if(e.keyCode == 13) { // return key is pressed
       e.preventDefault()
-      let chars = this.getChars(this.state.chars)
-      this.setState({ chars: '' })
-      this.charsField.value = ''
-      this.props.onAddChars(chars)
+      this.addChars()
     }
   }
 
@@ -25,9 +37,7 @@ class CharsField extends React.Component {
 
   onClickAdd = (e) => {
     e.preventDefault()
-    var chars = this.getChars(this.state.chars)
-    this.charsField.value = ''
-    this.props.onAddChars(chars)
+    this.addChars()
   }
 
   onClickDelete = () => {
@@ -43,6 +53,10 @@ class CharsField extends React.Component {
 
   hasChars = () => {
     return this.state.chars.trim() != ''
+  }
+
+  setError = (error) => {
+    this.setState({ error: error })
   }
 
   reset = () => {
@@ -65,6 +79,9 @@ class CharsField extends React.Component {
             </div>
           </div>
         </Col>
+        <Col sm={10} smOffset={2}>
+          <span className="text-danger">{ this.state.error || errorToString(this.props.error) }</span>
+        </Col>
       </div>
     )
   }
@@ -72,7 +89,8 @@ class CharsField extends React.Component {
 
 CharsField.propTypes = {
   onAddChars: PropTypes.func,
-  onDeleteChars: PropTypes.func
+  onDeleteChars: PropTypes.func,
+  error: PropTypes.string,
 }
 
 export default CharsField

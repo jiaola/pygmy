@@ -11,6 +11,7 @@ import Alerts from '../../components/shared/Alerts'
 import * as sharedActions from '../../actions/sharedActions'
 import * as strokesActions from '../../actions/strokesActions'
 import StrokesActionTypes from '../../actions/StrokesActionTypes'
+import { charToHex } from '../../utils'
 
 let createHandlers = function(dispatch) {
   let onAddChars = function(chars) {
@@ -69,7 +70,7 @@ class StrokesEditor extends React.Component {
 
             <Loader show={ this.props.strokes.get('loadingChar') } message='Loading'>
               <Row>
-              <CharsField onAddChars={ this.handlers.onAddChars } onDeleteChars={ this.handlers.onDeleteChars } />
+              <CharsField onAddChars={ this.handlers.onAddChars } onDeleteChars={ this.handlers.onDeleteChars } error={ this.props.strokes.get('charLoadingError') }/>
               <StrokesSorter strokes={this.props.strokes.get('strokes')} onSort={this.handlers.onSort}/>
               </Row>
               <Row>

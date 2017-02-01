@@ -41,9 +41,11 @@ class CharList extends React.Component {
 
   onCharsRejected = (error) => {
     if (error instanceof Error) {
-      this.setState({ loading: false, error: error.message })
+      this.setState({ loading: false })
+      this.charsField.setError(error.message)
     } else {
-      this.setState({ loading: false, error: error})
+      this.setState({ loading: false})
+      this.charsField.setError(error)
     }
   }
 
@@ -73,9 +75,8 @@ class CharList extends React.Component {
       <Loader show={ this.state.loading }  message={ 'loading' }>
         <FormGroup>
           <CharsField onAddChars={ this.onAddChars } onDeleteChars={ this.onDeleteChars } ref={ (c) => { this.charsField = c } }/>
-          <Col sm={10} smOffset={2}><span className="text-danger">{ this.state.error }</span></Col>
         </FormGroup>
-        <Grid style={{ paddingTop: '40px' }}>
+        <Grid style={{ paddingTop: '10px' }}>
           {this.state.chars.map((char, index) =>
             <CharEditor index={ index } key={ index } char={ char } onDeleteChar={ this.onDeleteChar } onSetPinyin={ this.onSetPinyin }/>
           )}

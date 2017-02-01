@@ -9,6 +9,7 @@ const initialState = Immutable.Map({
   order: [],
   loadingChar: false,
   loading: false,
+  charLoadingError: null,
   ...alertStates
 })
 
@@ -26,10 +27,9 @@ export default typeToReducer({
   [StrokesActionTypes.REQUEST_CHAR]: {
     PENDING: (state, action) => ( state.set('loadingChar', true) ),
     REJECTED: (state, action) => (
-      state.update('errors', e => e.push(action.payload)).set('loadingChar', false)
+      state.set('charLoadingError', action.payload).set('loadingChar', false)
     ),
     FULFILLED: (state, action) => {
-      console.log(state, action)
       let data = action.payload.data
       let N = data.attributes.stroke.length
       let order = Array.apply(null, {length: N}).map(Number.call, Number)
