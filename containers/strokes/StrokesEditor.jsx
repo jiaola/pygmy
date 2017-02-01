@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-//import StrokesSorter from './StrokesSorter'
 import { Grid, Row, Col, FormGroup, Button, Label, Input } from 'react-bootstrap'
 import Loader from 'react-loader-advanced'
 import DocumentTitle from 'react-document-title'
@@ -35,11 +34,11 @@ let createHandlers = function(dispatch) {
   }
 
   let onErrorsDismiss = function() {
-    dispatch(sharedActions.deleteErrors(StrokesActionTypes.DELETE_ERRORS))
+    dispatch(sharedActions.deleteErrors(StrokesActionTypes.STROKES))
   }
 
   let onMessagesDismiss = function() {
-    dispatch(sharedActions.deleteMessages(StrokesActionTypes.DELETE_MESSAGES))
+    dispatch(sharedActions.deleteMessages(StrokesActionTypes.STROKES))
   }
 
   return {

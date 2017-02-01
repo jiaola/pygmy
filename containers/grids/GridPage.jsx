@@ -19,11 +19,11 @@ class GridPage extends React.Component {
   }
 
   onErrorsDismiss = () => {
-    this.props.dispatch(deleteErrors(GridActionTypes.DELETE_ERRORS))
+    this.props.dispatch(deleteErrors(GridActionTypes.GRID))
   }
 
   onMessagesDismiss = () => {
-    this.props.dispatch(deleteMessages(GridActionTypes.DELETE_MESSAGES))
+    this.props.dispatch(deleteMessages(GridActionTypes.GRID))
   }
 
   render() {

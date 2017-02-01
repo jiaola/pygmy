@@ -1,11 +1,11 @@
 import Immutable from 'immutable'
 import GridActionTypes from '../actions/GridActionTypes'
 import typeToReducer from 'type-to-reducer'
+import { alertStates, alertReducers } from '../utils/alerts'
 
 let initialState = Immutable.Map({
   loading: false,
-  errors: Immutable.List([]),
-  messages: Immutable.List([])
+  ...alertStates,
 })
 
 export default typeToReducer({
@@ -16,15 +16,7 @@ export default typeToReducer({
     ),
     FULFILLED: (state, action) => (
       initialState.set('messages', state.get('messages').push(action.payload))
-    )
+    ),
+    ...alertReducers,
   },
-  [GridActionTypes.ADD_ERROR]: (state, action) => (
-    state.update('errors', e => e.push(action.error))
-  ),
-  [GridActionTypes.DELETE_ERRORS]: (state, action) => (
-    state.update('errors', e => e.clear())
-  ),
-  [GridActionTypes.DELETE_MESSAGES]: (state, action) => (
-    state.update('messages', m => m.clear())
-  ),
 }, initialState)
