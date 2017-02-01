@@ -5,7 +5,6 @@ import Loader from 'react-loader-advanced'
 import CharsField from '../../components/shared/CharsField'
 import CharEditor from '../../components/grids/CharEditor'
 import Network from '../../utils/network'
-import { createStore, applyMiddleware } from 'redux'
 import { charsToQuery } from '../../utils'
 
 let initialState = {

@@ -6,7 +6,7 @@ import * as Utils from '../../utils'
 
 const CharEditor = ({ char, index, deleteChar, setPinyin }) => (
   <Row key={index}>
-    <Col sm={2} smOffset={1} xs={3} xsOffset={1}>
+    <Col sm={2} smOffset={1} xs={2} xsOffset={1}>
       <ControlLabel>{Utils.hexToChar(char.get('character'))}</ControlLabel>
     </Col>
     <Col sm={2} xs={3}>
