@@ -13,9 +13,7 @@ class CharsField extends React.Component {
 
   addChars = () => {
     let chars = this.getChars(this.state.chars)
-    console.log('chars', chars)
     if (chars === undefined || chars.length == 0) {
-      console.log('submit error')
       this.setState({ error: '请填写中文字符' })
     } else {
       this.setState({ chars: '', error: null })
