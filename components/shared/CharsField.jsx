@@ -39,7 +39,7 @@ class CharsField extends React.Component {
   }
 
   onClickDelete = () => {
-    this.setState({ chars: '' })
+    this.setState({ chars: '', error: null})
     this.props.onDeleteChars()
   }
 
