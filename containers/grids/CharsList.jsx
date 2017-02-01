@@ -21,13 +21,9 @@ class CharList extends React.Component {
   }
 
   onAddChars = (chars) => {
-    if (chars === undefined || chars.length == 0) {
-      this.setState({ error: '请填写中文字符' })
-    } else {
-      this.setState({ loading: true, error: null })
-      let data = Network().get({ resource: 'pinyins', query: charsToQuery(chars) })
-      data.then(this.onCharsFulfilled, this.onCharsRejected)
-    }
+    this.setState({ loading: true, error: null })
+    let data = Network().get({ resource: 'pinyins', query: charsToQuery(chars) })
+    data.then(this.onCharsFulfilled, this.onCharsRejected)
   }
 
   onCharsFulfilled = (chars) => {
@@ -40,13 +36,7 @@ class CharList extends React.Component {
   }
 
   onCharsRejected = (error) => {
-    if (error instanceof Error) {
-      this.setState({ loading: false })
-      this.charsField.setError(error.message)
-    } else {
-      this.setState({ loading: false})
-      this.charsField.setError(error)
-    }
+    this.setState({ loading: false, error: error })
   }
 
   onDeleteChars = () => {
@@ -74,7 +64,7 @@ class CharList extends React.Component {
     return (
       <Loader show={ this.state.loading }  message={ 'loading' }>
         <FormGroup>
-          <CharsField onAddChars={ this.onAddChars } onDeleteChars={ this.onDeleteChars } ref={ (c) => { this.charsField = c } }/>
+          <CharsField onAddChars={ this.onAddChars } onDeleteChars={ this.onDeleteChars } ref={ (c) => { this.charsField = c } }  error={ this.state.error } />
         </FormGroup>
         <Grid style={{ paddingTop: '10px' }}>
           {this.state.chars.map((char, index) =>
