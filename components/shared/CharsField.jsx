@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
-import { FormGroup, Input, ControlLabel, Col, Button } from 'react-bootstrap'
-import Immutable from 'immutable'
+import { Input, ControlLabel, Col, Button } from 'react-bootstrap'
 
 class CharsField extends React.Component {
   constructor(props) {
