@@ -55,10 +55,6 @@ class CharsField extends React.Component {
     return this.state.chars.trim() != ''
   }
 
-  setError = (error) => {
-    this.setState({ error: error })
-  }
-
   reset = () => {
     this.setState({ chars: '' })
     this.charsField.value = ''
