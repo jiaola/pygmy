@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react'
-import { Container, Row, Col, FormGroup, ControlLabel } from 'react-bootstrap'
-import { Form, Checkbox, CheckboxGroup, Input, RadioGroup, Select, File, Textarea } from 'formsy-react-components'
+import { Container, Row, Col, FormGroup } from 'react-bootstrap'
+import { Form, Input } from 'formsy-react-components'
 import Loader from 'react-loader-advanced'
 
 import OptionButtonGroup from '../shared/OptionButtonGroup'
 import CharsList from '../../containers/grids/CharsList'
-import CharsField from '../../components/shared/CharsField'
 
 const gridFormatOptions = [
   { value: 'field', label: '田字' },
