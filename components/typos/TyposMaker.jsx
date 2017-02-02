@@ -54,9 +54,9 @@ class TyposMaker extends React.Component {
 
   hideStrokes(strokes, hidden) {
     if (strokes == null) return null
-    let clone = JSON.parse(JSON.stringify(strokes))
-    clone.attributes = update(clone.attributes, {stroke: {$apply: (x) => x.filter((s, i) => ( !hidden.includes(i) ))}})
-    return clone
+    return update(strokes, { attributes: { stroke: {
+      $apply: (x) => x.filter((s, i) => ( !hidden.includes(i) ))
+    }}})
   }
 
   render() {

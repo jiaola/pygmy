@@ -12,7 +12,10 @@ class StrokesPicker extends React.Component {
 
   render() {
     if (this.props.strokes == null) return null
-    let order = this.props.strokes.attributes.order.map((i) => parseInt(i)) || [...Array(this.props.strokes.attributes.stroke.length).keys()]
+    let order = this.props.strokes.attributes.order == null ?
+      [...Array(this.props.strokes.attributes.stroke.length).keys()] :
+      this.props.strokes.attributes.order.map((i) => parseInt(i))
+
     let listItems = order.map(function(i) {
       let style = this.props.picked.includes(i) ? { border: '1px solid red'} : {}
       return (
