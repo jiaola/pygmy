@@ -6,3 +6,6 @@ es
 coverage
 _book
 .idea
+
+*compiled.js
+*.js.map

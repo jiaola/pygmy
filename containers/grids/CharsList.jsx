@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { Grid, FormGroup, Col } from 'react-bootstrap'
+import { Grid, FormGroup } from 'react-bootstrap'
 import Immutable from 'immutable'
 import Loader from 'react-loader-advanced'
 import CharsField from '../../components/shared/CharsField'
@@ -8,10 +8,10 @@ import Network from '../../utils/network'
 import { charsToQuery } from '../../utils'
 
 let initialState = {
-    chars: Immutable.List([]),
-    loading: false,
-    error: null,
-  }
+  chars: Immutable.List([]),
+  loading: false,
+  error: null,
+}
 
 class CharList extends React.Component {
 

@@ -5,11 +5,8 @@ import typeToReducer from 'type-to-reducer'
 import { alertStates, alertReducers } from '../utils/alerts'
 
 const initialState = Immutable.Map({
-  strokes: null,
   order: [],
-  loadingChar: false,
   loading: false,
-  charLoadingError: null,
   ...alertStates
 })
 
@@ -24,11 +21,5 @@ export default typeToReducer({
     ),
     ...alertReducers,
   },
-  [StrokesActionTypes.SORT_STROKES]: (state, action) => (
-    state.set('order', action.order)
-  ),
-  [StrokesActionTypes.DELETE_CHARS]: (state, action) => (
-    state.set('strokes', null).set('order', [])
-  ),
 }, initialState)
 

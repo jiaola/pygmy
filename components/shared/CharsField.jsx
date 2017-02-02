@@ -84,7 +84,7 @@ class CharsField extends React.Component {
 CharsField.propTypes = {
   onAddChars: PropTypes.func,
   onDeleteChars: PropTypes.func,
-  error: PropTypes.string,
+  error: PropTypes.object,
 }
 
 export default CharsField
