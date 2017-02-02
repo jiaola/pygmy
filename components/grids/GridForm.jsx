@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { Container, Row, Col, FormGroup } from 'react-bootstrap'
+import { Row, Col, FormGroup } from 'react-bootstrap'
 import { Form, Input } from 'formsy-react-components'
 import Loader from 'react-loader-advanced'
 
