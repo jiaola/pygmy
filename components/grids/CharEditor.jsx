@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Row, Col, FormGroup, ControlLabel, ButtonGroup, Button, Input } from 'react-bootstrap'
-import { deleteChar, setCharPinyin } from '../../actions/gridActions'
+import { Row, Col, ControlLabel } from 'react-bootstrap'
 import * as Utils from '../../utils'
 
 const CharEditor = ({ char, index, onDeleteChar, onSetPinyin }) => (

@@ -1,13 +1,13 @@
 import * as actions from '../../actions/sharedActions'
-import GridActionTypes from '../../actions/GridActionTypes'
+import { GRID } from '../../actions/ActionTypes'
 
 describe('actions', () => {
   it('shoudl create an action to add an error', () => {
     const error = Error('this is an error')
-    const type = GridActionTypes.ADD_ERROR
+    const type = GRID
 
     const expectedAction = {
-      type: type,
+      type: type + '_ADD_ERROR',
       error
     }
 

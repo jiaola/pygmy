@@ -5,6 +5,7 @@ import DocumentTitle from 'react-document-title'
 
 import TyposMaker from '../../components/typos/TyposMaker'
 import Alerts from '../../components/shared/Alerts'
+import { TYPOS } from '../../actions/ActionTypes'
 
 class TyposPage extends React.Component {
   constructor(props) {
@@ -12,11 +13,11 @@ class TyposPage extends React.Component {
   }
 
   onErrorsDismiss = () => {
-    this.props.dispatch(deleteErrors(StrokesActionTypes.TYPOS))
+    this.props.dispatch(deleteErrors(TYPOS))
   }
 
   onMessagesDismiss = () => {
-    this.props.dispatch(deleteMessages(StrokesActionTypes.TYPOS))
+    this.props.dispatch(deleteMessages(TYPOS))
   }
   render() {
     return (

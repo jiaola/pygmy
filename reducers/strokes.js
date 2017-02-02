@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import StrokesActionTypes from '../actions/StrokesActionTypes'
+import { STROKES } from '../actions/ActionTypes'
 import * as Utils from '../utils'
 import typeToReducer from 'type-to-reducer'
 import { alertStates, alertReducers } from '../utils/alerts'
@@ -11,7 +11,7 @@ const initialState = Immutable.Map({
 })
 
 export default typeToReducer({
-  [StrokesActionTypes.STROKES]: {
+  [STROKES]: {
     PENDING: (state, action) => ( state.set('loading', true) ),
     REJECTED: (state, action) => (
       state.update('errors', e => e.push(action.payload)).set('loading', false)

@@ -15,7 +15,6 @@
   "license": "ISC",
   "dependencies": {
     "babel-polyfill": "^6.22.0",
-    "flux-constant": "^1.1.4",
     "formsy-react": "^0.19.2",
     "formsy-react-components": "^0.10.1",
     "immutability-helper": "^2.0.0",

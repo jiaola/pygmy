@@ -1,6 +1,6 @@
 import React from 'react'
 import update from 'immutability-helper'
-import { Container, Row, Col, FormGroup, Button, Label, Input } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 import Loader from 'react-loader-advanced'
 import Immutable from 'immutable'
 

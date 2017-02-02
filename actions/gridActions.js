@@ -1,4 +1,4 @@
-import GridActionTypes from './GridActionTypes'
+import { GRID } from './ActionTypes'
 import Network from '../utils/network'
 import querystring from 'querystring'
 
@@ -7,7 +7,7 @@ export function submitGridForm(options, chars) {
   query += '&' + chars.map((ch) => 'pinyins[]=' + ch.get('selectedPinyin')).join('&')
   query += '&' + querystring.stringify(options)
   return dispatch => dispatch({
-    type: GridActionTypes.GRID,
+    type: GRID,
     payload: Network().get({ resource: 'grid/email', query: query})
   })
 }

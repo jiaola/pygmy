@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Grid, Row, Col, Button } from 'react-bootstrap'
+import { Grid, Row, Col } from 'react-bootstrap'
 import Loader from 'react-loader-advanced'
 import DocumentTitle from 'react-document-title'
 
@@ -9,7 +9,7 @@ import StrokesEditor from '../../components/strokes/StrokesEditor'
 
 import { deleteErrors, deleteMessages } from '../../actions/sharedActions'
 import { submitSort } from '../../actions/strokesActions'
-import StrokesActionTypes from '../../actions/StrokesActionTypes'
+import { STROKES} from '../../actions/ActionTypes'
 
 class StrokesPage extends React.Component {
   constructor(props) {
@@ -21,11 +21,11 @@ class StrokesPage extends React.Component {
   }
 
   onErrorsDismiss = () => {
-    this.props.dispatch(deleteErrors(StrokesActionTypes.STROKES))
+    this.props.dispatch(deleteErrors(STROKES))
   }
 
   onMessagesDismiss = () => {
-    this.props.dispatch(deleteMessages(StrokesActionTypes.STROKES))
+    this.props.dispatch(deleteMessages(STROKES))
   }
 
   render() {

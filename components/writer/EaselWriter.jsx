@@ -1,7 +1,5 @@
 import React, { PropTypes } from 'react'
 import ReactDOM from 'react-dom'
-import ReactFauxDOM from 'react-faux-dom'
-import { connect } from 'react-redux'
 import createjs from "createjs"
 import Immutable from 'immutable'
 

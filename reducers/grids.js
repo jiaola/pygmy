@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import GridActionTypes from '../actions/GridActionTypes'
+import { GRID } from '../actions/ActionTypes'
 import typeToReducer from 'type-to-reducer'
 import { alertStates, alertReducers } from '../utils/alerts'
 
@@ -9,7 +9,7 @@ let initialState = Immutable.Map({
 })
 
 export default typeToReducer({
-  [GridActionTypes.GRID]: {
+  [GRID]: {
     PENDING: (state, action) => ( state.set('loading', true) ),
     REJECTED: (state, action) => (
       state.update('errors', e => e.push(action.payload)).set('loading', false)

@@ -5,7 +5,7 @@ import Loader from 'react-loader-advanced'
 import DocumentTitle from 'react-document-title'
 import { submitGridForm } from '../../actions/gridActions'
 import { deleteErrors, deleteMessages } from '../../actions/sharedActions'
-import GridActionTypes from '../../actions/GridActionTypes'
+import { GRID } from '../../actions/ActionTypes'
 import GridForm from '../../components/grids/GridForm'
 import Alerts from '../../components/shared/Alerts'
 
@@ -19,11 +19,11 @@ class GridPage extends React.Component {
   }
 
   onErrorsDismiss = () => {
-    this.props.dispatch(deleteErrors(GridActionTypes.GRID))
+    this.props.dispatch(deleteErrors(GRID))
   }
 
   onMessagesDismiss = () => {
-    this.props.dispatch(deleteMessages(GridActionTypes.GRID))
+    this.props.dispatch(deleteMessages(GRID))
   }
 
   render() {

@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
 import typeToReducer from 'type-to-reducer'
-import TyposActionTypes from '../actions/TyposActionTypes'
+import { TYPOS } from '../actions/ActionTypes'
 import { alertStates, alertReducers } from '../utils/alerts'
 
 const initialState = Immutable.Map({
@@ -8,7 +8,7 @@ const initialState = Immutable.Map({
 })
 
 export default typeToReducer({
-  [TyposActionTypes.TYPOS]: {
+  [TYPOS]: {
     ...alertReducers,
   },
 }, initialState)
