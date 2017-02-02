@@ -12,7 +12,7 @@ import App from './containers/App'
 import Home from './components/Home'
 import GridPage from './containers/grids/GridPage'
 import StrokesEditor from './containers/strokes/StrokesPage'
-import TyposMaker from './containers/typos/TyposMaker'
+import TyposMaker from './containers/typos/TyposPage'
 import StrokesWriter from './containers/writer/StrokesWriter'
 import { ChangePasswordPage, LoginPage, RegisterPage, ResetPasswordPage, VerifyEmailPage } from './components/pages'
 
