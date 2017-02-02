@@ -12,7 +12,7 @@ export function requestChar(char, type) {
 
 export function addError(type, error) {
   return {
-    type: type,
+    type: type + '_ADD_ERROR',
     error
   }
 }
