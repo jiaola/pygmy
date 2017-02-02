@@ -23,14 +23,6 @@ class GridForm extends React.Component {
     super(props)
   }
 
-  onAddChars = () => {
-
-  }
-
-  onDeleteChars = () => {
-
-  }
-
   onSubmitForm = (options) => {
     let chars = this.charsList.getChars()
     this.props.submitForm(options, chars)
