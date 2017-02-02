@@ -24,18 +24,6 @@ export default typeToReducer({
     ),
     ...alertReducers,
   },
-  [StrokesActionTypes.REQUEST_CHAR]: {
-    PENDING: (state, action) => ( state.set('loadingChar', true) ),
-    REJECTED: (state, action) => (
-      state.set('charLoadingError', action.payload).set('loadingChar', false)
-    ),
-    FULFILLED: (state, action) => {
-      let data = action.payload.data
-      let N = data.attributes.stroke.length
-      let order = Array.apply(null, {length: N}).map(Number.call, Number)
-      return state.set('strokes', data).set('loadingChar', false).set('order', order)
-    },
-  },
   [StrokesActionTypes.SORT_STROKES]: (state, action) => (
     state.set('order', action.order)
   ),

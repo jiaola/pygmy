@@ -14,9 +14,8 @@ export function sortStrokes(order) {
   }
 }
 
-export function submitSort(strokes) {
-  let unicode = strokes.get('strokes').attributes.unicode
-  let order = strokes.get('order')
+export function submitSort(strokes, order) {
+  let unicode = strokes.attributes.unicode
   let query = order.map((o) => 'order[]=' + o).join('&')
   return dispatch => dispatch({
     type: StrokesActionTypes.STROKES,
