@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import { CDN_ROOT } from '../../actions'
+import { CDN_ROOT } from '../../constants'
 
 class StrokesPicker extends React.Component {
   constructor(props) {

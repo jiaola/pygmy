@@ -1,7 +1,6 @@
 import React, { PropTypes } from "react"
 import Sortable from 'sortablejs'
-import { connect } from 'react-redux'
-import { CDN_ROOT } from '../../actions'
+import { CDN_ROOT } from '../../constants'
 
 class StrokesSorter extends React.Component {
   constructor(props) {
